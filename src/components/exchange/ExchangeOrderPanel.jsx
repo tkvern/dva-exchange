@@ -82,11 +82,11 @@ class ExchangeOrderPanel extends Component {
           <div className={`${style.formItem} ${style.antRow}`}>
             <Flex style={{ alignItems: 'baseline' }}>
               <Flex.Item>
-                <h2>当前订单</h2>
+                <h3>历史委托</h3>
               </Flex.Item>
               <Flex.Item style={{ textAlign: 'right' }}>
                 {/*<Link to="/app/order">全部</Link>*/}
-                <span onClick={() => { Toast.info("正在施工！", 1) }}>全部</span>
+                <span style={{ color: 'rgb(51, 163, 244)' }} onClick={() => { Toast.info("正在施工！", 1) }}>全部</span>
               </Flex.Item>
             </Flex>
           </div>

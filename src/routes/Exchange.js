@@ -30,9 +30,9 @@ function Exchange({ auth, exchange }) {
     <MainLayout>
       <div className={style.flexContainer}>
 
-        <NoticeBar className="test" mode="closable" marqueeProps={{ loop: true }} action={<span style={{ color: '#a1a1a1' }}>不再提示</span>}>
+        {/*<NoticeBar className="test" mode="closable" marqueeProps={{ loop: true }} action={<span style={{ color: '#a1a1a1' }}>不再提示</span>}>
           Tip:交易有盈亏，入场需谨慎
-        </NoticeBar>
+          </NoticeBar>*/}
         <ExchangePanel {...exchangePanelProps} />
       </div>
     </MainLayout>

@@ -1,6 +1,6 @@
 import { parse } from 'qs';
 import { rate, currentOrders } from '../services/exchange';
-import { setLocalStorage } from '../utils/helper';
+import { setLocalStorage, getLocalStorage } from '../utils/helper';
 
 export default {
   namespace: 'exchange',
@@ -49,14 +49,29 @@ export default {
         })
       }
     },
+    * checkCache({ payload }, { select, call, put }) {
+      const rates = getLocalStorage('rates');
+      if (rates) {
+        yield put({
+          type: 'updateCnyusd',
+          payload: {
+            cnyusd: rates['CNY'],
+          }
+        });
+      } else {
+        yield put({
+          type: 'rate',
+        });
+      }
+    },
   },
   subscriptions: {
     setup({ dispatch, history }) {
       history.listen(location => {
         if (location.pathname.includes('exchange')) {
-          // dispatch({
-          //   type: 'checkCache',
-          // });
+          dispatch({
+            type: 'checkCache',
+          });
         }
       });
     },

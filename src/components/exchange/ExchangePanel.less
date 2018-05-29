@@ -1,6 +1,17 @@
 @diff: 4px;
 .white {
     background-color: #fff;
+    :global {
+      .ant-table-body {
+        tr td {
+          font-size: 12px;
+        }
+      }
+      .ant-table-footer {
+        text-align: center;
+        background-color: #fff;
+      }
+    }
 }
 
 .subTitle {
@@ -109,6 +120,9 @@
 }
 
 :global {
+    .am-button::before {
+      border: none!important;
+    }
     .am-green {
         color: #fff !important;
         background-color: #3fc295;
