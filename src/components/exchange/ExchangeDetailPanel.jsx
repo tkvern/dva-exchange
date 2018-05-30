@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'dva';
-// import { routerRedux } from 'dva/router';
-import { WhiteSpace, List, Steps, WingBlank } from 'antd-mobile';
-// import { delCookie } from '../../utils/helper';
+import { WhiteSpace, List, Steps } from 'antd-mobile';
 import style from './ExchangeDetailPanel.less';
 
 const Item = List.Item;

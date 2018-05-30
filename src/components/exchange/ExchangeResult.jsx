@@ -1,6 +1,6 @@
 import { Component } from "react";
-import styleo from './ExchangeOrderPanel.less';
 import { connect } from "dva";
+import styleo from './ExchangeOrderPanel.less';
 
 class ExchangeResult extends Component {
   constructor(props) {

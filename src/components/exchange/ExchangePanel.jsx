@@ -1,12 +1,11 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'dva';
 import { WhiteSpace, WingBlank, Toast } from 'antd-mobile';
-import style from './ExchangePanel.less';
-import Numeral from 'numeral';
 import { getLocalStorage, setLocalStorage } from '../../utils/helper';
+import Numeral from 'numeral';
 import ExchangePlatePanel from './ExchangePlatePanel';
 import ExchangeListPanel from './ExchangeListPanel';
-import { routerRedux } from 'dva/router';
+import style from './ExchangePanel.less';
 
 let aggTradeSocket;
 let tickerSocket;
@@ -34,50 +33,50 @@ class ExchangePanel extends PureComponent {
   }
 
   componentWillMount = () => {
-    // const that = this;
-    // aggTradeSocket = new WebSocket("wss://stream.binance.com:9443/ws/btcusdt@aggTrade");
-    // tickerSocket = new WebSocket("wss://stream.binance.com:9443/ws/btcusdt@ticker");
-    // aggTradeSocket.onmessage = function (evt) {
-    //   const ticker_cache = getLocalStorage('ticker');
-    //   const received_msg = JSON.parse(evt.data);
-    //   const diff = received_msg['p'] - that.state.ticker_price;
-    //   let direction = '';
-    //   if (diff > 0) {
-    //     direction = 'up';
-    //   } else {
-    //     direction = 'down'
-    //   };
-    //   that.setState({
-    //     ticker_price: received_msg['p'],
-    //     ticker_direction: direction
-    //   })
-    //   setLocalStorage('ticker', {
-    //     ...ticker_cache,
-    //     ticker_price: received_msg['p'],
-    //     ticker_direction: direction
-    //   });
-    // };
-    // tickerSocket.onmessage = function (evt) {
-    //   const ticker_cache = getLocalStorage('ticker');
-    //   const received_msg = JSON.parse(evt.data);
-    //   let ticker_24direction = '';
-    //   if (received_msg['P'] >= 0) {
-    //     ticker_24direction = 'up'
-    //   } else {
-    //     ticker_24direction = 'down'
-    //   };
-    //   that.setState({
-    //     ticker_percent: received_msg['P'],
-    //     ticker_change: received_msg['p'],
-    //     ticker_24direction: ticker_24direction
-    //   })
-    //   setLocalStorage('ticker', {
-    //     ...ticker_cache,
-    //     ticker_percent: received_msg['P'],
-    //     ticker_change: received_msg['p'],
-    //     ticker_24direction: ticker_24direction
-    //   });
-    // };
+    const that = this;
+    aggTradeSocket = new WebSocket("wss://stream.binance.com:9443/ws/btcusdt@aggTrade");
+    tickerSocket = new WebSocket("wss://stream.binance.com:9443/ws/btcusdt@ticker");
+    aggTradeSocket.onmessage = function (evt) {
+      const ticker_cache = getLocalStorage('ticker');
+      const received_msg = JSON.parse(evt.data);
+      const diff = received_msg['p'] - that.state.ticker_price;
+      let direction = '';
+      if (diff > 0) {
+        direction = 'up';
+      } else {
+        direction = 'down'
+      };
+      that.setState({
+        ticker_price: received_msg['p'],
+        ticker_direction: direction
+      })
+      setLocalStorage('ticker', {
+        ...ticker_cache,
+        ticker_price: received_msg['p'],
+        ticker_direction: direction
+      });
+    };
+    tickerSocket.onmessage = function (evt) {
+      const ticker_cache = getLocalStorage('ticker');
+      const received_msg = JSON.parse(evt.data);
+      let ticker_24direction = '';
+      if (received_msg['P'] >= 0) {
+        ticker_24direction = 'up'
+      } else {
+        ticker_24direction = 'down'
+      };
+      that.setState({
+        ticker_percent: received_msg['P'],
+        ticker_change: received_msg['p'],
+        ticker_24direction: ticker_24direction
+      })
+      setLocalStorage('ticker', {
+        ...ticker_cache,
+        ticker_percent: received_msg['P'],
+        ticker_change: received_msg['p'],
+        ticker_24direction: ticker_24direction
+      });
+    };
   }
 
   // componentDidMount = () => {
@@ -105,8 +104,8 @@ class ExchangePanel extends PureComponent {
   // }
 
   componentWillUnmount = () => {
-    // aggTradeSocket.close();
-    // tickerSocket.close();
+    aggTradeSocket.close();
+    tickerSocket.close();
   }
 
   updateTimestep = (timestep) => {
@@ -183,7 +182,6 @@ class ExchangePanel extends PureComponent {
         maxPrice: user.balance
       })
     }, 2000);
-
   }
 
   render() {

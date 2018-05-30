@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
-// import { Link } from 'dva/router';
 import { connect } from 'dva';
-import style from './ExchangePanel.less';
-import styleo from './ExchangeOrderPanel.less';
-import { WingBlank, WhiteSpace, Flex, Toast } from 'antd-mobile';
-import { Divider } from 'antd';
 import moment from 'moment';
 import Numeral from 'numeral';
+import { WingBlank, WhiteSpace, Flex, Toast } from 'antd-mobile';
+import { Divider } from 'antd';
 import ExchangeResult from './ExchangeResult';
+import style from './ExchangePanel.less';
+import styleo from './ExchangeOrderPanel.less';
 
 class ExchangeOrderPanel extends Component {
   constructor(props) {

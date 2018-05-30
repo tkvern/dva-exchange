@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'dva';
-import style from './ExchangeListPanle.less';
-import { WingBlank, WhiteSpace, Flex, Card, Badge, Tabs } from 'antd-mobile';
 import { routerRedux } from 'dva/router';
+import { WingBlank, WhiteSpace, Flex, Card, Badge, Tabs } from 'antd-mobile';
+import style from './ExchangeListPanle.less';
 
 class ExchangeListPanle extends Component {
   constructor(props) {

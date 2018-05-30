@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
-// import { Link } from 'dva/router';
 import { connect } from 'dva';
-import style from './ExchangePlatePanel.less';
-import { WingBlank, WhiteSpace, Flex, Toast, InputItem, Button } from 'antd-mobile';
-import Numeral from 'numeral';
 import { routerRedux } from 'dva/router';
+import Numeral from 'numeral';
+import { WingBlank, WhiteSpace, Flex, Toast, InputItem, Button } from 'antd-mobile';
+import style from './ExchangePlatePanel.less';
 
 class ExchangePlatePanel extends Component {
   constructor(props) {
