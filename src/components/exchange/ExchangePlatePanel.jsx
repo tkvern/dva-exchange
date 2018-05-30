@@ -16,7 +16,6 @@ class ExchangePlatePanel extends Component {
   render() {
     return (
       <div className={style.content}>
-        <WhiteSpace size="md" />
         <div className={style.white}>
           <WhiteSpace size="xl" />
           <WingBlank>
