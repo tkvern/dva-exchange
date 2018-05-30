@@ -207,7 +207,7 @@ class ListOrder extends Component {
                     title={
                       <div style={{ fontSize: '14px' }}>
                         <span>BTC/USDT </span>
-                        <span>已结算</span>
+                        <span className="gray">已结算</span>
                       </div>
                     }
                     onClick={() => this.props.dispatch(routerRedux.push('/app/exchange/1/order'))}

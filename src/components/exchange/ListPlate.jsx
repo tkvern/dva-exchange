@@ -12,6 +12,32 @@ class ListPlate extends Component {
       disabled: true
     }
   }
+
+  sumExpected(price, odds, magnitude) {
+    let expected;
+    switch (magnitude) {
+      case "1":
+        expected = price * odds * 0.01;
+        break;
+      case "2":
+        expected = price * odds * 0.02;
+        break;
+      case "5":
+        expected = price * odds * 0.05;
+        break;
+      case "4":
+        expected = price * odds * 0.01;
+        break;
+      case "10":
+        expected = price * odds * 0.01;
+        break;
+      case "24":
+        expected = price * odds * 0.01;
+        break;
+      default: ;
+    }
+    return this.setState({ expected: Numeral(expected).format('0,0.00') });
+  }
   render() {
     return (
       <div className={style.content}>
