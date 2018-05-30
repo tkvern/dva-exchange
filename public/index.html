@@ -2,9 +2,28 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no, viewport-fit=cover" />
   <title>100ex</title>
   <link rel="stylesheet" href="index.css" />
+  <style type="text/css">
+    /* @supports (bottom: constant(safe-area-inset-bottom)) or (bottom: env(safe-area-inset-bottom)) {
+      #root, #root>div {
+        height: calc(100% - constant(safe-area-inset-bottom));
+      }
+    } */
+    @media only screen and (device-width: 375px) and (device-height: 812px){
+      #root, #root>div {
+        height: calc(100% - constant(safe-area-inset-bottom))!important;
+        height: calc(100% - env(safe-area-inset-bottom))!important;
+      }
+    }
+    @media only screen and (device-width: 812px) and (device-height: 375px){
+      #root, #root>div {
+        height: calc(100% - constant(safe-area-inset-bottom))!important;
+        height: calc(100% - env(safe-area-inset-bottom))!important;
+      }
+    }
+  </style>
 </head>
 <body>
 

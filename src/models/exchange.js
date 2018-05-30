@@ -50,7 +50,21 @@ export default {
       }
     },
     * checkCache({ payload }, { select, call, put }) {
+      const ticker = getLocalStorage('ticker');
       const rates = getLocalStorage('rates');
+      // const corders = getLocalStorage('currentOrders');
+      // const user = getLocalStorage('user');
+      if (ticker) {
+        yield put({
+          type: 'updateTicker',
+          payload: {
+            ticker_price: ticker.ticker_price,
+            ticker_percent: ticker.ticker_percent,
+            ticker_change: ticker.ticker_change,
+            ticker_direction: ticker.ticker_direction
+          }
+        })
+      }
       if (rates) {
         yield put({
           type: 'updateCnyusd',
@@ -63,6 +77,22 @@ export default {
           type: 'rate',
         });
       }
+      // if (corders) {
+      //   yield put({
+      //     type: 'updateCurrenrOrders',
+      //     payload: {
+      //       currentOrders: corders,
+      //     }
+      //   })
+      // } else {
+      //   yield put({
+      //     type: 'currentOrders',
+      //     payload: {
+      //       user_id: user.id,
+      //       status: 1
+      //     }
+      //   })
+      // }
     },
   },
   subscriptions: {

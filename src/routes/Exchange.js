@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'dva';
 import MainLayout from '../components/layout/MainLayout';
-import { NoticeBar } from 'antd-mobile';
+// import { NoticeBar } from 'antd-mobile';
 import ExchangePanel from '../components/exchange/ExchangePanel';
 import style from './Exchange.less';
 

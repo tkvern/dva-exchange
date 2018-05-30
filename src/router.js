@@ -2,6 +2,8 @@ import React from 'react';
 import { Router, Route, Switch } from 'dva/router';
 import Kline from './routes/Kline';
 import Exchange from './routes/Exchange';
+import ExchangeDetail from './routes/ExchangeDetail';
+import ExchangeOrderDetail from './routes/ExchangeOrderDetail';
 import User from './routes/User';
 import Setting from './routes/Setting';
 import Order from './routes/Order';
@@ -17,6 +19,8 @@ function RouterConfig({ history }) {
       <Switch>
         <Route path="/" exact component={Login} />
         <Route path="/app/exchange" exact component={Exchange} />
+        <Route path="/app/exchange/:id" exact component={ExchangeDetail} />
+        <Route path="/app/exchange/order/:id" exact component={ExchangeOrderDetail} />
         <Route path="/app/kline" exact component={Kline} />
         <Route path="/app/user" exact component={User} />
         <Route path="/app/setting" exact component={Setting} />

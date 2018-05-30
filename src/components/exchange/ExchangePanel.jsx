@@ -5,7 +5,8 @@ import { Table } from 'antd';
 import style from './ExchangePanel.less';
 import Numeral from 'numeral';
 import { getLocalStorage, setLocalStorage } from '../../utils/helper';
-import ExchangeOrderPanel from './ExchangeOrderPanel';
+// import ExchangeOrderPanel from './ExchangeOrderPanel';
+import { routerRedux } from 'dva/router';
 
 let aggTradeSocket;
 let tickerSocket;
@@ -187,7 +188,7 @@ class ExchangePanel extends PureComponent {
 
   render() {
     const columns = [{
-      title: '下单时间',
+      title: '委托时间',
       dataIndex: 'datetime',
       key: 'datetime',
     }, {
@@ -218,7 +219,9 @@ class ExchangePanel extends PureComponent {
       key: 'action',
       render: (text, record) => (
         <span>
-          <a href="javascript:;">详情</a>
+          <span
+            style={{ color: 'rgb(51, 163, 244)' }}
+            onClick={() => this.props.dispatch(routerRedux.push('/app/exchange/order/1'))}>详情</span>
         </span>
       ),
     }];
@@ -258,9 +261,9 @@ class ExchangePanel extends PureComponent {
                           ${Numeral(this.state.ticker_price).format('0,0.00')} ≈ ¥{Numeral(this.state.ticker_price * this.state.cnyusd).format('0,0.00')}
                         </span>
                       </div>
-                      <div className={`${style.tickerItemBody} ${style[this.state.ticker_24direction]}`}>
+                      <div className={`${style.tickerItemBody} ${style[this.state.ticker_percent >= 0 ? 'up' : 'down']}`}>
                         <span className={style.tickerItemChangeDirection}>
-                          {this.state.ticker_24direction === 'up' ? '↑' : '↓'}
+                          {this.state.ticker_percent >= 0 ? '↑' : '↓'}
                         </span>
                         <span className={style.tickerItemChangePercent}>{Numeral(this.state.ticker_percent).format('0.00')}%</span>
                         <span className={style.tickerChange}>{Numeral(this.state.ticker_change).format('0,0.00')}</span>
@@ -280,10 +283,224 @@ class ExchangePanel extends PureComponent {
             <div className={`${style.formItem} ${style.antRow}`}>
               <Flex style={{ alignItems: 'baseline' }}>
                 <Flex.Item style={{ flex: '3 1 0%' }}>
-                  <label style={{ fontSize: '16px', fontWeight: '500', color: 'rgba(0, 0, 0, 0.85)' }}>BTC-USDT交易盘</label>
+                  <label style={{ fontSize: '16px', fontWeight: '500', color: 'rgba(0, 0, 0, 0.85)' }}>BTC/USDT交易盘</label>
                 </Flex.Item>
-                <Flex.Item style={{ textAlign: 'right' }} onClick={() => { Toast.info("正在施工！", 1) }}>
-                  <span style={{ color: 'rgb(51, 163, 244)' }}>详情</span>
+                <Flex.Item
+                  style={{ textAlign: 'right' }}
+                  onClick={() => { this.props.dispatch(routerRedux.push('/app/exchange/1')) }}>
+                  <span style={{ color: 'rgb(51, 163, 244)' }} >详情</span>
+                </Flex.Item>
+              </Flex>
+            </div>
+            <Flex align="start">
+              <Flex.Item>
+                <div className={`${style.formItem} ${style.antRow}`}>
+                  <div className={style.itemLabel}>
+                    <label title="配资时间" style={{ color: '#888' }}>配资时间: </label>
+                    <label>08-15 20:15</label>
+                  </div>
+                  {/*<div className={style.itemLabel}>
+                    <label title="配资交易所">配资交易所: 火币</label>
+                  </div>
+                  <div className={style.itemLabel}>
+                    <label title="交易手续费">交易手续费: 3.7% (本金)</label>
+                  </div*/}
+                  <WhiteSpace size="lg" />
+                  <div className={style.itemLabel}>
+                    <label title="结算条件" style={{ color: '#888' }}>结算条件: </label>
+                    <label>涨1% 或 跌1%</label>
+                  </div>
+                  {/*<WhiteSpace size="lg" />
+                  <div className={style.itemLabel}>
+                    <label title="杠杆倍数" style={{ color: '#888' }}>杠杆倍数: </label>
+                    <label>100倍</label>
+                  </div>*/}
+                  <WhiteSpace size="lg" />
+                  <div className={style.itemLabel}>
+                    <label title="买对收益" style={{ color: '#888' }}>买对收益: </label>
+                    <label>+87%</label>
+                  </div>
+                </div>
+              </Flex.Item>
+              <Flex.Item>
+                <div className={`${style.formItem} ${style.antRow}`}>
+                  <div className={style.itemLabel}>
+                    <label title="账户余额">账户余额: {Numeral(this.state.maxPrice).format('0,0.00')} CNY</label>
+                  </div>
+                  <InputItem
+                    name="price"
+                    type="money"
+                    placeholder="0"
+                    min={1}
+                    clear
+                    error={this.state.hasPriceError}
+                    onErrorClick={() => {
+                      if (this.state.hasPriceError) {
+                        Toast.info('可用金额不足!');
+                      }
+                    }}
+                    extra="CNY"
+                    value={this.state.price}
+                    onChange={(price) => {
+                      let cprice = Numeral(price).value() || 0;
+                      cprice > this.state.maxPrice ?
+                        this.setState({ hasPriceError: true }) : this.setState({ hasPriceError: false });
+                      this.setState({ price: cprice.toString() });
+                      this.sumExpected(cprice, this.state.odds, this.state.magnitude);
+                    }}
+                  />
+                  <WhiteSpace size="xs" />
+                  <div className={style.itemTip}>
+                    <label title="usdt">买对收益≈ {Numeral(this.state.price / this.state.cnyusd).format('0,0.00')} CNY</label>
+                  </div>
+                </div>
+                <WhiteSpace size="md" />
+                <div className={`${style.formItem} ${style.antRow}`} style={{ textAlign: 'center' }}>
+                  <Button
+                    className="am-green"
+                    type="default"
+                    onClick={() => {
+                      this.onSubmit('up');
+                    }}
+                    inline
+                    size="small"
+                    disabled={this.state.disabled}
+                  >买涨</Button>
+                  <Button
+                    className="am-red"
+                    type="default"
+                    onClick={() => {
+                      this.onSubmit('down');
+                    }}
+                    inline
+                    size="small"
+                    disabled={this.state.disabled}
+                  >买跌</Button>
+                  {/*<label title="tip" className="red">下单时间: {this.state.timestep}</label>*/}
+                </div>
+              </Flex.Item>
+            </Flex>
+          </WingBlank>
+        </div>
+        <WhiteSpace size="md" />
+        <div className={style.white}>
+          <WhiteSpace size="xl" />
+          <WingBlank>
+            <div className={`${style.formItem} ${style.antRow}`}>
+              <Flex style={{ alignItems: 'baseline' }}>
+                <Flex.Item style={{ flex: '3 1 0%' }}>
+                  <label style={{ fontSize: '16px', fontWeight: '500', color: 'rgba(0, 0, 0, 0.85)' }}>EOS/USDT交易盘</label>
+                </Flex.Item>
+                <Flex.Item
+                  style={{ textAlign: 'right' }}
+                  onClick={() => { this.props.dispatch(routerRedux.push('/app/exchange/1')) }}>
+                  <span style={{ color: 'rgb(51, 163, 244)' }} >详情</span>
+                </Flex.Item>
+              </Flex>
+            </div>
+            <Flex align="start">
+              <Flex.Item>
+                <div className={`${style.formItem} ${style.antRow}`}>
+                  <div className={style.itemLabel}>
+                    <label title="配资时间" style={{ color: '#888' }}>配资时间: </label>
+                    <label>08-15 20:15</label>
+                  </div>
+                  {/*<div className={style.itemLabel}>
+                    <label title="配资交易所">配资交易所: 火币</label>
+                  </div>
+                  <div className={style.itemLabel}>
+                    <label title="交易手续费">交易手续费: 3.7% (本金)</label>
+                  </div*/}
+                  <WhiteSpace size="lg" />
+                  <div className={style.itemLabel}>
+                    <label title="结算条件" style={{ color: '#888' }}>结算条件: </label>
+                    <label>涨1% 或 跌1%</label>
+                  </div>
+                  {/*<WhiteSpace size="lg" />
+                  <div className={style.itemLabel}>
+                    <label title="杠杆倍数" style={{ color: '#888' }}>杠杆倍数: </label>
+                    <label>100倍</label>
+                  </div>*/}
+                  <WhiteSpace size="lg" />
+                  <div className={style.itemLabel}>
+                    <label title="买对收益" style={{ color: '#888' }}>买对收益: </label>
+                    <label>+87%</label>
+                  </div>
+                </div>
+              </Flex.Item>
+              <Flex.Item>
+                <div className={`${style.formItem} ${style.antRow}`}>
+                  <div className={style.itemLabel}>
+                    <label title="账户余额">账户余额: {Numeral(this.state.maxPrice).format('0,0.00')} CNY</label>
+                  </div>
+                  <InputItem
+                    name="price"
+                    type="money"
+                    placeholder="0"
+                    min={1}
+                    clear
+                    error={this.state.hasPriceError}
+                    onErrorClick={() => {
+                      if (this.state.hasPriceError) {
+                        Toast.info('可用金额不足!');
+                      }
+                    }}
+                    extra="CNY"
+                    value={this.state.price}
+                    onChange={(price) => {
+                      let cprice = Numeral(price).value() || 0;
+                      cprice > this.state.maxPrice ?
+                        this.setState({ hasPriceError: true }) : this.setState({ hasPriceError: false });
+                      this.setState({ price: cprice.toString() });
+                      this.sumExpected(cprice, this.state.odds, this.state.magnitude);
+                    }}
+                  />
+                  <WhiteSpace size="xs" />
+                  <div className={style.itemTip}>
+                    <label title="usdt">买对收益≈ {Numeral(this.state.price / this.state.cnyusd).format('0,0.00')} CNY</label>
+                  </div>
+                </div>
+                <WhiteSpace size="md" />
+                <div className={`${style.formItem} ${style.antRow}`} style={{ textAlign: 'center' }}>
+                  <Button
+                    className="am-green"
+                    type="default"
+                    onClick={() => {
+                      this.onSubmit('up');
+                    }}
+                    inline
+                    size="small"
+                    disabled={this.state.disabled}
+                  >买涨</Button>
+                  <Button
+                    className="am-red"
+                    type="default"
+                    onClick={() => {
+                      this.onSubmit('down');
+                    }}
+                    inline
+                    size="small"
+                    disabled={this.state.disabled}
+                  >买跌</Button>
+                  {/*<label title="tip" className="red">下单时间: {this.state.timestep}</label>*/}
+                </div>
+              </Flex.Item>
+            </Flex>
+          </WingBlank>
+        </div>
+        <WhiteSpace size="md" />
+        <div className={style.white}>
+          <WhiteSpace size="xl" />
+          <WingBlank>
+            <div className={`${style.formItem} ${style.antRow}`}>
+              <Flex style={{ alignItems: 'baseline' }}>
+                <Flex.Item style={{ flex: '3 1 0%' }}>
+                  <label style={{ fontSize: '16px', fontWeight: '500', color: 'rgba(0, 0, 0, 0.85)' }}>ETH/USDT交易盘</label>
+                </Flex.Item>
+                <Flex.Item
+                  style={{ textAlign: 'right' }}
+                  onClick={() => { this.props.dispatch(routerRedux.push('/app/exchange/1')) }}>
+                  <span style={{ color: 'rgb(51, 163, 244)' }} >详情</span>
                 </Flex.Item>
               </Flex>
             </div>
@@ -384,7 +601,7 @@ class ExchangePanel extends PureComponent {
             { title: <Badge text={'2'}>进行中</Badge> },
             { title: <Badge text={'今日(3)'}>已结算</Badge> },
           ]}
-            initialPage={1}
+            initialPage={0}
             onChange={(tab, index) => { console.log('onChange', index, tab); }}
             onTabClick={(tab, index) => { console.log('onTabClick', index, tab); }}
           >
@@ -395,10 +612,11 @@ class ExchangePanel extends PureComponent {
                   <Card.Header
                     title={
                       <div style={{ fontSize: '14px' }}>
-                        <span>BTC-USDT </span>
+                        <span>BTC/USDT </span>
                         <span className="green">进行中</span>
                       </div>
                     }
+                    onClick={() => this.props.dispatch(routerRedux.push('/app/exchange/order/1'))}
                     extra={<span style={{ fontSize: '14px', color: 'rgb(51, 163, 244)' }}>详情</span>}
                   />
                   <Card.Body>
@@ -406,7 +624,25 @@ class ExchangePanel extends PureComponent {
                       <Flex.Item>
                         <div className={`${style.formItem} ${style.antRow}`} style={{ minHeight: '26px' }}>
                           <div className={style.itemLabel}>
-                            <label title="结算时间" style={{ color: '#888' }}>结算时间: </label>
+                            <label title="我的委托" style={{ color: '#888' }}>我的委托: </label>
+                            <label><Badge text="买跌" style={{ marginTop: -2, padding: '0 3px', backgroundColor: '#e14d4e', borderRadius: 2 }} /></label>
+                          </div>
+                        </div>
+                      </Flex.Item>
+                      <Flex.Item>
+                        <div className={`${style.formItem} ${style.antRow}`} style={{ minHeight: '26px' }}>
+                          <div className={style.itemLabel}>
+                            <label title="波动类型" style={{ color: '#888' }}>波动类型: </label>
+                            <label>币价 5%</label>
+                          </div>
+                        </div>
+                      </Flex.Item>
+                    </Flex>
+                    <Flex>
+                      <Flex.Item>
+                        <div className={`${style.formItem} ${style.antRow}`} style={{ minHeight: '26px' }}>
+                          <div className={style.itemLabel}>
+                            <label title="委托时间" style={{ color: '#888' }}>委托时间: </label>
                             <label>08-15 20:15</label>
                           </div>
                         </div>
@@ -414,8 +650,8 @@ class ExchangePanel extends PureComponent {
                       <Flex.Item>
                         <div className={`${style.formItem} ${style.antRow}`} style={{ minHeight: '26px' }}>
                           <div className={style.itemLabel}>
-                            <label title="结算价格" style={{ color: '#888' }}>结算价格: </label>
-                            <label>8417.65 ±1%</label>
+                            <label title="委托本金" style={{ color: '#888' }}>委托本金: </label>
+                            <label>5000 CNY</label>
                           </div>
                         </div>
                       </Flex.Item>
@@ -424,16 +660,67 @@ class ExchangePanel extends PureComponent {
                       <Flex.Item>
                         <div className={`${style.formItem} ${style.antRow}`} style={{ minHeight: '26px' }}>
                           <div className={style.itemLabel}>
-                            <label title="结算波动" style={{ color: '#888' }}>结算波动: </label>
+                            <label title="配资时间" style={{ color: '#888' }}>配资时间: </label>
+                            <label>等待中...</label>
+                          </div>
+                        </div>
+                      </Flex.Item>
+                      <Flex.Item>
+                        <div className={`${style.formItem} ${style.antRow}`} style={{ minHeight: '26px' }}>
+                          <div className={style.itemLabel}>
+                            <label title="配资价格" style={{ color: '#888' }}>配资价格: </label>
+                            <label>等待中...</label>
+                          </div>
+                        </div>
+                      </Flex.Item>
+                    </Flex>
+                  </Card.Body>
+                </Card>
+                <WhiteSpace size="md" />
+                <Card>
+                  <Card.Header
+                    title={
+                      <div style={{ fontSize: '14px' }}>
+                        <span>BTC/USDT </span>
+                        <span className="green">进行中</span>
+                      </div>
+                    }
+                    onClick={() => this.props.dispatch(routerRedux.push('/app/exchange/order/1'))}
+                    extra={<span style={{ fontSize: '14px', color: 'rgb(51, 163, 244)' }}>详情</span>}
+                  />
+                  <Card.Body>
+                    <Flex>
+                      <Flex.Item>
+                        <div className={`${style.formItem} ${style.antRow}`} style={{ minHeight: '26px' }}>
+                          <div className={style.itemLabel}>
+                            <label title="我的委托" style={{ color: '#888' }}>我的委托: </label>
+                            <label><Badge text="买涨" style={{ marginTop: -2, padding: '0 3px', backgroundColor: '#3fc295', borderRadius: 2 }} /></label>
+                          </div>
+                        </div>
+                      </Flex.Item>
+                      <Flex.Item>
+                        <div className={`${style.formItem} ${style.antRow}`} style={{ minHeight: '26px' }}>
+                          <div className={style.itemLabel}>
+                            <label title="波动类型" style={{ color: '#888' }}>波动类型: </label>
                             <label>币价 5%</label>
                           </div>
                         </div>
                       </Flex.Item>
+                    </Flex>
+                    <Flex>
                       <Flex.Item>
                         <div className={`${style.formItem} ${style.antRow}`} style={{ minHeight: '26px' }}>
                           <div className={style.itemLabel}>
-                            <label title="当前价格" style={{ color: '#888' }}>当前价格: </label>
-                            <label><span className="red">8417.65 -0.1%</span></label>
+                            <label title="委托时间" style={{ color: '#888' }}>委托时间: </label>
+                            <label>08-15 20:15</label>
+                          </div>
+                        </div>
+                      </Flex.Item>
+                      <Flex.Item>
+                        <div className={`${style.formItem} ${style.antRow}`} style={{ minHeight: '26px' }}>
+                          <div className={style.itemLabel}>
+                            <label title="委托本金" style={{ color: '#888' }}>委托本金: </label>
+                            <label>5000 CNY</label>
                           </div>
                         </div>
                       </Flex.Item>
@@ -442,8 +729,8 @@ class ExchangePanel extends PureComponent {
                       <Flex.Item>
                         <div className={`${style.formItem} ${style.antRow}`} style={{ minHeight: '26px' }}>
                           <div className={style.itemLabel}>
-                            <label title="我的操作" style={{ color: '#888' }}>我的操作: </label>
-                            <label><Badge text="买涨" style={{ marginTop: -2, padding: '0 3px', backgroundColor: '#3fc295', borderRadius: 2 }} /></label>
+                            <label title="配资时间" style={{ color: '#888' }}>配资时间: </label>
+                            <label>08-15 20:15</label>
                           </div>
                         </div>
                       </Flex.Item>
@@ -463,10 +750,11 @@ class ExchangePanel extends PureComponent {
                   <Card.Header
                     title={
                       <div style={{ fontSize: '14px' }}>
-                        <span>BTC-USDT </span>
+                        <span>BTC/USDT </span>
                         <span className="green">进行中</span>
                       </div>
                     }
+                    onClick={() => this.props.dispatch(routerRedux.push('/app/exchange/order/1'))}
                     extra={<span style={{ fontSize: '14px', color: 'rgb(51, 163, 244)' }}>详情</span>}
                   />
                   <Card.Body>
@@ -474,7 +762,25 @@ class ExchangePanel extends PureComponent {
                       <Flex.Item>
                         <div className={`${style.formItem} ${style.antRow}`} style={{ minHeight: '26px' }}>
                           <div className={style.itemLabel}>
-                            <label title="结算时间" style={{ color: '#888' }}>结算时间: </label>
+                            <label title="我的委托" style={{ color: '#888' }}>我的委托: </label>
+                            <label><Badge text="买跌" style={{ marginTop: -2, padding: '0 3px', backgroundColor: '#e14d4e', borderRadius: 2 }} /></label>
+                          </div>
+                        </div>
+                      </Flex.Item>
+                      <Flex.Item>
+                        <div className={`${style.formItem} ${style.antRow}`} style={{ minHeight: '26px' }}>
+                          <div className={style.itemLabel}>
+                            <label title="波动类型" style={{ color: '#888' }}>波动类型: </label>
+                            <label>币价 5%</label>
+                          </div>
+                        </div>
+                      </Flex.Item>
+                    </Flex>
+                    <Flex>
+                      <Flex.Item>
+                        <div className={`${style.formItem} ${style.antRow}`} style={{ minHeight: '26px' }}>
+                          <div className={style.itemLabel}>
+                            <label title="委托时间" style={{ color: '#888' }}>委托时间: </label>
                             <label>08-15 20:15</label>
                           </div>
                         </div>
@@ -482,8 +788,8 @@ class ExchangePanel extends PureComponent {
                       <Flex.Item>
                         <div className={`${style.formItem} ${style.antRow}`} style={{ minHeight: '26px' }}>
                           <div className={style.itemLabel}>
-                            <label title="结算价格" style={{ color: '#888' }}>结算价格: </label>
-                            <label>8417.65 ±1%</label>
+                            <label title="委托本金" style={{ color: '#888' }}>委托本金: </label>
+                            <label>5000 CNY</label>
                           </div>
                         </div>
                       </Flex.Item>
@@ -492,26 +798,8 @@ class ExchangePanel extends PureComponent {
                       <Flex.Item>
                         <div className={`${style.formItem} ${style.antRow}`} style={{ minHeight: '26px' }}>
                           <div className={style.itemLabel}>
-                            <label title="结算波动" style={{ color: '#888' }}>结算波动: </label>
-                            <label>币价 5%</label>
-                          </div>
-                        </div>
-                      </Flex.Item>
-                      <Flex.Item>
-                        <div className={`${style.formItem} ${style.antRow}`} style={{ minHeight: '26px' }}>
-                          <div className={style.itemLabel}>
-                            <label title="当前价格" style={{ color: '#888' }}>当前价格: </label>
-                            <label><span className="green">8417.65 +0.1%</span></label>
-                          </div>
-                        </div>
-                      </Flex.Item>
-                    </Flex>
-                    <Flex>
-                      <Flex.Item>
-                        <div className={`${style.formItem} ${style.antRow}`} style={{ minHeight: '26px' }}>
-                          <div className={style.itemLabel}>
-                            <label title="我的操作" style={{ color: '#888' }}>我的操作: </label>
-                            <label><Badge text="买跌" style={{ marginTop: -2, padding: '0 3px', backgroundColor: '#e14d4e', borderRadius: 2 }} /></label>
+                            <label title="配资时间" style={{ color: '#888' }}>配资时间: </label>
+                            <label>08-15 20:15</label>
                           </div>
                         </div>
                       </Flex.Item>
@@ -539,7 +827,7 @@ class ExchangePanel extends PureComponent {
           </Tabs>
           <WhiteSpace size="xl" />
         </div>
-      </div>
+      </div >
     );
   }
 }
