@@ -1,10 +1,10 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'dva';
-import { InputItem, WhiteSpace, WingBlank, Button, Toast, Flex, Card, Badge, Tabs } from 'antd-mobile';
+import { WhiteSpace, WingBlank, Toast, Flex, Card, Badge, Tabs } from 'antd-mobile';
 import style from './ExchangePanel.less';
 import Numeral from 'numeral';
 import { getLocalStorage, setLocalStorage } from '../../utils/helper';
-// import ExchangeOrderPanel from './ExchangeOrderPanel';
+import ExchangePlatePanel from './ExchangePlatePanel';
 import { routerRedux } from 'dva/router';
 
 let aggTradeSocket;
@@ -33,50 +33,50 @@ class ExchangePanel extends PureComponent {
   }
 
   componentWillMount = () => {
-    const that = this;
-    aggTradeSocket = new WebSocket("wss://stream.binance.com:9443/ws/btcusdt@aggTrade");
-    tickerSocket = new WebSocket("wss://stream.binance.com:9443/ws/btcusdt@ticker");
-    aggTradeSocket.onmessage = function (evt) {
-      const ticker_cache = getLocalStorage('ticker');
-      const received_msg = JSON.parse(evt.data);
-      const diff = received_msg['p'] - that.state.ticker_price;
-      let direction = '';
-      if (diff > 0) {
-        direction = 'up';
-      } else {
-        direction = 'down'
-      };
-      that.setState({
-        ticker_price: received_msg['p'],
-        ticker_direction: direction
-      })
-      setLocalStorage('ticker', {
-        ...ticker_cache,
-        ticker_price: received_msg['p'],
-        ticker_direction: direction
-      });
-    };
-    tickerSocket.onmessage = function (evt) {
-      const ticker_cache = getLocalStorage('ticker');
-      const received_msg = JSON.parse(evt.data);
-      let ticker_24direction = '';
-      if (received_msg['P'] >= 0) {
-        ticker_24direction = 'up'
-      } else {
-        ticker_24direction = 'down'
-      };
-      that.setState({
-        ticker_percent: received_msg['P'],
-        ticker_change: received_msg['p'],
-        ticker_24direction: ticker_24direction
-      })
-      setLocalStorage('ticker', {
-        ...ticker_cache,
-        ticker_percent: received_msg['P'],
-        ticker_change: received_msg['p'],
-        ticker_24direction: ticker_24direction
-      });
-    };
+    // const that = this;
+    // aggTradeSocket = new WebSocket("wss://stream.binance.com:9443/ws/btcusdt@aggTrade");
+    // tickerSocket = new WebSocket("wss://stream.binance.com:9443/ws/btcusdt@ticker");
+    // aggTradeSocket.onmessage = function (evt) {
+    //   const ticker_cache = getLocalStorage('ticker');
+    //   const received_msg = JSON.parse(evt.data);
+    //   const diff = received_msg['p'] - that.state.ticker_price;
+    //   let direction = '';
+    //   if (diff > 0) {
+    //     direction = 'up';
+    //   } else {
+    //     direction = 'down'
+    //   };
+    //   that.setState({
+    //     ticker_price: received_msg['p'],
+    //     ticker_direction: direction
+    //   })
+    //   setLocalStorage('ticker', {
+    //     ...ticker_cache,
+    //     ticker_price: received_msg['p'],
+    //     ticker_direction: direction
+    //   });
+    // };
+    // tickerSocket.onmessage = function (evt) {
+    //   const ticker_cache = getLocalStorage('ticker');
+    //   const received_msg = JSON.parse(evt.data);
+    //   let ticker_24direction = '';
+    //   if (received_msg['P'] >= 0) {
+    //     ticker_24direction = 'up'
+    //   } else {
+    //     ticker_24direction = 'down'
+    //   };
+    //   that.setState({
+    //     ticker_percent: received_msg['P'],
+    //     ticker_change: received_msg['p'],
+    //     ticker_24direction: ticker_24direction
+    //   })
+    //   setLocalStorage('ticker', {
+    //     ...ticker_cache,
+    //     ticker_percent: received_msg['P'],
+    //     ticker_change: received_msg['p'],
+    //     ticker_24direction: ticker_24direction
+    //   });
+    // };
   }
 
   // componentDidMount = () => {
@@ -104,8 +104,8 @@ class ExchangePanel extends PureComponent {
   // }
 
   componentWillUnmount = () => {
-    aggTradeSocket.close();
-    tickerSocket.close();
+    // aggTradeSocket.close();
+    // tickerSocket.close();
   }
 
   updateTimestep = (timestep) => {
@@ -221,207 +221,8 @@ class ExchangePanel extends PureComponent {
             <WhiteSpace size="xl" />
           </WingBlank>
         </div>
-        <WhiteSpace size="md" />
-        <div className={style.white}>
-          <WhiteSpace size="xl" />
-          <WingBlank>
-            <div className={`${style.formItem} ${style.antRow}`}>
-              <Flex style={{ alignItems: 'baseline' }}>
-                <Flex.Item style={{ flex: '3 1 0%' }}>
-                  <label style={{ fontSize: '16px', fontWeight: '500', color: 'rgba(0, 0, 0, 0.85)' }}>BTC/USDT交易盘</label>
-                </Flex.Item>
-                <Flex.Item
-                  style={{ textAlign: 'right' }}
-                  onClick={() => { this.props.dispatch(routerRedux.push('/app/exchange/1')) }}>
-                  <span style={{ color: 'rgb(51, 163, 244)' }} >详情</span>
-                </Flex.Item>
-              </Flex>
-            </div>
-            <Flex align="start">
-              <Flex.Item>
-                <div className={`${style.formItem} ${style.antRow}`}>
-                  <div className={style.itemLabel}>
-                    <label title="开盘时间" style={{ color: '#888' }}>开盘时间: </label>
-                    <label>08-15 20:15</label>
-                  </div>
-                  <WhiteSpace size="lg" />
-                  <div className={style.itemLabel}>
-                    <label title="结算条件" style={{ color: '#888' }}>结算条件: </label>
-                    <label>币价 ±1%</label>
-                  </div>
-                  <WhiteSpace size="lg" />
-                  <div className={style.itemLabel}>
-                    <label title="买对收益" style={{ color: '#888' }}>买对收益: </label>
-                    <label>+87%</label>
-                  </div>
-                </div>
-              </Flex.Item>
-              <Flex.Item>
-                <div className={`${style.formItem} ${style.antRow}`}>
-                  <div className={style.itemLabel}>
-                    <label title="账户余额">账户余额: {Numeral(this.state.maxPrice).format('0,0.00')} CNY</label>
-                  </div>
-                  <InputItem
-                    name="price"
-                    type="money"
-                    placeholder="0"
-                    min={1}
-                    clear
-                    error={this.state.hasPriceError}
-                    onErrorClick={() => {
-                      if (this.state.hasPriceError) {
-                        Toast.info('可用金额不足!');
-                      }
-                    }}
-                    extra="CNY"
-                    value={this.state.price}
-                    onChange={(price) => {
-                      let cprice = Numeral(price).value() || 0;
-                      cprice > this.state.maxPrice ?
-                        this.setState({ hasPriceError: true }) : this.setState({ hasPriceError: false });
-                      this.setState({ price: cprice.toString() });
-                      this.sumExpected(cprice, this.state.odds, this.state.magnitude);
-                    }}
-                  />
-                  <WhiteSpace size="xs" />
-                  <div className={style.itemTip}>
-                    <label title="usdt">买对收益≈ {Numeral(this.state.price / this.state.cnyusd).format('0,0.00')} CNY</label>
-                  </div>
-                </div>
-                <WhiteSpace size="md" />
-                <div className={`${style.formItem} ${style.antRow}`} style={{ textAlign: 'center' }}>
-                  <Button
-                    className="am-green"
-                    type="default"
-                    onClick={() => {
-                      this.onSubmit('up');
-                    }}
-                    inline
-                    size="small"
-                    disabled={this.state.disabled}
-                  >买涨</Button>
-                  <Button
-                    className="am-red"
-                    type="default"
-                    onClick={() => {
-                      this.onSubmit('down');
-                    }}
-                    inline
-                    size="small"
-                    disabled={this.state.disabled}
-                  >买跌</Button>
-                  {/*<label title="tip" className="red">下单时间: {this.state.timestep}</label>*/}
-                </div>
-              </Flex.Item>
-            </Flex>
-          </WingBlank>
-        </div>
-        <WhiteSpace size="md" />
-        <div className={style.white}>
-          <WhiteSpace size="xl" />
-          <WingBlank>
-            <div className={`${style.formItem} ${style.antRow}`}>
-              <Flex style={{ alignItems: 'baseline' }}>
-                <Flex.Item style={{ flex: '3 1 0%' }}>
-                  <label style={{ fontSize: '16px', fontWeight: '500', color: 'rgba(0, 0, 0, 0.85)' }}>EOS/USDT交易盘</label>
-                </Flex.Item>
-                <Flex.Item
-                  style={{ textAlign: 'right' }}
-                  onClick={() => { this.props.dispatch(routerRedux.push('/app/exchange/1')) }}>
-                  <span style={{ color: 'rgb(51, 163, 244)' }} >详情</span>
-                </Flex.Item>
-              </Flex>
-            </div>
-            <Flex align="start">
-              <Flex.Item>
-                <div className={`${style.formItem} ${style.antRow}`}>
-                  <div className={style.itemLabel}>
-                    <label title="开盘时间" style={{ color: '#888' }}>开盘时间: </label>
-                    <label>08-15 20:15</label>
-                  </div>
-                  {/*<div className={style.itemLabel}>
-                    <label title="配资交易所">配资交易所: 火币</label>
-                  </div>
-                  <div className={style.itemLabel}>
-                    <label title="交易手续费">交易手续费: 3.7% (本金)</label>
-                  </div*/}
-                  <WhiteSpace size="lg" />
-                  <div className={style.itemLabel}>
-                    <label title="结算条件" style={{ color: '#888' }}>结算条件: </label>
-                    <label>币价 ±5%</label>
-                  </div>
-                  {/*<WhiteSpace size="lg" />
-                  <div className={style.itemLabel}>
-                    <label title="杠杆倍数" style={{ color: '#888' }}>杠杆倍数: </label>
-                    <label>100倍</label>
-                  </div>*/}
-                  <WhiteSpace size="lg" />
-                  <div className={style.itemLabel}>
-                    <label title="买对收益" style={{ color: '#888' }}>买对收益: </label>
-                    <label>+87%</label>
-                  </div>
-                </div>
-              </Flex.Item>
-              <Flex.Item>
-                <div className={`${style.formItem} ${style.antRow}`}>
-                  <div className={style.itemLabel}>
-                    <label title="账户余额">账户余额: {Numeral(this.state.maxPrice).format('0,0.00')} CNY</label>
-                  </div>
-                  <InputItem
-                    name="price"
-                    type="money"
-                    placeholder="0"
-                    min={1}
-                    clear
-                    error={this.state.hasPriceError}
-                    onErrorClick={() => {
-                      if (this.state.hasPriceError) {
-                        Toast.info('可用金额不足!');
-                      }
-                    }}
-                    extra="CNY"
-                    value={this.state.price}
-                    onChange={(price) => {
-                      let cprice = Numeral(price).value() || 0;
-                      cprice > this.state.maxPrice ?
-                        this.setState({ hasPriceError: true }) : this.setState({ hasPriceError: false });
-                      this.setState({ price: cprice.toString() });
-                      this.sumExpected(cprice, this.state.odds, this.state.magnitude);
-                    }}
-                  />
-                  <WhiteSpace size="xs" />
-                  <div className={style.itemTip}>
-                    <label title="usdt">买对收益≈ {Numeral(this.state.price / this.state.cnyusd).format('0,0.00')} CNY</label>
-                  </div>
-                </div>
-                <WhiteSpace size="md" />
-                <div className={`${style.formItem} ${style.antRow}`} style={{ textAlign: 'center' }}>
-                  <Button
-                    className="am-green"
-                    type="default"
-                    onClick={() => {
-                      this.onSubmit('up');
-                    }}
-                    inline
-                    size="small"
-                    disabled={this.state.disabled}
-                  >买涨</Button>
-                  <Button
-                    className="am-red"
-                    type="default"
-                    onClick={() => {
-                      this.onSubmit('down');
-                    }}
-                    inline
-                    size="small"
-                    disabled={this.state.disabled}
-                  >买跌</Button>
-                  {/*<label title="tip" className="red">下单时间: {this.state.timestep}</label>*/}
-                </div>
-              </Flex.Item>
-            </Flex>
-          </WingBlank>
-        </div>
+
+        <ExchangePlatePanel />
 
         <WhiteSpace size="md" />
         <div className={style.white}>
