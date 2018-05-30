@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'dva';
-// import { routerRedux } from 'dva/router';
+import { createForm } from 'rc-form';
 import { WhiteSpace, WingBlank, Button, Switch, Toast } from 'antd-mobile';
 import { Select, Checkbox, Row, Col, Form, Input, Divider } from 'antd';
 import style from './MessageSubscriptionCreate.less';
-import { createForm } from 'rc-form';
 
 const Option = Select.Option;
 

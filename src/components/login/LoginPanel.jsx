@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'dva';
-import { List, InputItem, Button, Toast, WhiteSpace, Flex } from 'antd-mobile';
 import { createForm } from 'rc-form';
 import config from '../../config';
+import { List, InputItem, Button, Toast, WhiteSpace, Flex } from 'antd-mobile';
 
 const Item = List.Item;
 class LoginPanel extends Component {

@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from 'dva';
-// import { routerRedux } from 'dva/router';
 import { NavBar } from 'antd-mobile';
 import SingleLayout from '../components/layout/SingleLayout';
 import LoginPanel from '../components/login/LoginPanel';

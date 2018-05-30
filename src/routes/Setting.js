@@ -3,8 +3,8 @@ import { connect } from 'dva';
 import { routerRedux } from 'dva/router';
 import { NavBar, Icon } from 'antd-mobile';
 import SingleLayout from '../components/layout/SingleLayout';
-import style from './Setting.less';
 import SettingPanel from '../components/user/SettingPanel';
+import style from './Setting.less';
 
 function Setting({ dispatch, auth }) {
   const { user } = auth;

@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import { connect } from 'dva';
+import { getScoresType } from '../../utils/helper';
 import { List, ListView } from 'antd-mobile';
 import style from './BalancePanel.less';
-import { getScoresType } from '../../utils/helper';
 
 const Item = List.Item;
 const Brief = Item.Brief;

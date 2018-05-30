@@ -3,8 +3,8 @@ import { connect } from 'dva';
 import { routerRedux } from 'dva/router';
 import { NavBar, Icon } from 'antd-mobile';
 import SingleLayout from '../components/layout/SingleLayout';
-import style from './ExchangeOrderDetail.less';
 import ExchangeOrderDetailPanel from '../components/exchange/ExchangeOrderDetailPanel';
+import style from './ExchangeOrderDetail.less';
 
 function ExchangeOrderDetail({ dispatch }) {
   // const { user } = auth;

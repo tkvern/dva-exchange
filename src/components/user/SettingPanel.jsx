@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'dva';
 import { routerRedux } from 'dva/router';
-import { Button, Modal, WhiteSpace, List } from 'antd-mobile';
 import { delCookie } from '../../utils/helper';
+import { Button, Modal, WhiteSpace, List } from 'antd-mobile';
 import style from './SettingPanel.less';
 
 const Alert = Modal.alert;
