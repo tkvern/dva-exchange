@@ -6,9 +6,9 @@ import { WingBlank, WhiteSpace, Flex, Toast } from 'antd-mobile';
 import { Divider } from 'antd';
 import ExchangeResult from './ExchangeResult';
 import style from './ExchangePanel.less';
-import styleo from './ExchangeOrderPanel.less';
+import styleo from './ExchangeOrder.less';
 
-class ExchangeOrderPanel extends Component {
+class ExchangeOrder extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -185,4 +185,4 @@ class ExchangeOrderPanel extends Component {
   }
 }
 
-export default connect()(ExchangeOrderPanel);
+export default connect()(ExchangeOrder);

@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import { connect } from 'dva';
 import { routerRedux } from 'dva/router';
 import { WingBlank, WhiteSpace, Flex, Card, Badge, Tabs } from 'antd-mobile';
-import style from './ExchangeListPanle.less';
+import style from './ExchangeList.less';
 
-class ExchangeListPanle extends Component {
+class ExchangeList extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -604,4 +604,4 @@ class ExchangeListPanle extends Component {
   }
 }
 
-export default connect()(ExchangeListPanle);
+export default connect()(ExchangeList);

@@ -3,9 +3,9 @@ import { connect } from 'dva';
 import { routerRedux } from 'dva/router';
 import Numeral from 'numeral';
 import { WingBlank, WhiteSpace, Flex, Toast, InputItem, Button } from 'antd-mobile';
-import style from './ExchangePlatePanel.less';
+import style from './ExchangePlate.less';
 
-class ExchangePlatePanel extends Component {
+class ExchangePlate extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -203,4 +203,4 @@ class ExchangePlatePanel extends Component {
   }
 }
 
-export default connect()(ExchangePlatePanel);
+export default connect()(ExchangePlate);

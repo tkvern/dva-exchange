@@ -3,8 +3,8 @@ import { connect } from 'dva';
 import { WhiteSpace, WingBlank, Toast } from 'antd-mobile';
 import { getLocalStorage, setLocalStorage } from '../../utils/helper';
 import Numeral from 'numeral';
-import ExchangePlatePanel from './ExchangePlatePanel';
-import ExchangeListPanel from './ExchangeListPanel';
+import ExchangePlate from './ExchangePlate';
+import ExchangeList from './ExchangeList';
 import style from './ExchangePanel.less';
 
 let aggTradeSocket;
@@ -221,9 +221,9 @@ class ExchangePanel extends PureComponent {
           </WingBlank>
         </div>
         <WhiteSpace size="md" />
-        <ExchangePlatePanel />
+        <ExchangePlate />
         <WhiteSpace size="md" />
-        <ExchangeListPanel />
+        <ExchangeList />
       </div>
     );
   }
