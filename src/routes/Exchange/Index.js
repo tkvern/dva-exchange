@@ -1,10 +1,10 @@
 import React from 'react';
 import { connect } from 'dva';
-import MainLayout from '../components/layout/MainLayout';
-import ExchangePanel from '../components/exchange/ExchangePanel';
-import style from './Exchange.less';
+import MainLayout from '../../components/layout/MainLayout';
+import ExchangeIndex from '../../components/exchange/Index';
+import style from './Index.less';
 
-function Exchange({ auth, exchange }) {
+function Index({ auth, exchange }) {
   const { user } = auth;
   const {
     ticker_price,
@@ -28,7 +28,7 @@ function Exchange({ auth, exchange }) {
   return (
     <MainLayout>
       <div className={style.flexContainer}>
-        <ExchangePanel {...exchangePanelProps} />
+        <ExchangeIndex {...exchangePanelProps} />
       </div>
     </MainLayout>
   );
@@ -36,4 +36,4 @@ function Exchange({ auth, exchange }) {
 function mapStateToProps({ auth, exchange }) {
   return { auth, exchange };
 }
-export default connect(mapStateToProps)(Exchange);
+export default connect(mapStateToProps)(Index);

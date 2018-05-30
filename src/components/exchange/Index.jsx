@@ -3,13 +3,13 @@ import { connect } from 'dva';
 import { WhiteSpace, WingBlank, Toast } from 'antd-mobile';
 import { getLocalStorage, setLocalStorage } from '../../utils/helper';
 import Numeral from 'numeral';
-import ExchangePlate from './ExchangePlate';
-import ExchangeList from './ExchangeList';
-import style from './ExchangePanel.less';
+import ListPlate from './ListPlate';
+import ListOrder from './ListOrder';
+import style from './Index.less';
 
 let aggTradeSocket;
 let tickerSocket;
-class ExchangePanel extends PureComponent {
+class Index extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
@@ -221,12 +221,12 @@ class ExchangePanel extends PureComponent {
           </WingBlank>
         </div>
         <WhiteSpace size="md" />
-        <ExchangePlate />
+        <ListPlate />
         <WhiteSpace size="md" />
-        <ExchangeList />
+        <ListOrder />
       </div>
     );
   }
 }
 
-export default connect()(ExchangePanel);
+export default connect()(Index);

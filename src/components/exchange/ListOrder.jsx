@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import { connect } from 'dva';
 import { routerRedux } from 'dva/router';
 import { WingBlank, WhiteSpace, Flex, Card, Badge, Tabs } from 'antd-mobile';
-import style from './ExchangeList.less';
+import style from './ListOrder.less';
 
-class ExchangeList extends Component {
+class ListOrder extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -37,7 +37,7 @@ class ExchangeList extends Component {
                         <span className="green">进行中</span>
                       </div>
                     }
-                    onClick={() => this.props.dispatch(routerRedux.push('/app/exchange/order/1'))}
+                    onClick={() => this.props.dispatch(routerRedux.push('/app/exchange/1/order'))}
                     extra={<span style={{ fontSize: '14px', color: 'rgb(51, 163, 244)' }}>详情</span>}
                   />
                   <Card.Body>
@@ -123,7 +123,7 @@ class ExchangeList extends Component {
                         <span className="green">进行中</span>
                       </div>
                     }
-                    onClick={() => this.props.dispatch(routerRedux.push('/app/exchange/order/1'))}
+                    onClick={() => this.props.dispatch(routerRedux.push('/app/exchange/1/order'))}
                     extra={<span style={{ fontSize: '14px', color: 'rgb(51, 163, 244)' }}>详情</span>}
                   />
                   <Card.Body>
@@ -210,7 +210,7 @@ class ExchangeList extends Component {
                         <span>已结算</span>
                       </div>
                     }
-                    onClick={() => this.props.dispatch(routerRedux.push('/app/exchange/order/1'))}
+                    onClick={() => this.props.dispatch(routerRedux.push('/app/exchange/1/order'))}
                     extra={<span style={{ fontSize: '14px', color: 'rgb(51, 163, 244)' }}>详情</span>}
                   />
                   <Card.Body>
@@ -305,7 +305,7 @@ class ExchangeList extends Component {
                         <span className="green">进行中</span>
                       </div>
                     }
-                    onClick={() => this.props.dispatch(routerRedux.push('/app/exchange/order/1'))}
+                    onClick={() => this.props.dispatch(routerRedux.push('/app/exchange/1'))}
                     extra={<span style={{ fontSize: '14px', color: 'rgb(51, 163, 244)' }}>详情</span>}
                   />
                   <Card.Body>
@@ -377,7 +377,7 @@ class ExchangeList extends Component {
                         <span className="green">进行中</span>
                       </div>
                     }
-                    onClick={() => this.props.dispatch(routerRedux.push('/app/exchange/order/1'))}
+                    onClick={() => this.props.dispatch(routerRedux.push('/app/exchange/1'))}
                     extra={<span style={{ fontSize: '14px', color: 'rgb(51, 163, 244)' }}>详情</span>}
                   />
                   <Card.Body>
@@ -458,7 +458,7 @@ class ExchangeList extends Component {
                         <span className="gray">已结算</span>
                       </div>
                     }
-                    onClick={() => this.props.dispatch(routerRedux.push('/app/exchange/order/1'))}
+                    onClick={() => this.props.dispatch(routerRedux.push('/app/exchange/1'))}
                     extra={<span style={{ fontSize: '14px', color: 'rgb(51, 163, 244)' }}>详情</span>}
                   />
                   <Card.Body>
@@ -530,7 +530,7 @@ class ExchangeList extends Component {
                         <span className="gray">已结算</span>
                       </div>
                     }
-                    onClick={() => this.props.dispatch(routerRedux.push('/app/exchange/order/1'))}
+                    onClick={() => this.props.dispatch(routerRedux.push('/app/exchange/1'))}
                     extra={<span style={{ fontSize: '14px', color: 'rgb(51, 163, 244)' }}>详情</span>}
                   />
                   <Card.Body>
@@ -604,4 +604,4 @@ class ExchangeList extends Component {
   }
 }
 
-export default connect()(ExchangeList);
+export default connect()(ListOrder);

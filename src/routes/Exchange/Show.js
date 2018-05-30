@@ -2,11 +2,11 @@ import React from 'react';
 import { connect } from 'dva';
 import { routerRedux } from 'dva/router';
 import { NavBar, Icon } from 'antd-mobile';
-import SingleLayout from '../components/layout/SingleLayout';
-import ExchangeDetailPanel from '../components/exchange/ExchangeDetailPanel';
-import style from './ExchangeDetail.less';
+import SingleLayout from '../../components/layout/SingleLayout';
+import ExchangeShow from '../../components/exchange/Show';
+import style from './Show.less';
 
-function ExchangeDetail({ dispatch }) {
+function Show({ dispatch }) {
   // const { user } = auth;
   // const settingPanelProps = {
   //   user: user
@@ -24,7 +24,7 @@ function ExchangeDetail({ dispatch }) {
           <label key="2" style={{ color: "#000" }}>BTC/USDT</label>]
         }
       />
-      <ExchangeDetailPanel />
+      <ExchangeShow />
     </SingleLayout>
   )
 }
@@ -33,4 +33,4 @@ function mapStateToProps({ auth }) {
   return { auth };
 }
 
-export default connect(mapStateToProps)(ExchangeDetail);
+export default connect(mapStateToProps)(Show);
