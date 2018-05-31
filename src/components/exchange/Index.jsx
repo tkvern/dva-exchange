@@ -28,45 +28,12 @@ class Index extends PureComponent {
       timestep: '',
     }
   }
-
-  // componentDidMount = () => {
-  //   let total = 120 * 1000; // 6秒
-  //   let timestep = "";
-  //   let updateTimestep = this.updateTimestep;
-  //   let timer = setInterval(function () {
-  //     total = total - 57;
-  //     if (total <= 0) {
-  //       clearInterval(timer);
-  //       // tiktock.innerHTML = "0:00";
-  //       timestep = "0:00.000";
-  //     } else {
-  //       var ss = Math.floor(total / 1000) % 60;
-  //       var mm = Math.floor((total / 1000) / 60);
-  //       var ms = total - Math.floor(total / 1000) * 1000;
-  //       // tiktock.innerHTML = ss + ":" + ms;
-  //       ss = ss < 10 ? '0' + ss : ss;
-  //       mm = mm < 10 ? '0' + mm : mm;
-  //       ms = ms < 100 ? '0' + ms : ms;
-  //       timestep = mm + ':' + ss + '.' + ms;
-  //     }
-  //     updateTimestep(timestep);
-  //   }, 57);
-  // }
-
-  // updateTimestep = (timestep) => {
-  //   this.setState({
-  //     timestep: timestep
-  //   });
-  // }
-
-
   render() {
     return (
       <div>
         <TickerPanel {...this.state} />
         <WhiteSpace size="md" />
         <ListPlate />
-        <WhiteSpace size="md" />
         <ListOrder />
       </div>
     );

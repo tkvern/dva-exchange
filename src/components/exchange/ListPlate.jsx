@@ -1,229 +1,53 @@
 import React, { Component } from 'react';
 import { connect } from 'dva';
-import { routerRedux } from 'dva/router';
-import Numeral from 'numeral';
-import { WingBlank, WhiteSpace, Flex, Toast, InputItem, Button } from 'antd-mobile';
+import { WhiteSpace } from 'antd-mobile';
+import ItemPlate from './ItemPlate';
 import style from './ListPlate.less';
 
 class ListPlate extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      disabled: true
     }
-  }
-
-  sumExpected(price, odds, magnitude) {
-    let expected;
-    switch (magnitude) {
-      case "1":
-        expected = price * odds * 0.01;
-        break;
-      case "2":
-        expected = price * odds * 0.02;
-        break;
-      case "5":
-        expected = price * odds * 0.05;
-        break;
-      case "4":
-        expected = price * odds * 0.01;
-        break;
-      case "10":
-        expected = price * odds * 0.01;
-        break;
-      case "24":
-        expected = price * odds * 0.01;
-        break;
-      default: ;
-    }
-    return this.setState({ expected: Numeral(expected).format('0,0.00') });
   }
   render() {
+    const ListData = [
+      {
+        "id": 1,
+        "title": "BTC/USDT交易盘",
+        "bet_time": "08-15 10:15",
+        "settlement_conditions": "币价 ±1%",
+        "income": "+87%",
+        "end_time": "2018-05-31 19:00:00",
+        "can_order": true
+      },
+      {
+        "id": 2,
+        "title": "EOS/USDT交易盘",
+        "bet_time": "08-15 10:15",
+        "settlement_conditions": "币价 ±1%",
+        "income": "+87%",
+        "end_time": "2018-05-31 14:15:00",
+        "can_order": false
+      },
+      // {
+      //   "id": 3,
+      //   "title": "HT/USDT交易盘",
+      //   "bet_time": "08-15 10:15",
+      //   "settlement_conditions": "币价 ±5%",
+      //   "income": "+87%",
+      //   "end_time": "2018-05-31 16:20:00",
+      //   "can_order": true
+      // }
+    ];
+    const ListItem = [];
+    ListData.forEach((item, index) => {
+      ListItem.push(<ItemPlate key={item.id} data={item} />);
+      ListItem.push(<WhiteSpace key={-index} size="md" />);
+    });
     return (
       <div className={style.content}>
-        <div className={style.white}>
-          <WhiteSpace size="xl" />
-          <WingBlank>
-            <div className={`${style.formItem} ${style.antRow}`}>
-              <Flex style={{ alignItems: 'baseline' }}>
-                <Flex.Item style={{ flex: '3 1 0%' }}>
-                  <label style={{ fontSize: '16px', fontWeight: '500', color: 'rgba(0, 0, 0, 0.85)' }}>BTC/USDT交易盘</label>
-                </Flex.Item>
-                <Flex.Item
-                  style={{ textAlign: 'right' }}
-                  onClick={() => { this.props.dispatch(routerRedux.push('/app/exchange/1')) }}>
-                  <span style={{ color: 'rgb(51, 163, 244)' }} >详情</span>
-                </Flex.Item>
-              </Flex>
-            </div>
-            <Flex align="start">
-              <Flex.Item>
-                <div className={`${style.formItem} ${style.antRow}`}>
-                  <div className={style.itemLabel}>
-                    <label title="开盘时间" style={{ color: '#888' }}>开盘时间: </label>
-                    <label>08-15 20:15</label>
-                  </div>
-                  <div className={style.itemLabel}>
-                    <label title="结算条件" style={{ color: '#888' }}>结算条件: </label>
-                    <label>币价 ±1%</label>
-                  </div>
-                  <div className={style.itemLabel}>
-                    <label title="买对收益" style={{ color: '#888' }}>买对收益: </label>
-                    <label>+87%</label>
-                  </div>
-                </div>
-              </Flex.Item>
-              <Flex.Item>
-                <div className={`${style.formItem} ${style.antRow}`}>
-                  <div className={style.itemLabel}>
-                    <label title="账户余额">账户余额: {Numeral(this.state.maxPrice).format('0,0.00')} CNY</label>
-                  </div>
-                  <InputItem
-                    name="price"
-                    type="money"
-                    placeholder="0"
-                    min={1}
-                    clear
-                    error={this.state.hasPriceError}
-                    onErrorClick={() => {
-                      if (this.state.hasPriceError) {
-                        Toast.info('可用金额不足!');
-                      }
-                    }}
-                    extra="CNY"
-                    value={this.state.price}
-                    onChange={(price) => {
-                      let cprice = Numeral(price).value() || 0;
-                      cprice > this.state.maxPrice ?
-                        this.setState({ hasPriceError: true }) : this.setState({ hasPriceError: false });
-                      this.setState({ price: cprice.toString() });
-                      this.sumExpected(cprice, this.state.odds, this.state.magnitude);
-                    }}
-                  />
-                  <WhiteSpace size="xs" />
-                  <div className={style.itemTip}>
-                    <label title="usdt">买对收益≈ {Numeral(this.state.price / this.state.cnyusd).format('0,0.00')} CNY</label>
-                  </div>
-                </div>
-                <WhiteSpace size="md" />
-                <div className={`${style.formItem} ${style.antRow}`} style={{ textAlign: 'center' }}>
-                  <Button
-                    className="am-green"
-                    type="default"
-                    onClick={() => {
-                      this.onSubmit('up');
-                    }}
-                    inline
-                    size="small"
-                    disabled={this.state.disabled}
-                  >买涨</Button>
-                  <Button
-                    className="am-red"
-                    type="default"
-                    onClick={() => {
-                      this.onSubmit('down');
-                    }}
-                    inline
-                    size="small"
-                    disabled={this.state.disabled}
-                  >买跌</Button>
-                </div>
-              </Flex.Item>
-            </Flex>
-          </WingBlank>
-        </div>
-        <WhiteSpace size="md" />
-        <div className={style.white}>
-          <WhiteSpace size="xl" />
-          <WingBlank>
-            <div className={`${style.formItem} ${style.antRow}`}>
-              <Flex style={{ alignItems: 'baseline' }}>
-                <Flex.Item style={{ flex: '3 1 0%' }}>
-                  <label style={{ fontSize: '16px', fontWeight: '500', color: 'rgba(0, 0, 0, 0.85)' }}>EOS/USDT交易盘</label>
-                </Flex.Item>
-                <Flex.Item
-                  style={{ textAlign: 'right' }}
-                  onClick={() => { this.props.dispatch(routerRedux.push('/app/exchange/1')) }}>
-                  <span style={{ color: 'rgb(51, 163, 244)' }} >详情</span>
-                </Flex.Item>
-              </Flex>
-            </div>
-            <Flex align="start">
-              <Flex.Item>
-                <div className={`${style.formItem} ${style.antRow}`}>
-                  <div className={style.itemLabel}>
-                    <label title="开盘时间" style={{ color: '#888' }}>开盘时间: </label>
-                    <label>08-15 20:15</label>
-                  </div>
-                  <div className={style.itemLabel}>
-                    <label title="结算条件" style={{ color: '#888' }}>结算条件: </label>
-                    <label>币价 ±5%</label>
-                  </div>
-                  <div className={style.itemLabel}>
-                    <label title="买对收益" style={{ color: '#888' }}>买对收益: </label>
-                    <label>+87%</label>
-                  </div>
-                </div>
-              </Flex.Item>
-              <Flex.Item>
-                <div className={`${style.formItem} ${style.antRow}`}>
-                  <div className={style.itemLabel}>
-                    <label title="账户余额">账户余额: {Numeral(this.state.maxPrice).format('0,0.00')} CNY</label>
-                  </div>
-                  <InputItem
-                    name="price"
-                    type="money"
-                    placeholder="0"
-                    min={1}
-                    clear
-                    error={this.state.hasPriceError}
-                    onErrorClick={() => {
-                      if (this.state.hasPriceError) {
-                        Toast.info('可用金额不足!');
-                      }
-                    }}
-                    extra="CNY"
-                    value={this.state.price}
-                    onChange={(price) => {
-                      let cprice = Numeral(price).value() || 0;
-                      cprice > this.state.maxPrice ?
-                        this.setState({ hasPriceError: true }) : this.setState({ hasPriceError: false });
-                      this.setState({ price: cprice.toString() });
-                      this.sumExpected(cprice, this.state.odds, this.state.magnitude);
-                    }}
-                  />
-                  <WhiteSpace size="xs" />
-                  <div className={style.itemTip}>
-                    <label title="usdt">买对收益≈ {Numeral(this.state.price / this.state.cnyusd).format('0,0.00')} CNY</label>
-                  </div>
-                </div>
-                <WhiteSpace size="md" />
-                <div className={`${style.formItem} ${style.antRow}`} style={{ textAlign: 'center' }}>
-                  <Button
-                    className="am-green"
-                    type="default"
-                    onClick={() => {
-                      this.onSubmit('up');
-                    }}
-                    inline
-                    size="small"
-                    disabled={this.state.disabled}
-                  >买涨</Button>
-                  <Button
-                    className="am-red"
-                    type="default"
-                    onClick={() => {
-                      this.onSubmit('down');
-                    }}
-                    inline
-                    size="small"
-                    disabled={this.state.disabled}
-                  >买跌</Button>
-                </div>
-              </Flex.Item>
-            </Flex>
-          </WingBlank>
-        </div>
+        {ListItem}
       </div>
     );
   }

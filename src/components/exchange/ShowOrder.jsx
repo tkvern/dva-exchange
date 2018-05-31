@@ -113,6 +113,7 @@ class ShowOrder extends Component {
           <Item extra={'火币网 www.huobipro.com'}>交易所</Item>
           <Item extra={'3.7% (本金)'}>手续费</Item>
           <Item extra={'2018-05-16 20:30'}>开盘时间</Item>
+          <Item extra={'2018-05-16 21:30'}>封盘时间</Item>
           <Item extra={'±1% (BTC/USDT价格)'}>结算条件</Item>
         </List>
         <List renderHeader={() => '结算信息'} className="my-list">

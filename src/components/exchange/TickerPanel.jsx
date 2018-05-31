@@ -5,8 +5,6 @@ import Numeral from 'numeral';
 import { WingBlank, WhiteSpace, Toast } from 'antd-mobile';
 import style from './TickerPanel.less';
 
-let aggTradeSocket;
-let tickerSocket;
 class TickerPanel extends Component {
   constructor(props) {
     super(props);
@@ -17,9 +15,9 @@ class TickerPanel extends Component {
 
   componentWillMount = () => {
     const that = this;
-    aggTradeSocket = new WebSocket("wss://stream.binance.com:9443/ws/btcusdt@aggTrade");
-    tickerSocket = new WebSocket("wss://stream.binance.com:9443/ws/btcusdt@ticker");
-    aggTradeSocket.onmessage = function (evt) {
+    this.aggTradeSocket = new WebSocket("wss://stream.binance.com:9443/ws/btcusdt@aggTrade");
+    this.tickerSocket = new WebSocket("wss://stream.binance.com:9443/ws/btcusdt@ticker");
+    this.aggTradeSocket.onmessage = function (evt) {
       const ticker_cache = getLocalStorage('ticker');
       const received_msg = JSON.parse(evt.data);
       const diff = received_msg['p'] - that.state.ticker_price;
@@ -39,7 +37,7 @@ class TickerPanel extends Component {
         ticker_direction: direction
       });
     };
-    tickerSocket.onmessage = function (evt) {
+    this.tickerSocket.onmessage = function (evt) {
       const ticker_cache = getLocalStorage('ticker');
       const received_msg = JSON.parse(evt.data);
       let ticker_24direction = '';
@@ -62,8 +60,8 @@ class TickerPanel extends Component {
     };
   }
   componentWillUnmount = () => {
-    aggTradeSocket.close();
-    tickerSocket.close();
+    this.aggTradeSocket.close();
+    this.tickerSocket.close();
   }
   onSubmit = (direction) => {
     Toast.loading('Loading...', 2);
