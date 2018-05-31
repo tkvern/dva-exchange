@@ -58,9 +58,9 @@ class UserPanel extends Component {
             arrow="horizontal"
             onClick={() => {
               // Toast.info("正在施工！", 1)
-              // this.props.dispatch(routerRedux.push('order'))
+              this.props.dispatch(routerRedux.push('/app/exchange_record'))
             }}
-          >订单</Item>
+          >交易记录</Item>
           {/*<Item
             thumb={
               <i className="iconfont" style={{

@@ -17,7 +17,7 @@ function Show({ dispatch }) {
         className={style.navbarFixed}
         mode="light"
         onLeftClick={() => {
-          dispatch(routerRedux.push('/app/exchange'))
+          dispatch(routerRedux.goBack())
         }}
         leftContent={
           [<Icon type="left" key="1" />,

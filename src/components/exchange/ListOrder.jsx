@@ -286,7 +286,9 @@ class ListOrder extends Component {
                 </Card>
                 <WhiteSpace size="xl" />
                 <div style={{ textAlign: 'center' }}>
-                  <span style={{ color: 'rgb(51, 163, 244)' }}>查看全部</span>
+                  <span
+                    onClick={() => this.props.dispatch(routerRedux.push('/app/exchange_record'))}
+                    style={{ color: 'rgb(51, 163, 244)' }}>查看全部</span>
                 </div>
                 <WhiteSpace size="xl" />
               </WingBlank>
@@ -439,7 +441,9 @@ class ListOrder extends Component {
                 </Card>
                 <WhiteSpace size="xl" />
                 <div style={{ textAlign: 'center' }}>
-                  <span style={{ color: 'rgb(51, 163, 244)' }}>查看全部</span>
+                  <span
+                    onClick={() => this.props.dispatch(routerRedux.push('/app/exchange_record'))}
+                    style={{ color: 'rgb(51, 163, 244)' }}>查看全部</span>
                 </div>
                 <WhiteSpace size="xl" />
               </WingBlank>
@@ -592,7 +596,9 @@ class ListOrder extends Component {
                 </Card>
                 <WhiteSpace size="xl" />
                 <div style={{ textAlign: 'center' }}>
-                  <span style={{ color: 'rgb(51, 163, 244)' }}>查看全部</span>
+                  <span
+                    onClick={() => this.props.dispatch(routerRedux.push('/app/exchange_record'))}
+                    style={{ color: 'rgb(51, 163, 244)' }}>查看全部</span>
                 </div>
                 <WhiteSpace size="xl" />
               </WingBlank>

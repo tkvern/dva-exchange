@@ -3,14 +3,10 @@ import { connect } from 'dva';
 import { routerRedux } from 'dva/router';
 import { NavBar, Icon } from 'antd-mobile';
 import SingleLayout from '../../components/layout/SingleLayout';
-import ExchangeShowOrder from '../../components/exchange/ShowOrder';
-import style from './ShowOrder.less';
+import ExchangeIndexRecord from '../../components/exchange/IndexRecord';
+import style from './IndexRecord.less';
 
-function ShowOrder({ dispatch }) {
-  // const { user } = auth;
-  // const settingPanelProps = {
-  //   user: user
-  // }
+function IndexRecord({ dispatch }) {
   return (
     <SingleLayout>
       <NavBar
@@ -21,16 +17,12 @@ function ShowOrder({ dispatch }) {
         }}
         leftContent={
           [<Icon type="left" key="1" />,
-          <label key="2" style={{ color: "#000" }}>BTC/USDT</label>]
+          <label key="2" style={{ color: "#000" }}>交易记录</label>]
         }
       />
-      <ExchangeShowOrder />
+      <ExchangeIndexRecord />
     </SingleLayout>
   )
 }
 
-function mapStateToProps({ auth }) {
-  return { auth };
-}
-
-export default connect(mapStateToProps)(ShowOrder);
+export default connect()(IndexRecord);

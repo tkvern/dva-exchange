@@ -112,6 +112,9 @@ class BalancePanel extends Component {
       });
     }, 600);
   }
+  componentWillUnmount() {
+    document.body.style.overflow = '';
+  }
 
   onRefresh = () => {
     this.setState({ refreshing: true, isLoading: true });
@@ -147,7 +150,7 @@ class BalancePanel extends Component {
       if (index < 0) {
         index = data.length - 1;
       }
-      const obj = data[index--];
+      const obj = data[(data.length - 1 - index--)];
       const { text, direction } = getScoresType(obj.type);
       return (
         <Item key={rowID} arrow="horizontal" multipleLine extra={

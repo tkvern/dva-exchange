@@ -83,7 +83,7 @@ class ItemPlate extends Component {
           <div className={`${style.formItem} ${style.antRow}`}>
             <Flex style={{ alignItems: 'baseline' }}>
               <Flex.Item style={{ flex: '3 1 0%' }}>
-                <label style={{ fontSize: '16px', fontWeight: '500', color: 'rgba(0, 0, 0, 0.85)' }}>{this.state.data.title}</label>
+                <label style={{ fontSize: '16px', fontWeight: '500', color: 'rgba(0, 0, 0, 0.85)' }}>{this.state.data.title} 交易盘</label>
               </Flex.Item>
               <Flex.Item
                 style={{ textAlign: 'right' }}
@@ -97,7 +97,7 @@ class ItemPlate extends Component {
               <div className={`${style.formItem} ${style.antRow}`}>
                 <div className={style.itemLabel}>
                   <label title="开盘时间" style={{ color: '#888' }}>开盘时间: </label>
-                  <label>{this.state.data.bet_time}</label>
+                  <label>{moment(this.state.data.bet_time).format('MM-DD hh:mm')}</label>
                 </div>
                 <div className={style.itemLabel}>
                   <label title="结算条件" style={{ color: '#888' }}>结算条件: </label>
@@ -151,7 +151,7 @@ class ItemPlate extends Component {
                   className="am-green"
                   type="default"
                   onClick={() => {
-                    this.onSubmit('up');
+                    // this.onSubmit('up');
                   }}
                   inline
                   size="small"
@@ -161,7 +161,7 @@ class ItemPlate extends Component {
                   className="am-red"
                   type="default"
                   onClick={() => {
-                    this.onSubmit('down');
+                    // this.onSubmit('down');
                   }}
                   inline
                   size="small"

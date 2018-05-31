@@ -14,8 +14,8 @@ class ListPlate extends Component {
     const ListData = [
       {
         "id": 1,
-        "title": "BTC/USDT交易盘",
-        "bet_time": "08-15 10:15",
+        "title": "BTC/USDT",
+        "bet_time": "2018-05-30 12:00:00",
         "settlement_conditions": "币价 ±1%",
         "income": "+87%",
         "end_time": "2018-05-31 19:00:00",
@@ -23,8 +23,8 @@ class ListPlate extends Component {
       },
       {
         "id": 2,
-        "title": "EOS/USDT交易盘",
-        "bet_time": "08-15 10:15",
+        "title": "EOS/USDT",
+        "bet_time": "2018-05-30 13:00:00",
         "settlement_conditions": "币价 ±1%",
         "income": "+87%",
         "end_time": "2018-05-31 14:15:00",
