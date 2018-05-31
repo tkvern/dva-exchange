@@ -22,6 +22,7 @@ class ListOrder extends Component {
             initialPage={0}
             onChange={(tab, index) => { console.log('onChange', index, tab); }}
             onTabClick={(tab, index) => { console.log('onTabClick', index, tab); }}
+            useOnPan={false}
           >
             <div style={{ minHeight: '326px', backgroundColor: '#fff' }}>
               <WhiteSpace size="xl" />

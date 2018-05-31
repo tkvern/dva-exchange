@@ -13,6 +13,7 @@ import Login from './routes/Login';
 import MessageSubscriptionIndex from './routes/MessageSubscription/Index';
 import MessageSubscriptionCreate from './routes/MessageSubscription/Create';
 import MessageSubscriptionEdit from './routes/MessageSubscription/Edit';
+import LeaderBoard from './routes/LeaderBoard';
 
 function RouterConfig({ history }) {
   return (
@@ -23,6 +24,7 @@ function RouterConfig({ history }) {
         <Route path="/app/exchange/:id" exact component={ExchangeShow} />
         <Route path="/app/exchange/:id/order/" exact component={ExchangeShowOrder} />
         <Route path="/app/kline" exact component={Kline} />
+        <Route path="/app/leaderboard" exact component={LeaderBoard} />
         <Route path="/app/message_subscription" exact component={MessageSubscriptionIndex} />
         <Route path="/app/message_subscription/create" exact component={MessageSubscriptionCreate} />
         <Route path="/app/message_subscription/:id/edit" exact component={MessageSubscriptionEdit} />

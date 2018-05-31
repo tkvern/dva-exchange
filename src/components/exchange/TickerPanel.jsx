@@ -14,20 +14,19 @@ class TickerPanel extends Component {
   }
 
   componentWillMount = () => {
-    const that = this;
     this.aggTradeSocket = new WebSocket("wss://stream.binance.com:9443/ws/btcusdt@aggTrade");
     this.tickerSocket = new WebSocket("wss://stream.binance.com:9443/ws/btcusdt@ticker");
-    this.aggTradeSocket.onmessage = function (evt) {
+    this.aggTradeSocket.onmessage = (evt) => {
       const ticker_cache = getLocalStorage('ticker');
       const received_msg = JSON.parse(evt.data);
-      const diff = received_msg['p'] - that.state.ticker_price;
+      const diff = received_msg['p'] - this.state.ticker_price;
       let direction = '';
       if (diff > 0) {
         direction = 'up';
       } else {
         direction = 'down'
       };
-      that.setState({
+      this.setState({
         ticker_price: received_msg['p'],
         ticker_direction: direction
       })
@@ -37,7 +36,7 @@ class TickerPanel extends Component {
         ticker_direction: direction
       });
     };
-    this.tickerSocket.onmessage = function (evt) {
+    this.tickerSocket.onmessage = (evt) => {
       const ticker_cache = getLocalStorage('ticker');
       const received_msg = JSON.parse(evt.data);
       let ticker_24direction = '';
@@ -46,7 +45,7 @@ class TickerPanel extends Component {
       } else {
         ticker_24direction = 'down'
       };
-      that.setState({
+      this.setState({
         ticker_percent: received_msg['P'],
         ticker_change: received_msg['p'],
         ticker_24direction: ticker_24direction

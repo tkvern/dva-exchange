@@ -66,7 +66,7 @@ class Menus extends Component {
           key="leaderboard"
           selected={this.state.selectedTab === 'leaderboard'}
           onPress={() => {
-            // this.handleSelectedTabSwitch('kline');
+            this.handleSelectedTabSwitch('leaderboard');
           }}
         />
         <TabBar.Item

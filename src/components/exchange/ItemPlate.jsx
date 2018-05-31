@@ -26,12 +26,11 @@ class ItemPlate extends Component {
 
   autoTime = (time) => {
     let mtime = moment(time).diff(moment(), 'seconds');
-    let _self = this;
-    this.timer = setTimeout(function () {
-      _self.setState({
-        timestep: _self.getTimeStep(mtime)
+    this.timer = setTimeout(() => {
+      this.setState({
+        timestep: this.getTimeStep(mtime)
       })
-      _self.autoTime(time);
+      this.autoTime(time);
     }, 1000);
   }
   getTimeStep = (total) => {

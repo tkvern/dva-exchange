@@ -27,7 +27,7 @@ class ListPlate extends Component {
         "bet_time": "2018-05-30 13:00:00",
         "settlement_conditions": "币价 ±1%",
         "income": "+87%",
-        "end_time": "2018-05-31 14:15:00",
+        "end_time": "2018-05-31 17:15:00",
         "can_order": false
       },
       // {

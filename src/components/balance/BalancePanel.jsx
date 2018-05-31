@@ -102,7 +102,7 @@ class BalancePanel extends Component {
   componentDidMount() {
     const hei = this.state.height - ReactDOM.findDOMNode(this.lv).offsetTop;
 
-    setTimeout(() => {
+    this.timer2 = setTimeout(() => {
       this.rData = genData();
       this.setState({
         dataSource: this.state.dataSource.cloneWithRows(genData()),
@@ -114,6 +114,8 @@ class BalancePanel extends Component {
   }
   componentWillUnmount() {
     document.body.style.overflow = '';
+    this.timer && clearTimeout(this.timer);
+    this.timer2 && clearTimeout(this.timer2);
   }
 
   onRefresh = () => {
@@ -135,7 +137,7 @@ class BalancePanel extends Component {
     }
 
     this.setState({ isLoading: true });
-    setTimeout(() => {
+    this.timer = setTimeout(() => {
       this.rData = [...this.rData, ...genData(++pageIndex)];
       this.setState({
         dataSource: this.state.dataSource.cloneWithRows(this.rData),
@@ -172,6 +174,7 @@ class BalancePanel extends Component {
           initialPage={0}
           onChange={(tab, index) => { console.log('onChange', index, tab); }}
           onTabClick={(tab, index) => { console.log('onTabClick', index, tab); }}
+          useOnPan={false}
         >
           <div style={{ minHeight: '326px', backgroundColor: '#fff' }}>
             <ListView
