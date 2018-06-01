@@ -2,11 +2,11 @@ import React from 'react';
 import { connect } from 'dva';
 import { routerRedux } from 'dva/router';
 import { NavBar, Icon } from 'antd-mobile';
-import SingleLayout from '../components/layout/SingleLayout';
-import BalancePanle from '../components/balance/BalancePanel';
-import style from './Balance.less';
+import SingleLayout from '../../components/layout/SingleLayout';
+import BalanceIndex from '../../components/balance/Index';
+import style from './Index.less';
 
-function Balance({ dispatch }) {
+function Index({ dispatch }) {
   return (
     <SingleLayout>
       <NavBar
@@ -20,9 +20,9 @@ function Balance({ dispatch }) {
           <label key="2" style={{ color: "#000" }}>余额明细</label>]
         }
       />
-      <BalancePanle />
+      <BalanceIndex />
     </SingleLayout>
   )
 }
 
-export default connect()(Balance);
+export default connect()(Index);

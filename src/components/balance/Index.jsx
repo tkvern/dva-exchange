@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import { connect } from 'dva';
+import { routerRedux } from 'dva/router';
 import { getScoresType } from '../../utils/helper';
 import { List, ListView, Tabs, Badge } from 'antd-mobile';
-import style from './BalancePanel.less';
+import style from './Index.less';
 
 const Item = List.Item;
 const Brief = Item.Brief;
@@ -155,11 +156,16 @@ class BalancePanel extends Component {
       const obj = data[(data.length - 1 - index--)];
       const { text, direction } = getScoresType(obj.type);
       return (
-        <Item key={rowID} arrow="horizontal" multipleLine extra={
-          <div className={`${style.extra} ${direction ? 'green' : ''}`}>
-            {direction ? '+' : '-'}{obj.value}
-          </div>
-        }>
+        <Item key={rowID} arrow="horizontal"
+          multipleLine
+          onClick={() => {
+            this.props.dispatch(routerRedux.push(`/app/balance/1`))
+          }}
+          extra={
+            <div className={`${style.extra} ${direction ? 'green' : ''}`}>
+              {direction ? '+' : '-'}{obj.value}
+            </div>
+          }>
           {text}<Brief>{obj.created_at}</Brief>
         </Item>
       );
