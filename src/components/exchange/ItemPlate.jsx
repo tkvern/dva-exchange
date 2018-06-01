@@ -95,7 +95,7 @@ class ItemPlate extends Component {
             <Flex.Item>
               <div className={`${style.formItem} ${style.antRow}`}>
                 <div className={style.itemLabel}>
-                  <label title="开盘时间" style={{ color: '#888' }}>开盘时间: </label>
+                  <label title="开始下注" style={{ color: '#888' }}>开始下注: </label>
                   <label>{moment(this.state.data.bet_time).format('MM-DD hh:mm')}</label>
                 </div>
                 <div className={style.itemLabel}>
@@ -107,7 +107,7 @@ class ItemPlate extends Component {
                   <label>{this.state.data.income}</label>
                 </div>
                 <div className={style.itemLabel}>
-                  <label title="距离封盘" style={{ color: '#888' }}>距离封盘: </label>
+                  <label title="停止下注" style={{ color: '#888' }}>停止下注: </label>
                   <label><span className="red">{this.state.timestep}</span></label>
                 </div>
               </div>

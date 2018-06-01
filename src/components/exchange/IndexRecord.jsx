@@ -285,7 +285,7 @@ class IndexRecord extends Component {
                 <Flex.Item>
                   <div className={`${style.formItem} ${style.antRow}`} style={{ minHeight: '26px' }}>
                     <div className={style.itemLabel}>
-                      <label title="开盘时间" style={{ color: '#888' }}>开盘时间: </label>
+                      <label title="开始下注" style={{ color: '#888' }}>开始下注: </label>
                       <label>{moment(obj.bet_time).format('MM-DD hh:mm')}</label>
                     </div>
                   </div>
@@ -293,8 +293,8 @@ class IndexRecord extends Component {
                 <Flex.Item>
                   <div className={`${style.formItem} ${style.antRow}`} style={{ minHeight: '26px' }}>
                     <div className={style.itemLabel}>
-                      <label title="结算条件" style={{ color: '#888' }}>结算条件: </label>
-                      <label>{obj.settlement_conditions}</label>
+                      <label title="停止下注" style={{ color: '#888' }}>停止下注: </label>
+                      <label>{moment(obj.bet_time).format('MM-DD hh:mm')}</label>
                     </div>
                   </div>
                 </Flex.Item>
@@ -311,7 +311,25 @@ class IndexRecord extends Component {
                 <Flex.Item>
                   <div className={`${style.formItem} ${style.antRow}`} style={{ minHeight: '26px' }}>
                     <div className={style.itemLabel}>
-                      <label title="配资价格" style={{ color: '#888' }}>配资价格: </label>
+                      <label title="结算条件" style={{ color: '#888' }}>结算条件: </label>
+                      <label>{obj.settlement_conditions}</label>
+                    </div>
+                  </div>
+                </Flex.Item>
+              </Flex>
+              <Flex>
+                <Flex.Item>
+                  <div className={`${style.formItem} ${style.antRow}`} style={{ minHeight: '26px' }}>
+                    <div className={style.itemLabel}>
+                      <label title="交易所下单" style={{ color: '#888' }}>交易所下单: </label>
+                      <label>{moment(obj.replenishment_time).format('MM-DD hh:mm')}</label>
+                    </div>
+                  </div>
+                </Flex.Item>
+                <Flex.Item>
+                  <div className={`${style.formItem} ${style.antRow}`} style={{ minHeight: '26px' }}>
+                    <div className={style.itemLabel}>
+                      <label title="下单价格" style={{ color: '#888' }}>下单价格: </label>
                       <label>{obj.replenishment_price}</label>
                     </div>
                   </div>
