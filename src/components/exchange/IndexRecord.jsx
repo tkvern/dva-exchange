@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import { connect } from 'dva';
 import { routerRedux } from 'dva/router';
+import moment from 'moment';
 import { ListView, Tabs, Badge, Card, Flex, WingBlank, WhiteSpace } from 'antd-mobile';
 import style from './IndexRecord.less';
 
@@ -28,10 +29,6 @@ const data = [
       {
         price: 200,
         is_down: false
-      },
-      {
-        price: 1288,
-        is_down: true
       }
     ]
   },
@@ -48,14 +45,6 @@ const data = [
     "settlement_time": null,
     "settlement_price": null,
     "orders": [
-      {
-        price: 5000,
-        is_down: true
-      },
-      {
-        price: 200,
-        is_down: false
-      },
       {
         price: 1288,
         is_down: true
@@ -166,7 +155,7 @@ const data = [
       },
       {
         price: 1288,
-        is_down: true
+        is_down: false
       }
     ]
   },
@@ -253,6 +242,18 @@ class IndexRecord extends Component {
     }, 1000);
   };
 
+  getOrders = (orders) => {
+    let ordersDoms = [];
+    orders.forEach((item, index) => {
+      if (item.is_down) {
+        ordersDoms.push(<Badge key={index} text={`买跌 ${item.price}CNY`} style={{ marginTop: 5, marginRight: 5, padding: '0 3px', backgroundColor: '#e14d4e', borderRadius: 2 }} />)
+      } else {
+        ordersDoms.push(<Badge key={index} text={`买涨 ${item.price}CNY`} style={{ marginTop: 5, marginRight: 5, padding: '0 3px', backgroundColor: '#3fc295', borderRadius: 2 }} />)
+      }
+    });
+    return ordersDoms;
+  }
+
   render() {
     let index = data.length - 1;
     const rows = ({ rowData, sectionID, rowID }) => {
@@ -260,7 +261,6 @@ class IndexRecord extends Component {
         index = data.length - 1;
       }
       const obj = data[(data.length - 1 - index--)];
-      console.log(obj);
       return (
         <WingBlank>
           <Card key={rowID}>
@@ -286,7 +286,7 @@ class IndexRecord extends Component {
                   <div className={`${style.formItem} ${style.antRow}`} style={{ minHeight: '26px' }}>
                     <div className={style.itemLabel}>
                       <label title="开盘时间" style={{ color: '#888' }}>开盘时间: </label>
-                      <label>08-15 20:15</label>
+                      <label>{moment(obj.bet_time).format('MM-DD hh:mm')}</label>
                     </div>
                   </div>
                 </Flex.Item>
@@ -294,7 +294,7 @@ class IndexRecord extends Component {
                   <div className={`${style.formItem} ${style.antRow}`} style={{ minHeight: '26px' }}>
                     <div className={style.itemLabel}>
                       <label title="结算条件" style={{ color: '#888' }}>结算条件: </label>
-                      <label>币价 ±1%</label>
+                      <label>{obj.settlement_conditions}</label>
                     </div>
                   </div>
                 </Flex.Item>
@@ -304,7 +304,7 @@ class IndexRecord extends Component {
                   <div className={`${style.formItem} ${style.antRow}`} style={{ minHeight: '26px' }}>
                     <div className={style.itemLabel}>
                       <label title="配资时间" style={{ color: '#888' }}>配资时间: </label>
-                      <label>08-15 20:15</label>
+                      <label>{moment(obj.replenishment_time).format('MM-DD hh:mm')}</label>
                     </div>
                   </div>
                 </Flex.Item>
@@ -312,7 +312,7 @@ class IndexRecord extends Component {
                   <div className={`${style.formItem} ${style.antRow}`} style={{ minHeight: '26px' }}>
                     <div className={style.itemLabel}>
                       <label title="配资价格" style={{ color: '#888' }}>配资价格: </label>
-                      <label>7105.54</label>
+                      <label>{obj.replenishment_price}</label>
                     </div>
                   </div>
                 </Flex.Item>
@@ -322,7 +322,7 @@ class IndexRecord extends Component {
                   <div className={`${style.formItem} ${style.antRow}`} style={{ minHeight: '26px' }}>
                     <div className={style.itemLabel}>
                       <label title="结算时间" style={{ color: '#888' }}>结算时间: </label>
-                      <label>等待中...</label>
+                      <label>{moment(obj.settlement_time).format('MM-DD hh:mm')}</label>
                     </div>
                   </div>
                 </Flex.Item>
@@ -330,7 +330,12 @@ class IndexRecord extends Component {
                   <div className={`${style.formItem} ${style.antRow}`} style={{ minHeight: '26px' }}>
                     <div className={style.itemLabel}>
                       <label title="结算价格" style={{ color: '#888' }}>结算价格: </label>
-                      <label>等待中...</label>
+                      <label>
+                        <span
+                          className={
+                            obj.settlement_price > obj.replenishment_price ? 'green' : 'red'
+                          }>{obj.settlement_price}</span>
+                      </label>
                     </div>
                   </div>
                 </Flex.Item>
@@ -341,9 +346,7 @@ class IndexRecord extends Component {
                     <div className={style.itemLabel}>
                       <label title="我的委托" style={{ color: '#888' }}>我的委托: </label><br />
                       <label>
-                        <Badge text="买涨 100CNY" style={{ marginTop: 5, marginRight: 5, padding: '0 3px', backgroundColor: '#3fc295', borderRadius: 2 }} />
-                        <Badge text="买跌 500CNY" style={{ marginTop: 5, marginRight: 5, padding: '0 3px', backgroundColor: '#e14d4e', borderRadius: 2 }} />
-                        <Badge text="买涨 120CNY" style={{ marginTop: 5, marginRight: 5, padding: '0 3px', backgroundColor: '#3fc295', borderRadius: 2 }} />
+                        {this.getOrders(obj.orders)}
                       </label>
                     </div>
                   </div>
