@@ -9,7 +9,7 @@ export default {
   subscriptions: {
     setup({ dispatch, history }) {  // eslint-disable-line
       history.listen((location) => {
-        const match = location.pathname.match(/kline|exchange|user/);
+        const match = location.pathname.match(/kline|exchange|user|leaderboard/);
         if (match) {
           dispatch({
             type: 'selectedTabSwitch',

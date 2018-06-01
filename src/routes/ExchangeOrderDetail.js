@@ -3,14 +3,14 @@ import { connect } from 'dva';
 import { routerRedux } from 'dva/router';
 import { NavBar, Icon } from 'antd-mobile';
 import SingleLayout from '../components/layout/SingleLayout';
-import SettingPanel from '../components/user/SettingPanel';
-import style from './Setting.less';
+import ExchangeOrderDetailPanel from '../components/exchange/ExchangeOrderDetailPanel';
+import style from './ExchangeOrderDetail.less';
 
-function Setting({ dispatch, auth }) {
-  const { user } = auth;
-  const settingPanelProps = {
-    user: user
-  }
+function ExchangeOrderDetail({ dispatch }) {
+  // const { user } = auth;
+  // const settingPanelProps = {
+  //   user: user
+  // }
   return (
     <SingleLayout>
       <NavBar
@@ -21,10 +21,10 @@ function Setting({ dispatch, auth }) {
         }}
         leftContent={
           [<Icon type="left" key="1" />,
-          <label key="2" style={{ color: "#000" }}>设置</label>]
+          <label key="2" style={{ color: "#000" }}>BTC/USDT</label>]
         }
       />
-      <SettingPanel {...settingPanelProps} />
+      <ExchangeOrderDetailPanel />
     </SingleLayout>
   )
 }
@@ -33,4 +33,4 @@ function mapStateToProps({ auth }) {
   return { auth };
 }
 
-export default connect(mapStateToProps)(Setting);
+export default connect(mapStateToProps)(ExchangeOrderDetail);

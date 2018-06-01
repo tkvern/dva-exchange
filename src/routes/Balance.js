@@ -13,7 +13,7 @@ function Balance({ dispatch }) {
         className={style.navbarFixed}
         mode="light"
         onLeftClick={() => {
-          dispatch(routerRedux.push('/app/user'))
+          dispatch(routerRedux.goBack())
         }}
         leftContent={
           [<Icon type="left" key="1" />,

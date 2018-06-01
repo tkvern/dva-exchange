@@ -1,13 +1,12 @@
 import React from 'react';
 import { connect } from 'dva';
 import MainLayout from '../components/layout/MainLayout';
-// import KlinePanel from '../components/kline/KlinePanel';
+import LeaderBoardIndex from '../components/leaderBoard/Index';
 
 function LeaderBoard() {
   return (
     <MainLayout>
-      <h1>这里是排行榜</h1>
-      {/*<KlinePanel />*/}
+      <LeaderBoardIndex />
     </MainLayout>
   );
 }

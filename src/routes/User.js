@@ -20,7 +20,7 @@ function User({ dispatch, auth }) {
         onLeftClick={() => console.log('onLeftClick')}
         rightContent={
           <label onClick={() => {
-            dispatch(routerRedux.push('/app/setting'));
+            dispatch(routerRedux.goBack());
           }}>设置</label>
         }
       ></NavBar>

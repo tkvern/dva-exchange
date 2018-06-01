@@ -23,7 +23,7 @@ function Create({ dispatch, messageSubscription }) {
         className={style.navbarFixed}
         mode="light"
         onLeftClick={() => {
-          dispatch(routerRedux.push('/app/message_subscription'))
+          dispatch(routerRedux.goBack())
         }}
         leftContent={
           [<Icon type="left" key="1" />,
