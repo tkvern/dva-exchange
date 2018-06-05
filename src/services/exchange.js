@@ -1,7 +1,7 @@
-import request from '../utils/request';
+import request, { requestClean } from '../utils/request';
 
 export async function rate() {
-  return request('http://api.fixer.io/latest?base=USD');
+  return requestClean('http://data.fixer.io/api/latest?access_key=b8b834deefb5c3da00b829f29197e53c');
 }
 
 export async function currentOrders(params) {

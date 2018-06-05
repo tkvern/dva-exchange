@@ -46,3 +46,11 @@ export default function request(url, options) {
     })
     .catch(err => ({ err }));
 }
+
+export function requestClean(url, options) {
+  return fetch(url, options)
+    .then(checkStatus)
+    .then(parseJSON)
+    .then(data => ({ data }))
+    .catch(err => ({ err }));
+}

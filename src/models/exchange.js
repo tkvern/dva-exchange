@@ -32,7 +32,7 @@ export default {
         yield put({
           type: 'updateCnyusd',
           payload: {
-            cnyusd: data.rates['CNY'],
+            cnyusd: data.rates['CNY'] / data.rates['USD'],
           }
         })
       }
@@ -69,7 +69,7 @@ export default {
         yield put({
           type: 'updateCnyusd',
           payload: {
-            cnyusd: rates['CNY'],
+            cnyusd: rates['CNY'] / rates['USD'],
           }
         });
       } else {
