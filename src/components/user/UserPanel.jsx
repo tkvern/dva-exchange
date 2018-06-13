@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'dva';
 import { routerRedux } from 'dva/router';
-import Numeral from 'numeral';
 import { List, WhiteSpace, Toast } from 'antd-mobile';
 import style from './UserPanel.less';
 
@@ -38,7 +37,7 @@ class UserPanel extends Component {
         <List>
           <Item
             className={style.balance}
-            extra={Numeral(this.state.user.score_value).format('0,0.00') + " CNY"}
+            extra={this.state.user.balance + " CNY"}
             thumb={
               <i className="iconfont" style={{
                 color: 'rgb(51, 163, 244)'

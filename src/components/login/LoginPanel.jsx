@@ -31,7 +31,7 @@ class LoginPanel extends Component {
     if (value && value.length > 4) {
       callback();
     } else {
-      callback(new Error('账号为注册时的邮箱地址'));
+      callback(new Error('填写注册时的账号或邮箱地址'));
     }
   }
 
