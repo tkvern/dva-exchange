@@ -1,6 +1,7 @@
 import { parse } from 'qs';
-import { query, rate, currentOrders } from '../services/exchange';
+import { query, create, rate, currentOrders } from '../services/exchange';
 import { setLocalStorage, getLocalStorage } from '../utils/helper';
+import { Toast } from 'antd-mobile';
 import moment from 'moment';
 
 export default {
@@ -58,6 +59,15 @@ export default {
             settledList: settledList,
           },
         });
+      }
+    },
+    * create({ payload }, { call, put }) {
+      const { data } = yield call(create, parse(payload));
+      console.log(data);
+      if (data && data.err_code === 0) {
+        Toast.success("下注成功", 1.5);
+      } else {
+        Toast.fail(data.err_msg, 1.5);
       }
     },
     * rate({ payload }, { call, put }) {
