@@ -6,11 +6,11 @@ import SingleLayout from '../../components/layout/SingleLayout';
 import ExchangeShow from '../../components/exchange/Show';
 import style from './Show.less';
 
-function Show({ dispatch }) {
-  // const { user } = auth;
-  // const settingPanelProps = {
-  //   user: user
-  // }
+function Show({ dispatch, exchange }) {
+  const { current } = exchange;
+  const exchangeShowProps = {
+    current: current
+  }
   return (
     <SingleLayout>
       <NavBar
@@ -21,16 +21,16 @@ function Show({ dispatch }) {
         }}
         leftContent={
           [<Icon type="left" key="1" />,
-          <label key="2" style={{ color: "#000" }}>BTC/USDT</label>]
+          <label key="2" style={{ color: "#000" }}>详情</label>]
         }
       />
-      <ExchangeShow />
+      <ExchangeShow {...exchangeShowProps} />
     </SingleLayout>
   )
 }
 
-function mapStateToProps({ auth }) {
-  return { auth };
+function mapStateToProps({ exchange }) {
+  return { exchange };
 }
 
 export default connect(mapStateToProps)(Show);

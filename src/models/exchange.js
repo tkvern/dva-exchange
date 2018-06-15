@@ -1,5 +1,5 @@
 import { parse } from 'qs';
-import { query, create, rate, currentOrders } from '../services/exchange';
+import { query, create, show, rate, currentOrders } from '../services/exchange';
 import { setLocalStorage, getLocalStorage } from '../utils/helper';
 import { Toast } from 'antd-mobile';
 import moment from 'moment';
@@ -17,12 +17,16 @@ export default {
     participateList: [],
     processingList: [],
     settledList: [],
+    current: {}
   },
   reducers: {
     querySuccess(state, action) {
       return { ...state, ...action.payload };
     },
     updateTicker(state, action) {
+      return { ...state, ...action.payload };
+    },
+    showSuccess(state, action) {
       return { ...state, ...action.payload };
     },
     updateCnyusd(state, action) {
@@ -80,6 +84,17 @@ export default {
         });
       } else {
         Toast.fail(data.err_msg, 1.5);
+      }
+    },
+    * show({ payload }, { call, put }) {
+      const { data } = yield call(show, parse(payload));
+      if (data && data.err_code === 0) {
+        yield put({
+          type: 'showSuccess',
+          payload: {
+            current: data.bet
+          }
+        });
       }
     },
     * rate({ payload }, { call, put }) {

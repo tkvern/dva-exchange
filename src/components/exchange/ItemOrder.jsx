@@ -51,7 +51,7 @@ class ItemOrder extends Component {
               {this.getStateText(this.state.data.state)}
             </div>
           }
-          onClick={() => this.props.dispatch(routerRedux.push('/app/exchange/1/order'))}
+          onClick={() => this.props.dispatch(routerRedux.push(`/app/exchange/${this.state.data.id}`))}
           extra={<span style={{ fontSize: '14px', color: 'rgb(51, 163, 244)' }}>详情</span>}
         />
         <Card.Body>

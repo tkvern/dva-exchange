@@ -18,6 +18,11 @@ export async function query(params) {
   return request(`${config.host}/api/bets?${qs.stringify(params)}`);
 }
 
+
+export async function show(params) {
+  return request(`${config.host}/api/bets/${params.id}`);
+}
+
 export async function create(params) {
   return request(`${config.host}/api/bet_orders`, {
     method: 'POST',
