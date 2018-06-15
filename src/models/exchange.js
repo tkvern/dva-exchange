@@ -1,6 +1,7 @@
 import { parse } from 'qs';
-import { rate, currentOrders } from '../services/exchange';
+import { query, rate, currentOrders } from '../services/exchange';
 import { setLocalStorage, getLocalStorage } from '../utils/helper';
+import moment from 'moment';
 
 export default {
   namespace: 'exchange',
@@ -11,9 +12,15 @@ export default {
     ticker_direction: '',
     ticker_24direction: '',
     cnyusd: 0,
-    currentOrders: [],
+    canbetList: [],
+    participateList: [],
+    processingList: [],
+    settledList: [],
   },
   reducers: {
+    querySuccess(state, action) {
+      return { ...state, ...action.payload };
+    },
     updateTicker(state, action) {
       return { ...state, ...action.payload };
     },
@@ -25,6 +32,34 @@ export default {
     }
   },
   effects: {
+    * query({ payload }, { call, put }) {
+      const { data } = yield call(query, parse(payload));
+      if (data && data.err_code === 0) {
+        const canbetList = data.list.filter((item) => {
+          return moment(item.bet_stop_time).diff(moment(), 'seconds') > 0 &&
+            moment(item.bet_time).diff(moment(), 'seconds') < 0 &&
+            item.state === 0;
+        });
+        const participateList = data.list.filter((item) => {
+          return item.bet_orders.length > 0;
+        });
+        const processingList = data.list.filter((item) => {
+          return item.state === 1;
+        });
+        const settledList = data.list.filter((item) => {
+          return item.state === 2;
+        });
+        yield put({
+          type: 'querySuccess',
+          payload: {
+            canbetList: canbetList,
+            participateList: participateList,
+            processingList: processingList,
+            settledList: settledList,
+          },
+        });
+      }
+    },
     * rate({ payload }, { call, put }) {
       const { data } = yield call(rate);
       if (data && data.rates) {

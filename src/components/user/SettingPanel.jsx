@@ -67,7 +67,7 @@ class SettingPanel extends Component {
           {/*<Item extra={`${this.state.user.wechat_info['Province']} ${this.state.user.wechat_info['City']}`}>地区</Item>*/}
           {/*<Item extra={this.state.user.wechat_info['Sex'] === 1 ? '男' : '女'}>性别</Item>*/}
           <Item extra={this.state.user.cash}>现金</Item>
-          <Item extra={this.state.user.earnings}>盈利</Item>
+          <Item extra={this.state.user.earning}>盈利</Item>
           <Item extra={this.state.user.balance}>总余额</Item>
         </List>
         <WhiteSpace size="md" />

@@ -11,19 +11,22 @@ class ItemPlate extends Component {
     super(props);
     this.state = {
       data: this.props.data,
-      timestep: this.getTimeStep(moment(this.props.data.end_time).diff(moment(), 'seconds'))
+      user: this.props.user,
+      timestep: this.getTimeStep(moment(this.props.data.bet_stop_time).diff(moment(), 'seconds'))
     }
   }
 
   componentWillMount = () => {
-    this.autoTime(this.state.data.end_time);
+    this.autoTime(this.state.data.bet_stop_time);
   }
   componentWillUnmount() {
     // 如果存在this.timer，则使用clearTimeout清空。
     // 如果你使用多个timer，那么用多个变量，或者用个数组来保存引用，然后逐个clear
     this.timer && clearTimeout(this.timer);
   }
-
+  componentWillReceiveProps = (nextProps) => {
+    this.setState({ ...nextProps });
+  }
   autoTime = (time) => {
     let mtime = moment(time).diff(moment(), 'seconds');
     this.timer = setTimeout(() => {
@@ -82,7 +85,7 @@ class ItemPlate extends Component {
           <div className={`${style.formItem} ${style.antRow}`}>
             <Flex style={{ alignItems: 'baseline' }}>
               <Flex.Item style={{ flex: '3 1 0%' }}>
-                <label style={{ fontSize: '16px', fontWeight: '500', color: 'rgba(0, 0, 0, 0.85)' }}>{this.state.data.title} 交易盘</label>
+                <label style={{ fontSize: '16px', fontWeight: '500', color: 'rgba(0, 0, 0, 0.85)' }}>{this.state.data.title}</label>
               </Flex.Item>
               <Flex.Item
                 style={{ textAlign: 'right' }}
@@ -100,11 +103,11 @@ class ItemPlate extends Component {
                 </div>
                 <div className={style.itemLabel}>
                   <label title="结算条件" style={{ color: '#888' }}>结算条件: </label>
-                  <label>{this.state.data.settlement_conditions}</label>
+                  <label>{this.state.data.settlement_condition_text}</label>
                 </div>
                 <div className={style.itemLabel}>
                   <label title="买对收益" style={{ color: '#888' }}>买对收益: </label>
-                  <label>{this.state.data.income}</label>
+                  <label>{this.state.data.win_income_rate * 100}%</label>
                 </div>
                 <div className={style.itemLabel}>
                   <label title="停止下注" style={{ color: '#888' }}>停止下注: </label>
@@ -115,7 +118,7 @@ class ItemPlate extends Component {
             <Flex.Item>
               <div className={`${style.formItem} ${style.antRow}`}>
                 <div className={style.itemLabel}>
-                  <label title="账户余额">账户余额: {Numeral(this.state.maxPrice).format('0,0.00')} CNY</label>
+                  <label title="账户余额">账户余额: {Numeral(this.state.user.balance).format('0,0.00')} CNY</label>
                 </div>
                 <WhiteSpace size="xs" />
                 <InputItem
@@ -134,7 +137,7 @@ class ItemPlate extends Component {
                   value={this.state.price}
                   onChange={(price) => {
                     let cprice = Numeral(price).value() || 0;
-                    cprice > this.state.maxPrice ?
+                    cprice > this.state.user.balance ?
                       this.setState({ hasPriceError: true }) : this.setState({ hasPriceError: false });
                     this.setState({ price: cprice.toString() });
                     this.sumExpected(cprice, this.state.odds, this.state.magnitude);

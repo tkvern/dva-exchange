@@ -13,7 +13,10 @@ function Index({ auth, exchange }) {
     ticker_direction,
     ticker_24direction,
     cnyusd,
-    currentOrders
+    canbetList,
+    participateList,
+    processingList,
+    settledList,
   } = exchange;
   const exchangePanelProps = {
     user: user,
@@ -23,7 +26,10 @@ function Index({ auth, exchange }) {
     ticker_direction: ticker_direction,
     ticker_24direction: ticker_24direction,
     cnyusd: cnyusd,
-    currentOrders: currentOrders
+    canbetList: canbetList,
+    participateList: participateList,
+    processingList: processingList,
+    settledList: settledList,
   }
   return (
     <MainLayout>

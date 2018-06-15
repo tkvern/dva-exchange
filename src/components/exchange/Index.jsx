@@ -24,17 +24,37 @@ class Index extends PureComponent {
       cnyusd: this.props.cnyusd,
       disabled: !!this.props.disabled,
       user: this.props.user,
-      currentOrders: this.props.currentOrders,
-      timestep: '',
+      canbetList: this.props.canbetList,
+      participateList: this.props.participateList,
+      processingList: this.props.processingList,
+      settledList: this.props.settledList,
     }
   }
+  componentWillMount = () => {
+    this.props.dispatch({
+      type: 'exchange/query',
+    });
+  }
+  componentWillReceiveProps = (nextProps) => {
+    this.setState({...nextProps});
+  }
   render() {
+    const listPlateProps = {
+      user: this.state.user,
+      canbetList: this.state.canbetList,
+    }
+    const listOrderProps = {
+      participateList: this.state.participateList,
+      processingList: this.state.processingList,
+      settledList: this.state.settledList,
+    }
     return (
       <div>
         <TickerPanel {...this.state} />
         <WhiteSpace size="md" />
-        <ListPlate />
-        <ListOrder />
+        <ListPlate {...listPlateProps} />
+        <WhiteSpace size="md" />
+        <ListOrder {...listOrderProps} />
       </div>
     );
   }

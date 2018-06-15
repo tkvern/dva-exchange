@@ -44,7 +44,10 @@ export default function request(url, options) {
       }
       return { data };
     })
-    .catch(err => ({ err }));
+    .catch(err => {
+      Toast.fail("网络异常,请稍后刷新再试", 1.5);
+      return { err }}
+    );
 }
 
 export function requestClean(url, options) {
