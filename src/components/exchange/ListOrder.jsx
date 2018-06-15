@@ -74,7 +74,7 @@ class ListOrder extends Component {
             { title: <Badge text={''}>进行中</Badge> },
             { title: <Badge text={''}>已结算</Badge> },
           ]}
-            initialPage={1}
+            initialPage={0}
             onChange={(tab, index) => { console.log('onChange', index, tab); }}
             onTabClick={(tab, index) => { console.log('onTabClick', index, tab); }}
             useOnPan={false}

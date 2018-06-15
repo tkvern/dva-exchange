@@ -19,7 +19,7 @@ class ItemOrder extends Component {
   getStateText(state) {
     let obj = {};
     if (state === 0) {
-      obj = { text: "未开盘", color: 'gray' };
+      obj = { text: "投注中", color: 'gray' };
     } else if (state === 1) {
       obj = { text: "进行中", color: 'green' };
     } else if (state === 2) {
@@ -28,6 +28,17 @@ class ItemOrder extends Component {
     return (<span className={`${obj.color}`} style={{ marginLeft: 4 }}>{obj.text}</span>);
   }
   render() {
+    const ordersList = [];
+    const ordersDate = this.state.data.bet_orders || [];
+    ordersDate.forEach((item, index) => {
+      if (item.type === 0) {
+        ordersList.push(<Badge key={index} text={`买涨 ${item.amount} CNY`}
+          style={{ marginTop: 5, marginRight: 5, padding: '0 3px', backgroundColor: '#3fc295', borderRadius: 2 }} />)
+      } else if (item.type === 1) {
+        ordersList.push(<Badge key={index} text={`买跌 ${item.amount} CNY`}
+          style={{ marginTop: 5, marginRight: 5, padding: '0 3px', backgroundColor: '#e14d4e', borderRadius: 2 }} />)
+      }
+    });
     return (
       <Card>
         <Card.Header
@@ -46,7 +57,7 @@ class ItemOrder extends Component {
         <Card.Body>
           <Flex>
             <Flex.Item>
-              <div className={`${style.formItem} ${style.antRow}`} style={{ minHeight: '26px' }}>
+              <div className={`${style.formItem} ${style.antRow} `} style={{ minHeight: '26px' }}>
                 <div className={style.itemLabel}>
                   <label title="开始下注" style={{ color: '#888' }}>开始下注: </label>
                   <label>{moment(this.state.data.bet_time).format('MM-DD HH:mm')}</label>
@@ -54,7 +65,7 @@ class ItemOrder extends Component {
               </div>
             </Flex.Item>
             <Flex.Item>
-              <div className={`${style.formItem} ${style.antRow}`} style={{ minHeight: '26px' }}>
+              <div className={`${style.formItem} ${style.antRow} `} style={{ minHeight: '26px' }}>
                 <div className={style.itemLabel}>
                   <label title="停止下注" style={{ color: '#888' }}>停止下注: </label>
                   <label>{moment(this.state.data.bet_end_time).format('MM-DD HH:mm')}</label>
@@ -64,7 +75,7 @@ class ItemOrder extends Component {
           </Flex>
           <Flex>
             <Flex.Item>
-              <div className={`${style.formItem} ${style.antRow}`} style={{ minHeight: '26px' }}>
+              <div className={`${style.formItem} ${style.antRow} `} style={{ minHeight: '26px' }}>
                 <div className={style.itemLabel}>
                   <label title="结算条件" style={{ color: '#888' }}>结算条件: </label>
                   <label>币价 ±1%</label>
@@ -72,7 +83,7 @@ class ItemOrder extends Component {
               </div>
             </Flex.Item>
             <Flex.Item>
-              <div className={`${style.formItem} ${style.antRow}`} style={{ minHeight: '26px' }}>
+              <div className={`${style.formItem} ${style.antRow} `} style={{ minHeight: '26px' }}>
                 <div className={style.itemLabel}>
                   <label title="下单价格" style={{ color: '#888' }}>下单价格: </label>
                   <label>{
@@ -86,7 +97,7 @@ class ItemOrder extends Component {
           </Flex>
           <Flex>
             <Flex.Item>
-              <div className={`${style.formItem} ${style.antRow}`} style={{ minHeight: '26px' }}>
+              <div className={`${style.formItem} ${style.antRow} `} style={{ minHeight: '26px' }}>
                 <div className={style.itemLabel}>
                   <label title="结算时间" style={{ color: '#888' }}>结算时间: </label>
                   <label>{
@@ -98,7 +109,7 @@ class ItemOrder extends Component {
               </div>
             </Flex.Item>
             <Flex.Item>
-              <div className={`${style.formItem} ${style.antRow}`} style={{ minHeight: '26px' }}>
+              <div className={`${style.formItem} ${style.antRow} `} style={{ minHeight: '26px' }}>
                 <div className={style.itemLabel}>
                   <label title="结算价格" style={{ color: '#888' }}>结算价格: </label>
                   <label>{
@@ -112,13 +123,11 @@ class ItemOrder extends Component {
           </Flex>
           <Flex>
             <Flex.Item>
-              <div className={`${style.formItem} ${style.antRow}`} style={{ minHeight: '26px' }}>
+              <div className={`${style.formItem} ${style.antRow} `} style={{ minHeight: '26px' }}>
                 <div className={style.itemLabel}>
                   <label title="我的委托" style={{ color: '#888' }}>我的委托: </label><br />
                   <label>
-                    <Badge text="买涨 100CNY" style={{ marginTop: 5, marginRight: 5, padding: '0 3px', backgroundColor: '#3fc295', borderRadius: 2 }} />
-                    <Badge text="买跌 500CNY" style={{ marginTop: 5, marginRight: 5, padding: '0 3px', backgroundColor: '#e14d4e', borderRadius: 2 }} />
-                    <Badge text="买涨 120CNY" style={{ marginTop: 5, marginRight: 5, padding: '0 3px', backgroundColor: '#3fc295', borderRadius: 2 }} />
+                    {ordersList}
                   </label>
                 </div>
               </div>

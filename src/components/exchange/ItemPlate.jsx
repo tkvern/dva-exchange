@@ -52,7 +52,6 @@ class ItemPlate extends Component {
     }
     return timestep;
   }
-
   sumExpected(price, odds, magnitude) {
     let expected;
     switch (magnitude) {

@@ -63,9 +63,21 @@ export default {
     },
     * create({ payload }, { call, put }) {
       const { data } = yield call(create, parse(payload));
-      console.log(data);
       if (data && data.err_code === 0) {
         Toast.success("下注成功", 1.5);
+        yield put({
+          type: 'query',
+        });
+
+        const user = getLocalStorage('user');
+        user.balance = user.balance - payload.amount;
+        setLocalStorage('user', user);
+        yield put({
+          type: 'auth/loginSuccess',
+          payload: {
+            user: user,
+          }
+        });
       } else {
         Toast.fail(data.err_msg, 1.5);
       }
