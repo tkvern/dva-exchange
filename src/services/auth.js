@@ -7,3 +7,9 @@ export async function login(params) {
     body: JSON.stringify(params),
   });
 }
+
+export async function query(params) {
+  return request(`${config.host}/api/auth/me`, {
+    method: 'POST'
+  });
+}

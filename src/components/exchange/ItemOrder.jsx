@@ -25,7 +25,7 @@ class ItemOrder extends Component {
     } else if (state === 2) {
       obj = { text: "已结算", color: 'gray' };
     }
-    return (<span className={`${obj.color}`} style={{ marginLeft: 4 }}>{obj.text}</span>);
+    return (<span className={`${obj.color}`}>{obj.text}</span>);
   }
   render() {
     const ordersList = [];
@@ -47,7 +47,7 @@ class ItemOrder extends Component {
           }}
           title={
             <div style={{ fontSize: '14px' }}>
-              <span>{this.state.data.title}</span>
+              <span style={{ marginRight: 4 }}>{this.state.data.title}</span>
               {this.getStateText(this.state.data.state)}
             </div>
           }

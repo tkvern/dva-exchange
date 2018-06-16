@@ -33,6 +33,10 @@ class Index extends PureComponent {
   componentWillMount = () => {
     this.props.dispatch({
       type: 'exchange/query',
+      payload: {
+        size: 100,
+        datetime: 'today',
+      }
     });
   }
   componentWillReceiveProps = (nextProps) => {

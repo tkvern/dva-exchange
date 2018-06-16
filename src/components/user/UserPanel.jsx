@@ -15,6 +15,11 @@ class UserPanel extends Component {
       user: this.props.user
     }
   }
+  componentWillMount = () => {
+    this.props.dispatch({
+      type: "auth/query"
+    });
+  }
 
   render() {
     return (

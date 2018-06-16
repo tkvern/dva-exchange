@@ -100,7 +100,7 @@ class Show extends Component {
           <Item extra={this.state.current.title}>交易名称</Item>
           <Item extra={this.state.current.margin_ratio}>杠杆倍数</Item>
           <Item extra={this.state.current.exchange}>交易所</Item>
-          <Item extra={`${this.state.current.rate_text * 100}%`}>手续费</Item>
+          <Item extra={this.state.current.rate_text}>手续费</Item>
           <Item extra={
             moment(this.state.current.bet_time).format('YYYY-MM-DD HH:mm')
           }>开始下注</Item>

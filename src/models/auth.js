@@ -1,6 +1,6 @@
 import { parse } from 'qs';
 import { Toast } from 'antd-mobile';
-import { login } from '../services/auth';
+import { login, query } from '../services/auth';
 import { getLocalStorage, setLocalStorage, getCookie, setCookie } from '../utils/helper';
 import { routerRedux } from 'dva/router';
 
@@ -55,6 +55,18 @@ export default {
           type: 'loginFail',
           payload: {
             loginFail: true,
+          }
+        });
+      }
+    },
+    * query({ payload }, { call, put }) {
+      const { data } = yield call(query);
+      if (data && data.err_code === 0) {
+        setLocalStorage('user', data.user);
+        yield put({
+          type: 'loginSuccess',
+          payload: {
+            user: data.user,
           }
         });
       }
