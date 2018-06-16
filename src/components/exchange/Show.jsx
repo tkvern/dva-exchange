@@ -65,7 +65,7 @@ class Show extends Component {
     });
     return (
       <div className={style.content} >
-        <List renderHeader={() => '进度信息'} className="my-list">
+        {/*<List renderHeader={() => '进度信息'} className="my-list">
           <Item>
             <WhiteSpace size="xl" />
             <Steps size="small" current={2}>
@@ -95,7 +95,7 @@ class Show extends Component {
               } />
             </Steps>
           </Item>
-        </List>
+            </List>*/}
         <List renderHeader={() => '盘口信息'} className="my-list">
           <Item extra={this.state.current.title}>交易名称</Item>
           <Item extra={this.state.current.margin_ratio}>杠杆倍数</Item>

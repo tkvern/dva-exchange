@@ -19,13 +19,23 @@ class ItemOrder extends Component {
   getStateText(state) {
     let obj = {};
     if (state === 0) {
-      obj = { text: "投注中", color: 'gray' };
+      obj = { text: "投注中", color: 'red' };
     } else if (state === 1) {
       obj = { text: "进行中", color: 'green' };
     } else if (state === 2) {
       obj = { text: "已结算", color: 'gray' };
     }
     return (<span className={`${obj.color}`}>{obj.text}</span>);
+  }
+  getStateHeader() {
+    const { state } = this.state.data;
+    if (state === 0) {
+      return '#f1f1f1';
+    } else if (state === 1) {
+      return '#e7f9f4';
+    } else if (state === 2) {
+      return '#f1f1f1';
+    }
   }
   render() {
     const ordersList = [];
@@ -43,7 +53,7 @@ class ItemOrder extends Component {
       <Card>
         <Card.Header
           style={{
-            backgroundColor: '#e7f9f4'
+            backgroundColor: this.getStateHeader()
           }}
           title={
             <div style={{ fontSize: '14px' }}>
