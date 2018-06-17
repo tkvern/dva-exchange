@@ -13,30 +13,30 @@ class ItemPlate extends Component {
     this.state = {
       data: this.props.data,
       user: this.props.user,
-      timestep: this.getTimeStep(moment(this.props.data.bet_stop_time).diff(moment(), 'seconds'))
+      datetime: this.props.datetime
     }
   }
 
   componentWillMount = () => {
-    this.autoTime(this.state.data.bet_stop_time);
+    // this.autoTime(this.state.data.bet_stop_time);
   }
   componentWillUnmount() {
     // 如果存在this.timer，则使用clearTimeout清空。
     // 如果你使用多个timer，那么用多个变量，或者用个数组来保存引用，然后逐个clear
-    this.timer && clearTimeout(this.timer);
+    // this.timer && clearTimeout(this.timer);
   }
   componentWillReceiveProps = (nextProps) => {
     this.setState({ ...nextProps });
   }
-  autoTime = (time) => {
-    let mtime = moment(time).diff(moment(), 'seconds');
-    this.timer = setTimeout(() => {
-      this.setState({
-        timestep: this.getTimeStep(mtime)
-      })
-      this.autoTime(time);
-    }, 1000);
-  }
+  // autoTime = (time) => {
+  //   let mtime = moment(time).diff(moment(), 'seconds');
+  //   this.timer = setTimeout(() => {
+  //     this.setState({
+  //       timestep: this.getTimeStep(mtime)
+  //     })
+  //     this.autoTime(time);
+  //   }, 1000);
+  // }
   getTimeStep = (total) => {
     let timestep = "";
     if (total <= 0) {
@@ -128,7 +128,8 @@ class ItemPlate extends Component {
                   </div>
                   <div className={style.itemLabel}>
                     <label title="停止下注" style={{ color: '#888' }}>停止下注: </label>
-                    <label><span className="red">{this.state.timestep}</span></label>
+                    <label><span className="red">{
+                      this.getTimeStep(moment(this.state.data.bet_stop_time).diff(this.state.datetime, 'seconds'))}</span></label>
                   </div>
                 </div>
               </Flex.Item>

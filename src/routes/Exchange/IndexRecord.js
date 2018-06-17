@@ -17,7 +17,7 @@ function IndexRecord({ dispatch }) {
         }}
         leftContent={
           [<Icon type="left" key="1" />,
-          <label key="2" style={{ color: "#000" }}>交易记录</label>]
+          <label key="2" style={{ color: "#000" }}>交易盘</label>]
         }
       />
       <ExchangeIndexRecord />

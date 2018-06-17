@@ -40,7 +40,7 @@ class Index extends PureComponent {
     });
   }
   componentWillReceiveProps = (nextProps) => {
-    this.setState({...nextProps});
+    this.setState({ ...nextProps });
   }
   render() {
     const listPlateProps = {
