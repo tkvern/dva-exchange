@@ -21,15 +21,15 @@ class ItemRecord extends Component {
       isLoading: true,
       useBodyScroll: false,
       current: 1,
-      has_more_page: true
+      has_more_page: true,
+      params: this.props.params
     }
     // console.log(this.props.data);
   }
   async componentWillMount() {
     // const hei = this.state.height - ReactDOM.findDOMNode(this.lv).offsetTop;
     const { list, has_more_page } = await this.genData({
-      per_page: 10,
-      is_participate: 1
+      ...this.state.params,
     });
     this.rData = list;
     this.setState({
@@ -61,7 +61,7 @@ class ItemRecord extends Component {
     this.setState({ isLoading: true });
     const { list, current, has_more_page } = await this.genData({
       page: this.state.current + 1,
-      per_page: 10
+      ...this.state.params,
     });
 
     this.rData = [...this.rData, ...list];
@@ -72,6 +72,19 @@ class ItemRecord extends Component {
       has_more_page: has_more_page
     });
   };
+
+  // onRefresh = () => {
+  //   this.setState({ refreshing: true, isLoading: true });
+  //   // simulate initial Ajax
+  //   setTimeout(() => {
+  //     this.rData = genData();
+  //     this.setState({
+  //       dataSource: this.state.dataSource.cloneWithRows(this.rData),
+  //       refreshing: false,
+  //       isLoading: false,
+  //     });
+  //   }, 1000);
+  // };
 
   async genData(params) {
     const { data } = await request(`${config.host}/api/bets?${qs.stringify(params)}`);

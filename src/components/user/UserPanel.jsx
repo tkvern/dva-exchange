@@ -67,7 +67,7 @@ class UserPanel extends Component {
               // Toast.info("正在施工！", 1)
               this.props.dispatch(routerRedux.push('/app/exchange_record'))
             }}
-          >交易记录</Item>
+          >交易盘</Item>
           {/*<Item
             thumb={
               <i className="iconfont" style={{

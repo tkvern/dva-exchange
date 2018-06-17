@@ -13,9 +13,9 @@ class Show extends Component {
       current: this.props.current
     }
   }
-  componentWillMount = () => {
+  componentWillMount = async () => {
     const id = window.location.hash.split('/').pop();
-    this.props.dispatch({
+    await this.props.dispatch({
       type: 'exchange/show',
       payload: {
         id: id

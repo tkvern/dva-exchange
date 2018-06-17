@@ -17,21 +17,25 @@ class IndexRecord extends Component {
   componentWillUnmount() {
     document.body.style.overflow = '';
   }
-
-  // onRefresh = () => {
-  //   this.setState({ refreshing: true, isLoading: true });
-  //   // simulate initial Ajax
-  //   setTimeout(() => {
-  //     this.rData = genData();
-  //     this.setState({
-  //       dataSource: this.state.dataSource.cloneWithRows(this.rData),
-  //       refreshing: false,
-  //       isLoading: false,
-  //     });
-  //   }, 1000);
-  // };
-
   render() {
+    const participateProps = {
+      params: {
+        is_participate: 1,
+        per_page: 10
+      }
+    }
+    const processingProps = {
+      params: {
+        state: 1,
+        per_page: 10
+      }
+    }
+    const settledProps = {
+      params: {
+        state: 2,
+        per_page: 10
+      }
+    }
     return (
       <div className={style.content}>
         <Tabs tabs={[
@@ -45,55 +49,13 @@ class IndexRecord extends Component {
           useOnPan={false}
         >
           <div style={{ minHeight: '326px', backgroundColor: '#fff' }}>
-            <ItemRecord />
+            <ItemRecord {...participateProps} />
           </div>
           <div style={{ minHeight: '326px', backgroundColor: '#fff' }}>
-            {/*<ListView
-              ref={el => this.lv = el}
-              dataSource={this.state.dataSource}
-              renderFooter={() => (<div style={{ padding: 30, textAlign: 'center' }}>
-                {this.state.prIsLoading ? '加载中...' : '加载完成'}
-              </div>)}
-              renderRow={row => (rows(row))}
-              style={{
-                height: this.state.height,
-                overflow: 'auto',
-              }}
-              renderHeader={() => (
-                <div style={{ textAlign: 'center' }}>
-                  <span>已显示最新进行中数据</span>
-                </div>
-              )}
-              pageSize={10}
-              onScroll={() => { }}
-              scrollRenderAheadDistance={500}
-              onEndReached={this.onEndReached}
-              onEndReachedThreshold={10}
-            />*/}
+            <ItemRecord {...processingProps} />
           </div>
           <div style={{ minHeight: '326px', backgroundColor: '#fff' }}>
-            {/*<ListView
-              ref={el => this.lv = el}
-              dataSource={this.state.seIsLoading}
-              renderFooter={() => (<div style={{ padding: 30, textAlign: 'center' }}>
-                {this.state.isLoading ? '加载中...' : '加载完成'}
-              </div>)}
-              renderRow={row => (rows(row))}
-              style={{
-                height: this.state.height,
-                overflow: 'auto',
-              }}
-              renderHeader={() => (
-                <div style={{ textAlign: 'center' }}>
-                  <span>已显示最新已结算数据</span>
-                </div>
-              )}
-              pageSize={10}
-              onScroll={() => { }}
-              scrollRenderAheadDistance={500}
-              onEndReached={this.onEndReached}
-              onEndReachedThreshold={10}
-            />*/}
+            <ItemRecord {...settledProps} />
           </div>
         </Tabs>
       </div>
