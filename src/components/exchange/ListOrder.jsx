@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'dva';
 import { routerRedux } from 'dva/router';
-import { WingBlank, WhiteSpace, Flex, Card, Badge, Tabs } from 'antd-mobile';
+import { WingBlank, WhiteSpace, Badge, Tabs } from 'antd-mobile';
 import style from './ListOrder.less';
 import ItemOrder from './ItemOrder';
 

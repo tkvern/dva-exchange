@@ -20,6 +20,9 @@ class UserPanel extends Component {
       type: "auth/query"
     });
   }
+  componentWillReceiveProps = (nextProps) => {
+    this.setState({ ...nextProps });
+  }
 
   render() {
     return (

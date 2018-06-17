@@ -3,7 +3,7 @@ import { connect } from 'dva';
 import { routerRedux } from 'dva/router';
 import { Flex, Card, Badge } from 'antd-mobile';
 import moment from 'moment';
-import style from './ListOrder.less';
+import style from './ItemOrder.less';
 
 class ItemOrder extends Component {
   constructor(props) {
@@ -30,7 +30,7 @@ class ItemOrder extends Component {
   getStateHeader() {
     const { state } = this.state.data;
     if (state === 0) {
-      return '#f1f1f1';
+      return '#e7f9f4';
     } else if (state === 1) {
       return '#e7f9f4';
     } else if (state === 2) {

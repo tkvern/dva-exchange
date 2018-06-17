@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'dva';
-import { WhiteSpace, List, Steps, Badge } from 'antd-mobile';
+import { List, Badge } from 'antd-mobile';
 import { Table } from 'antd';
 import moment from 'moment';
 import style from './Show.less';
@@ -37,9 +37,9 @@ class Show extends Component {
       title: '委托',
       dataIndex: 'type',
       render: (text) => {
-        if (text) {
+        if (text === 0) {
           return <Badge text="买涨" style={{ marginTop: -2, padding: '0 3px', backgroundColor: '#3fc295', borderRadius: 2 }} />
-        } else {
+        } else if (text === 1) {
           return <Badge text="买跌" style={{ marginTop: -2, padding: '0 3px', backgroundColor: '#e14d4e', borderRadius: 2 }} />
         }
       }

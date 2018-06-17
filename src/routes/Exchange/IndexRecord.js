@@ -6,7 +6,23 @@ import SingleLayout from '../../components/layout/SingleLayout';
 import ExchangeIndexRecord from '../../components/exchange/IndexRecord';
 import style from './IndexRecord.less';
 
-function IndexRecord({ dispatch }) {
+function IndexRecord({ dispatch, exchange }) {
+  const {
+    recoredParticipateList,
+    recoredProcessingList,
+    recoredSettledList,
+    paIsLoading,
+    prIsLoading,
+    seIsLoading,
+  } = exchange;
+  const exchangeRecordPanelProps = {
+    recoredParticipateList: recoredParticipateList,
+    recoredProcessingList: recoredProcessingList,
+    recoredSettledList: recoredSettledList,
+    paIsLoading: paIsLoading,
+    prIsLoading: prIsLoading,
+    seIsLoading: seIsLoading,
+  }
   return (
     <SingleLayout>
       <NavBar
@@ -20,9 +36,11 @@ function IndexRecord({ dispatch }) {
           <label key="2" style={{ color: "#000" }}>交易记录</label>]
         }
       />
-      <ExchangeIndexRecord />
+      <ExchangeIndexRecord {...exchangeRecordPanelProps} />
     </SingleLayout>
   )
 }
-
-export default connect()(IndexRecord);
+function mapStateToProps({ exchange }) {
+  return { exchange };
+}
+export default connect(mapStateToProps)(IndexRecord);

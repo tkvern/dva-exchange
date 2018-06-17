@@ -17,7 +17,14 @@ export default {
     participateList: [],
     processingList: [],
     settledList: [],
-    current: {}
+    current: {},
+    recoredParticipateList: [],
+    recoredProcessingList: [],
+    recoredSettledList: [],
+    paIsLoading: false,
+    prIsLoading: false,
+    seIsLoading: false,
+
   },
   reducers: {
     querySuccess(state, action) {
@@ -27,6 +34,9 @@ export default {
       return { ...state, ...action.payload };
     },
     showSuccess(state, action) {
+      return { ...state, ...action.payload };
+    },
+    recoredSuccess(state, action) {
       return { ...state, ...action.payload };
     },
     updateCnyusd(state, action) {
@@ -71,6 +81,10 @@ export default {
         Toast.success("下注成功", 1.5);
         yield put({
           type: 'query',
+          payload: {
+            size: 100,
+            datetime: 'today',
+          }
         });
 
         const user = getLocalStorage('user');
