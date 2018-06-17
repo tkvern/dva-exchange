@@ -95,45 +95,45 @@ class ItemPlate extends Component {
   render() {
     const { getFieldProps, getFieldError } = this.props.form;
     return (
-      <form>
-        <div className={style.white}>
-          <WhiteSpace size="xl" />
-          <WingBlank>
-            <div className={`${style.formItem} ${style.antRow}`}>
-              <Flex style={{ alignItems: 'baseline' }}>
-                <Flex.Item style={{ flex: '3 1 0%' }}>
-                  <label style={{ fontSize: '16px', fontWeight: '500', color: 'rgba(0, 0, 0, 0.85)' }}>{this.state.data.title}</label>
-                </Flex.Item>
-                <Flex.Item
-                  style={{ textAlign: 'right' }}
-                  onClick={() => { this.props.dispatch(routerRedux.push(`/app/exchange/${this.state.data.id}`)) }}>
-                  <span style={{ color: 'rgb(51, 163, 244)' }} >详情</span>
-                </Flex.Item>
-              </Flex>
-            </div>
-            <Flex align="start">
-              <Flex.Item>
-                <div className={`${style.formItem} ${style.antRow}`}>
-                  <div className={style.itemLabel}>
-                    <label title="开始下注" style={{ color: '#888' }}>开始下注: </label>
-                    <label>{moment(this.state.data.bet_time).format('MM-DD hh:mm')}</label>
-                  </div>
-                  <div className={style.itemLabel}>
-                    <label title="结算条件" style={{ color: '#888' }}>结算条件: </label>
-                    <label>{this.state.data.settlement_condition_text}</label>
-                  </div>
-                  <div className={style.itemLabel}>
-                    <label title="买对收益" style={{ color: '#888' }}>买对收益: </label>
-                    <label>{this.state.data.win_income_rate * 100}%</label>
-                  </div>
-                  <div className={style.itemLabel}>
-                    <label title="停止下注" style={{ color: '#888' }}>停止下注: </label>
-                    <label><span className="red">{
-                      this.getTimeStep(moment(this.state.data.bet_stop_time).diff(this.state.datetime, 'seconds'))}</span></label>
-                  </div>
-                </div>
+      <div className={style.white}>
+        <WhiteSpace size="xl" />
+        <WingBlank>
+          <div className={`${style.formItem} ${style.antRow}`}>
+            <Flex style={{ alignItems: 'baseline' }}>
+              <Flex.Item style={{ flex: '3 1 0%' }}>
+                <label style={{ fontSize: '16px', fontWeight: '500', color: 'rgba(0, 0, 0, 0.85)' }}>{this.state.data.title}</label>
               </Flex.Item>
-              <Flex.Item>
+              <Flex.Item
+                style={{ textAlign: 'right' }}
+                onClick={() => { this.props.dispatch(routerRedux.push(`/app/exchange/${this.state.data.id}`)) }}>
+                <span style={{ color: 'rgb(51, 163, 244)' }} >详情</span>
+              </Flex.Item>
+            </Flex>
+          </div>
+          <Flex align="start">
+            <Flex.Item>
+              <div className={`${style.formItem} ${style.antRow}`}>
+                <div className={style.itemLabel}>
+                  <label title="开始下注" style={{ color: '#888' }}>开始下注: </label>
+                  <label>{moment(this.state.data.bet_time).format('MM-DD hh:mm')}</label>
+                </div>
+                <div className={style.itemLabel}>
+                  <label title="结算条件" style={{ color: '#888' }}>结算条件: </label>
+                  <label>{this.state.data.settlement_condition_text}</label>
+                </div>
+                <div className={style.itemLabel}>
+                  <label title="买对收益" style={{ color: '#888' }}>买对收益: </label>
+                  <label>{this.state.data.win_income_rate * 100}%</label>
+                </div>
+                <div className={style.itemLabel}>
+                  <label title="停止下注" style={{ color: '#888' }}>停止下注: </label>
+                  <label><span className="red">{
+                    this.getTimeStep(moment(this.state.data.bet_stop_time).diff(this.state.datetime, 'seconds'))}</span></label>
+                </div>
+              </div>
+            </Flex.Item>
+            <Flex.Item>
+              <form>
                 <div className={`${style.formItem} ${style.antRow}`}>
                   <div className={style.itemLabel}>
                     <label title="账户余额">账户余额: {Numeral(this.state.user.balance).format('0,0.00')} CNY</label>
@@ -180,11 +180,11 @@ class ItemPlate extends Component {
                     disabled={this.state.disabled}
                   >买跌</Button>
                 </div>
-              </Flex.Item>
-            </Flex>
-          </WingBlank>
-        </div>
-      </form>
+              </form>
+            </Flex.Item>
+          </Flex>
+        </WingBlank>
+      </div>
     );
   }
 }

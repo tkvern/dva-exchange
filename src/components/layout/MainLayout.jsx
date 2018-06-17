@@ -16,7 +16,7 @@ const MainLayout = ({ children, dispatch, menus }) => {
   return (
     <div
       style={{
-        position: 'fixed',
+        position: 'absolute',
         height: '100%',
         width: '100%',
         top: 0

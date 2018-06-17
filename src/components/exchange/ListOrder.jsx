@@ -68,58 +68,56 @@ class ListOrder extends Component {
     }
     return (
       <div className={style.content}>
-        <div className={style.white}>
-          <Tabs tabs={[
-            { title: <Badge text={''}>参与</Badge> },
-            { title: <Badge text={''}>进行中</Badge> },
-            { title: <Badge text={''}>已结算</Badge> },
-          ]}
-            initialPage={0}
-            onChange={(tab, index) => { console.log('onChange', index, tab); }}
-            onTabClick={(tab, index) => { console.log('onTabClick', index, tab); }}
-            useOnPan={false}
-          >
-            <div style={{ minHeight: '326px', backgroundColor: '#fff' }}>
+        <Tabs tabs={[
+          { title: <Badge text={''}>参与</Badge> },
+          { title: <Badge text={''}>进行中</Badge> },
+          { title: <Badge text={''}>已结算</Badge> },
+        ]}
+          initialPage={0}
+          onChange={(tab, index) => { console.log('onChange', index, tab); }}
+          onTabClick={(tab, index) => { console.log('onTabClick', index, tab); }}
+          useOnPan={false}
+        >
+          <div style={{ minHeight: '326px', backgroundColor: '#fff' }}>
+            <WhiteSpace size="xl" />
+            <WingBlank>
+              {ParticipateList}
               <WhiteSpace size="xl" />
-              <WingBlank>
-                {ParticipateList}
-                <WhiteSpace size="xl" />
-                <div style={{ textAlign: 'center' }}>
-                  <span
-                    onClick={() => this.props.dispatch(routerRedux.push('/app/exchange_record'))}
-                    style={{ color: 'rgb(51, 163, 244)' }}>查看历史</span>
-                </div>
-                <WhiteSpace size="xl" />
-              </WingBlank>
-            </div>
-            <div style={{ minHeight: '326px', backgroundColor: '#fff' }}>
+              <div style={{ textAlign: 'center' }}>
+                <span
+                  onClick={() => this.props.dispatch(routerRedux.push('/app/exchange_record'))}
+                  style={{ color: 'rgb(51, 163, 244)' }}>查看历史</span>
+              </div>
               <WhiteSpace size="xl" />
-              <WingBlank>
-                {ProcessingList}
-                <WhiteSpace size="xl" />
-                <div style={{ textAlign: 'center' }}>
-                  <span
-                    onClick={() => this.props.dispatch(routerRedux.push('/app/exchange_record'))}
-                    style={{ color: 'rgb(51, 163, 244)' }}>查看历史</span>
-                </div>
-                <WhiteSpace size="xl" />
-              </WingBlank>
-            </div>
-            <div style={{ minHeight: '326px', backgroundColor: '#fff' }}>
+            </WingBlank>
+          </div>
+          <div style={{ minHeight: '326px', backgroundColor: '#fff' }}>
+            <WhiteSpace size="xl" />
+            <WingBlank>
+              {ProcessingList}
               <WhiteSpace size="xl" />
-              <WingBlank>
-                {SettledList}
-                <WhiteSpace size="xl" />
-                <div style={{ textAlign: 'center' }}>
-                  <span
-                    onClick={() => this.props.dispatch(routerRedux.push('/app/exchange_record'))}
-                    style={{ color: 'rgb(51, 163, 244)' }}>查看历史</span>
-                </div>
-                <WhiteSpace size="xl" />
-              </WingBlank>
-            </div>
-          </Tabs>
-        </div>
+              <div style={{ textAlign: 'center' }}>
+                <span
+                  onClick={() => this.props.dispatch(routerRedux.push('/app/exchange_record'))}
+                  style={{ color: 'rgb(51, 163, 244)' }}>查看历史</span>
+              </div>
+              <WhiteSpace size="xl" />
+            </WingBlank>
+          </div>
+          <div style={{ minHeight: '326px', backgroundColor: '#fff' }}>
+            <WhiteSpace size="xl" />
+            <WingBlank>
+              {SettledList}
+              <WhiteSpace size="xl" />
+              <div style={{ textAlign: 'center' }}>
+                <span
+                  onClick={() => this.props.dispatch(routerRedux.push('/app/exchange_record'))}
+                  style={{ color: 'rgb(51, 163, 244)' }}>查看历史</span>
+              </div>
+              <WhiteSpace size="xl" />
+            </WingBlank>
+          </div>
+        </Tabs>
       </div>
     );
   }
