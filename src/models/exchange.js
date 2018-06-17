@@ -18,13 +18,6 @@ export default {
     processingList: [],
     settledList: [],
     current: {},
-    recoredParticipateList: [],
-    recoredProcessingList: [],
-    recoredSettledList: [],
-    paIsLoading: false,
-    prIsLoading: false,
-    seIsLoading: false,
-
   },
   reducers: {
     querySuccess(state, action) {
