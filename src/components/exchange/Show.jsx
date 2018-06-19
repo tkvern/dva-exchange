@@ -12,7 +12,7 @@ class Show extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      current: this.props.current
+      current: {}
     }
   }
   componentWillMount = async () => {
@@ -110,7 +110,7 @@ class Show extends Component {
             moment(this.state.current.bet_stop_time).format('YYYY-MM-DD HH:mm')
           }>停止下注</Item>
           <Item extra={this.state.current.settlement_condition_text}>结算波动</Item>
-          <Item multipleLine>描述<Brief>{this.state.current.describe}</Brief></Item>
+          <Item multipleLine>描述<Brief>&nbsp;{this.state.current.describe}</Brief></Item>
         </List>
         <List renderHeader={() => '结算信息'} className="my-list">
           <Item extra={

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'dva';
-import ReactDOM from 'react-dom';
-import { ListView, WingBlank, WhiteSpace, List } from 'antd-mobile';
+import { routerRedux } from 'dva/router';
+import { ListView, List } from 'antd-mobile';
 import qs from 'qs';
 import request from '../../utils/request';
 import { getRecordType } from '../../utils/helper';
@@ -86,7 +86,7 @@ class ItemBalance extends Component {
         <Item key={row.id} arrow="horizontal"
           multipleLine
           onClick={() => {
-            // this.props.dispatch(routerRedux.push(`/app/balance/1`))
+            this.props.dispatch(routerRedux.push(`/app/balance/${row.id}`))
           }}
           extra={
             <div className={`${style.extra} ${row.receipt_type === 1 ? 'green' : ''}`}>

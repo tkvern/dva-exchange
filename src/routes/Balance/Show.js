@@ -6,11 +6,15 @@ import SingleLayout from '../../components/layout/SingleLayout';
 import BalanceShow from '../../components/balance/Show';
 import style from './Show.less';
 
-function Show({ dispatch }) {
+function Show({ dispatch, balance }) {
   // const { user } = auth;
   // const settingPanelProps = {
   //   user: user
   // }
+  const { current } = balance;
+  const balanceShowProps = {
+    current: current
+  }
   return (
     <SingleLayout>
       <NavBar
@@ -24,13 +28,13 @@ function Show({ dispatch }) {
           <label key="2" style={{ color: "#000" }}>余额详情</label>]
         }
       />
-      <BalanceShow />
+      <BalanceShow {...balanceShowProps} />
     </SingleLayout>
   )
 }
 
-function mapStateToProps({ auth }) {
-  return { auth };
+function mapStateToProps({ balance }) {
+  return { balance };
 }
 
 export default connect(mapStateToProps)(Show);
