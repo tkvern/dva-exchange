@@ -6,6 +6,8 @@ import moment from 'moment';
 import style from './Show.less';
 
 const Item = List.Item;
+const Brief = Item.Brief;
+
 class Show extends Component {
   constructor(props) {
     super(props);
@@ -108,6 +110,7 @@ class Show extends Component {
             moment(this.state.current.bet_stop_time).format('YYYY-MM-DD HH:mm')
           }>停止下注</Item>
           <Item extra={this.state.current.settlement_condition_text}>结算波动</Item>
+          <Item multipleLine>描述<Brief>{this.state.current.describe}</Brief></Item>
         </List>
         <List renderHeader={() => '结算信息'} className="my-list">
           <Item extra={

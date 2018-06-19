@@ -1,5 +1,7 @@
 import React from 'react';
 import { connect } from 'dva';
+// import ReactIScroll from 'react-iscroll';
+// import iScroll from 'iscroll';
 import MainLayout from '../../components/layout/MainLayout';
 import ExchangeIndex from '../../components/exchange/Index';
 import style from './Index.less';

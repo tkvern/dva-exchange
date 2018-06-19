@@ -1,9 +1,9 @@
 import { connect } from 'dva';
-
+import style from './SingleLayout.less';
 const SingleLayout = ({ children, dispatch }) => {
 
   return (
-    <div>
+    <div className={style.touch}>
       {children}
     </div>
   )
