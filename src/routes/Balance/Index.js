@@ -17,7 +17,7 @@ function Index({ dispatch }) {
         }}
         leftContent={
           [<Icon type="left" key="1" />,
-          <label key="2" style={{ color: "#000" }}>余额明细</label>]
+          <label key="2" style={{ color: "#000" }}>余额</label>]
         }
       />
       <BalanceIndex />
