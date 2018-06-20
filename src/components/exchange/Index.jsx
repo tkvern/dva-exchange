@@ -10,12 +10,6 @@ class Index extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      price: 0,
-      odds: 20,
-      magnitude: '1',
-      expected: '0.00',
-      maxPrice: this.props.user.balance,
-      hasPriceError: false,
       ticker_price: this.props.ticker_price,
       ticker_percent: this.props.ticker_percent,
       ticker_change: this.props.ticker_change,

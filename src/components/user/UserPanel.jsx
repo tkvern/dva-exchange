@@ -68,6 +68,24 @@ class UserPanel extends Component {
               this.props.dispatch(routerRedux.push('/app/exchange_record'))
             }}
           >交易盘</Item>
+          <Item
+            thumb={
+              <i className="iconfont" style={{
+                color: '#3fc295'
+              }}>&#xe60e;</i>
+            }
+            arrow="horizontal"
+            onClick={() => { Toast.info("请联系客服代表", 2) }}
+          >充值</Item>
+          <Item
+            thumb={
+              <i className="iconfont" style={{
+                color: '#e14d4e'
+              }}>&#xe60f;</i>
+            }
+            arrow="horizontal"
+            onClick={() => { Toast.info("请联系客服代表", 2) }}
+          >提现</Item>
           {/*<Item
             thumb={
               <i className="iconfont" style={{
@@ -122,6 +140,9 @@ class UserPanel extends Component {
             onClick={() => { Toast.info("正在施工！", 1) }}
           >关于</Item>
         </List>
+        <WhiteSpace size="xl" />
+        <div style={{textAlign: 'center'}}><span className="gray">私人VIP客服微信: zshuang80826</span></div>
+        <WhiteSpace size="xl" />
       </div>);
   }
 }

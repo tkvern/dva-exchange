@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
 import { connect } from 'dva';
-import { routerRedux } from 'dva/router';
 // import { getScoresType } from '../../utils/helper';
-import { List, ListView, Tabs, Badge } from 'antd-mobile';
+import { Tabs, Badge } from 'antd-mobile';
 import ItemBalance from './ItemBalance';
 import style from './Index.less';
 
