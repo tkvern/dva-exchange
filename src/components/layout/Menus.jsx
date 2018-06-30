@@ -52,7 +52,7 @@ class Menus extends Component {
             this.handleSelectedTabSwitch('exchange');
           }}
         />
-        <TabBar.Item
+        {/*<TabBar.Item
           icon={
             <i className="iconfont">&#xe60c;</i>
           }
@@ -68,7 +68,7 @@ class Menus extends Component {
           onPress={() => {
             this.handleSelectedTabSwitch('leaderboard');
           }}
-        />
+        />*/}
         <TabBar.Item
           icon={
             <i className="iconfont">&#xe63f;</i>

@@ -104,6 +104,9 @@ class Show extends Component {
           <Item extra={this.state.current.exchange}>交易所</Item>
           <Item extra={this.state.current.rate_text}>手续费</Item>
           <Item extra={
+            moment(this.state.current.exchange_bet_time).format('YYYY-MM-DD HH:mm')
+          }>交易所下单</Item>
+          <Item extra={
             moment(this.state.current.bet_time).format('YYYY-MM-DD HH:mm')
           }>开始下注</Item>
           <Item extra={

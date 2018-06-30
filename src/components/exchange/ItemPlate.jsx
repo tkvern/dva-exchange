@@ -83,6 +83,9 @@ class ItemPlate extends Component {
       this.props.form.resetFields();
       return Toast.info('请输入正确的金额!');
     }
+    if (this.state.user.balance - price < 0) {
+      return Toast.info('不能大于余额!');
+    }
     this.props.dispatch({
       type: 'exchange/create',
       payload: {
@@ -113,6 +116,10 @@ class ItemPlate extends Component {
           <Flex align="start">
             <Flex.Item>
               <div className={`${style.formItem} ${style.antRow}`}>
+                <div className={style.itemLabel}>
+                  <label title="交易所下单" style={{ color: '#888' }}>交易所下单: </label>
+                  <label>{moment(this.state.data.exchange_bet_time).format('MM-DD hh:mm')}</label>
+                </div>
                 <div className={style.itemLabel}>
                   <label title="开始下注" style={{ color: '#888' }}>开始下注: </label>
                   <label>{moment(this.state.data.bet_time).format('MM-DD hh:mm')}</label>
@@ -146,9 +153,11 @@ class ItemPlate extends Component {
                       ],
                     })}
                     name="price"
-                    type="money"
+                    type="number"
                     placeholder="0"
+                    pattern="[0-9]*"
                     min={1}
+                    maxLength={5}
                     clear
                     error={!!getFieldError('price')}
                     onErrorClick={() => {
@@ -157,7 +166,7 @@ class ItemPlate extends Component {
                     extra="CNY"
                   />
                 </div>
-                <WhiteSpace size="md" />
+                <WhiteSpace size="lg" />
                 <div className={`${style.formItem} ${style.antRow}`} style={{ textAlign: 'center' }}>
                   <Button
                     className="am-green"
@@ -180,6 +189,7 @@ class ItemPlate extends Component {
                     disabled={this.state.disabled}
                   >买跌</Button>
                 </div>
+                <WhiteSpace size="md" />
               </form>
             </Flex.Item>
           </Flex>
