@@ -69,16 +69,16 @@ class ItemOrder extends Component {
             <Flex.Item>
               <div className={`${style.formItem} ${style.antRow} `} style={{ minHeight: '26px' }}>
                 <div className={style.itemLabel}>
-                  <label title="开始下注" style={{ color: '#888' }}>开始下注: </label>
-                  <label>{moment(this.state.data.bet_time).format('MM-DD HH:mm')}</label>
+                  <label title="交易所下单" style={{ color: '#888' }}>交易所下单: </label>
+                  <label>{moment(this.state.data.exchange_bet_time).format('MM-DD HH:mm')}</label>
                 </div>
               </div>
             </Flex.Item>
             <Flex.Item>
               <div className={`${style.formItem} ${style.antRow} `} style={{ minHeight: '26px' }}>
                 <div className={style.itemLabel}>
-                  <label title="停止下注" style={{ color: '#888' }}>停止下注: </label>
-                  <label>{moment(this.state.data.bet_end_time).format('MM-DD HH:mm')}</label>
+                  <label title="开始下注" style={{ color: '#888' }}>开始下注: </label>
+                  <label>{moment(this.state.data.bet_time).format('MM-DD HH:mm')}</label>
                 </div>
               </div>
             </Flex.Item>
@@ -88,45 +88,15 @@ class ItemOrder extends Component {
               <div className={`${style.formItem} ${style.antRow} `} style={{ minHeight: '26px' }}>
                 <div className={style.itemLabel}>
                   <label title="结算条件" style={{ color: '#888' }}>结算条件: </label>
-                  <label>币价 ±1%</label>
+                  <label>{this.state.data.settlement_condition_text}</label>
                 </div>
               </div>
             </Flex.Item>
             <Flex.Item>
               <div className={`${style.formItem} ${style.antRow} `} style={{ minHeight: '26px' }}>
                 <div className={style.itemLabel}>
-                  <label title="下单价格" style={{ color: '#888' }}>下单价格: </label>
-                  <label>{/*
-                    this.state.data.bet_price ?
-                      this.state.data.bet_price :
-                      '等待中...'
-                  */}</label>
-                </div>
-              </div>
-            </Flex.Item>
-          </Flex>
-          <Flex>
-            <Flex.Item>
-              <div className={`${style.formItem} ${style.antRow} `} style={{ minHeight: '26px' }}>
-                <div className={style.itemLabel}>
-                  <label title="结算时间" style={{ color: '#888' }}>结算时间: </label>
-                  <label>{
-                    this.state.data.settlement_time ?
-                      moment(this.state.data.settlement_time).format('MM-DD HH:mm') :
-                      '等待中...'
-                  }</label>
-                </div>
-              </div>
-            </Flex.Item>
-            <Flex.Item>
-              <div className={`${style.formItem} ${style.antRow} `} style={{ minHeight: '26px' }}>
-                <div className={style.itemLabel}>
-                  <label title="结算价格" style={{ color: '#888' }}>结算价格: </label>
-                  <label>{/*
-                    this.state.data.settlement_price ?
-                      this.state.data.settlement_price :
-                      '等待中...'
-                  */}</label>
+                  <label title="停止下注" style={{ color: '#888' }}>停止下注: </label>
+                  <label>{moment(this.state.data.bet_end_time).format('MM-DD HH:mm')}</label>
                 </div>
               </div>
             </Flex.Item>
