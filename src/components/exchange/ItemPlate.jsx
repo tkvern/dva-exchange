@@ -124,7 +124,7 @@ class ItemPlate extends Component {
                 </div>
                 <div className={style.itemLabel}>
                   <label title="开始下注" style={{ color: '#888' }}>开始下注: </label>
-                  <label>{moment(this.state.data.bet_time).format('MM-DD hh:mm')}</label>
+                  <label>{moment(this.state.data.bet_time).format('MM-DD HH:mm')}</label>
                 </div>
                 <div className={style.itemLabel}>
                   <label title="结算条件" style={{ color: '#888' }}>结算条件: </label>

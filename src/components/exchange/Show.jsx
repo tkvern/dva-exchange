@@ -99,6 +99,15 @@ class Show extends Component {
         } />
       );
     });
+    if (StepList.length <= 0) {
+      StepList.push(
+        <Steps.Step title="正在准备" key="1" description={
+          <div>
+            <span>系统处理中</span>
+          </div>
+        } />
+      );
+    }
     return (
       <div className={style.content} >
         <List renderHeader={() => '进度信息'} className="my-list">
