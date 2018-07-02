@@ -96,11 +96,11 @@ class ItemOrder extends Component {
               <div className={`${style.formItem} ${style.antRow} `} style={{ minHeight: '26px' }}>
                 <div className={style.itemLabel}>
                   <label title="下单价格" style={{ color: '#888' }}>下单价格: </label>
-                  <label>{
+                  <label>{/*
                     this.state.data.bet_price ?
                       this.state.data.bet_price :
                       '等待中...'
-                  }</label>
+                  */}</label>
                 </div>
               </div>
             </Flex.Item>
@@ -122,11 +122,11 @@ class ItemOrder extends Component {
               <div className={`${style.formItem} ${style.antRow} `} style={{ minHeight: '26px' }}>
                 <div className={style.itemLabel}>
                   <label title="结算价格" style={{ color: '#888' }}>结算价格: </label>
-                  <label>{
+                  <label>{/*
                     this.state.data.settlement_price ?
                       this.state.data.settlement_price :
                       '等待中...'
-                  }</label>
+                  */}</label>
                 </div>
               </div>
             </Flex.Item>

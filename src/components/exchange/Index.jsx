@@ -29,7 +29,7 @@ class Index extends PureComponent {
       type: 'exchange/query',
       payload: {
         size: 100,
-        datetime: 'now',
+        datetime: 'today',
       }
     });
   }
