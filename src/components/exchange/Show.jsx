@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'dva';
-import { List, Badge } from 'antd-mobile';
+import { List, Badge, WhiteSpace, Steps } from 'antd-mobile';
 import { Table } from 'antd';
 import moment from 'moment';
 import style from './Show.less';
@@ -12,7 +12,11 @@ class Show extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      current: {}
+      current: {
+        progress_state: {
+          list: []
+        }
+      }
     }
   }
   componentWillMount = async () => {
@@ -26,7 +30,6 @@ class Show extends Component {
   }
   componentWillReceiveProps = (nextProps) => {
     this.setState({ ...nextProps });
-    console.log(nextProps);
   }
 
   formatDataTime(datatime) {
@@ -78,39 +81,34 @@ class Show extends Component {
     data.forEach((item) => {
       item['key'] = item.id
     });
+    let StepList = [];
+    const stepData = this.state.current.progress_state.list || [];
+    stepData.forEach((item, index) => {
+      let SubList = [];
+      let subData = item.sub || [];
+      subData.forEach((item, index) => {
+        SubList.push(
+          <span key={index}>{this.formatDataTime(item.datatime)} {item.content}<br /></span>
+        );
+      });
+      StepList.push(
+        <Steps.Step title={item.title} key={index} description={
+          <div>
+            {SubList}
+          </div>
+        } />
+      );
+    });
     return (
       <div className={style.content} >
-        {/*<List renderHeader={() => '进度信息'} className="my-list">
+        <List renderHeader={() => '进度信息'} className="my-list">
           <Item>
             <WhiteSpace size="xl" />
-            <Steps size="small" current={2}>
-              <Steps.Step title="开始" description={
-                <div>
-                  <span>05-15 12:30 开放下单</span><br />
-                  <span>05-15 12:31 创建订单</span><br />
-                  <span>05-15 13:30 停止下单</span>
-                </div>
-              } />
-              <Steps.Step title="配资" description={
-                <div>
-                  <span>05-15 14:30 配资中</span><br />
-                  <span>05-15 14:31 完成配资</span>
-                </div>
-              } />
-              <Steps.Step title="交易所下单" description={
-                <div>
-                  <span>05-15 15:30 提交订单</span><br />
-                  <span>05-15 16:30 订单提交完成</span><br />
-                </div>
-              } />
-              <Steps.Step title="结算" description={
-                <div>
-                  <span>05-15 18:30 完成结算</span>
-                </div>
-              } />
+            <Steps size="small" current={stepData.length - 1}>
+              {StepList}
             </Steps>
           </Item>
-            </List>*/}
+        </List>
         <List renderHeader={() => '盘口信息'} className="my-list">
           <Item extra={this.state.current.title}>交易名称</Item>
           <Item extra={this.state.current.margin_ratio}>杠杆倍数</Item>

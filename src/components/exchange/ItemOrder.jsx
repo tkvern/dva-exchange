@@ -70,7 +70,10 @@ class ItemOrder extends Component {
               <div className={`${style.formItem} ${style.antRow} `} style={{ minHeight: '26px' }}>
                 <div className={style.itemLabel}>
                   <label title="交易所下单" style={{ color: '#888' }}>交易所下单: </label>
-                  <label>{moment(this.state.data.exchange_bet_time).format('MM-DD HH:mm')}</label>
+                  <label>
+                    {this.state.data.exchange_bet_time ?
+                      moment(this.state.data.exchange_bet_time.exp).format('MM-DD HH:mm') : ''}
+                  </label>
                 </div>
               </div>
             </Flex.Item>
