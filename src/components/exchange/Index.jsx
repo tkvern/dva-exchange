@@ -3,7 +3,7 @@ import { connect } from 'dva';
 import { WhiteSpace } from 'antd-mobile';
 import ListPlate from './ListPlate';
 import ListOrder from './ListOrder';
-import TickerPanel from './TickerPanel';
+// import TickerPanel from './TickerPanel';
 // import style from './Index.less';
 
 class Index extends PureComponent {
@@ -48,8 +48,13 @@ class Index extends PureComponent {
     }
     return (
       <div>
-        <TickerPanel {...this.state} />
-        <WhiteSpace size="md" />
+        {/*<TickerPanel {...this.state} />*/}
+        <iframe
+          src="/tradingView.html"
+          frameBorder="0"
+          title="tradingView"
+          style={{ width: '100%', height: 253, overflow: 'hidden' }}
+        />
         <ListPlate {...listPlateProps} />
         <WhiteSpace size="md" />
         <ListOrder {...listOrderProps} />
