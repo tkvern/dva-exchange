@@ -108,6 +108,49 @@ class ItemOrder extends Component {
             <Flex.Item>
               <div className={`${style.formItem} ${style.antRow} `} style={{ minHeight: '26px' }}>
                 <div className={style.itemLabel}>
+                  <label title="买涨成交" style={{ color: '#888' }}>买涨成交: </label>
+                  <label>{this.state.data.bet_price ? this.state.data.bet_price.long : ''}
+                  </label>
+                </div>
+              </div>
+            </Flex.Item>
+            <Flex.Item>
+              <div className={`${style.formItem} ${style.antRow} `} style={{ minHeight: '26px' }}>
+                <div className={style.itemLabel}>
+                  <label title="买跌成交" style={{ color: '#888' }}>买跌成交: </label>
+                  <label>
+                    {this.state.data.bet_price ? this.state.data.bet_price.short : ''}
+                  </label>
+                </div>
+              </div>
+            </Flex.Item>
+          </Flex>
+          <Flex>
+            <Flex.Item>
+              <div className={`${style.formItem} ${style.antRow} `} style={{ minHeight: '26px' }}>
+                <div className={style.itemLabel}>
+                  <label title="买涨结算" style={{ color: '#888' }}>买涨结算: </label>
+                  <label>
+                    {this.state.data.settlement_price ? this.state.data.settlement_price.long : ''}
+                  </label>
+                </div>
+              </div>
+            </Flex.Item>
+            <Flex.Item>
+              <div className={`${style.formItem} ${style.antRow} `} style={{ minHeight: '26px' }}>
+                <div className={style.itemLabel}>
+                  <label title="买跌结算" style={{ color: '#888' }}>买跌结算: </label>
+                  <label>
+                    {this.state.data.settlement_price ? this.state.data.settlement_price.short : ''}
+                  </label>
+                </div>
+              </div>
+            </Flex.Item>
+          </Flex>
+          <Flex>
+            <Flex.Item>
+              <div className={`${style.formItem} ${style.antRow} `} style={{ minHeight: '26px' }}>
+                <div className={style.itemLabel}>
                   <label title="我的委托" style={{ color: '#888' }}>我的委托: </label><br />
                   <label>
                     {ordersList}
