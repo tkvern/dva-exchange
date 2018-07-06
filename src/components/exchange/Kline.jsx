@@ -83,7 +83,7 @@ class Kline extends Component {
         tickCount: 5
       },
       time: {
-        tickCount: 2
+        tickCount: 5
       }
     });
     this.chart.legend({

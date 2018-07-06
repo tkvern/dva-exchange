@@ -38,7 +38,7 @@ class Index extends PureComponent {
     this.props.dispatch({
       type: 'exchange/klines',
       payload: {
-        per_page: 30,
+        per_page: 45,
         name: 'btc'
       }
     });
@@ -92,7 +92,7 @@ class Index extends PureComponent {
               this.props.dispatch({
                 type: 'exchange/klines',
                 payload: {
-                  per_page: 30,
+                  per_page: 45,
                   name: 'btc'
                 }
               });
