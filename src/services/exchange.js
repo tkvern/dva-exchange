@@ -29,6 +29,11 @@ export async function create(params) {
     body: JSON.stringify(params),
   })
 }
+
+export async function klines(params) {
+  return request(`${config.host}/api/klines?${qs.stringify(params)}`);
+}
+
 // export async function create(params) {
 //   return request(`/api/orders/create`, {
 //     method: 'POST',

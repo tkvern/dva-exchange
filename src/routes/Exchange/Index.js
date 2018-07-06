@@ -17,6 +17,7 @@ function Index({ auth, exchange }) {
     participateList,
     processingList,
     settledList,
+    klines,
   } = exchange;
   const exchangePanelProps = {
     user: user,
@@ -30,6 +31,7 @@ function Index({ auth, exchange }) {
     participateList: participateList,
     processingList: processingList,
     settledList: settledList,
+    klines: klines,
   }
   return (
     <MainLayout>

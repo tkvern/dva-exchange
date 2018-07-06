@@ -1,5 +1,5 @@
 import { parse } from 'qs';
-import { query, create, show, rate, currentOrders } from '../services/exchange';
+import { query, create, show, rate, currentOrders, klines } from '../services/exchange';
 import { setLocalStorage, getLocalStorage } from '../utils/helper';
 import { Toast } from 'antd-mobile';
 import moment from 'moment';
@@ -18,6 +18,7 @@ export default {
     processingList: [],
     settledList: [],
     current: {},
+    klines: []
   },
   reducers: {
     querySuccess(state, action) {
@@ -65,6 +66,17 @@ export default {
             processingList: processingList,
             settledList: settledList,
           },
+        });
+      }
+    },
+    * klines({payload}, {call, put}) {
+      const {data} = yield call(klines, parse(payload));
+      if (data && data.err_code === 0) {
+        yield put({
+          type: 'querySuccess',
+          payload: {
+            klines: data.list
+          }
         });
       }
     },
