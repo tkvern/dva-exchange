@@ -2,20 +2,40 @@ import React, { Component } from 'react';
 import { connect } from 'dva';
 import F2 from '@antv/f2';
 import moment from 'moment';
-import { getCookie } from '../../utils/helper';
-import config from '../../config';
 import style from './Index.less';
 
 class Kline extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      klines: this.props.klines
+      klines: this.props.klines,
+      close: '0000.00'
     }
     // console.log(this.props.data);
   }
   componentWillReceiveProps = (nextProps) => {
-    this.setState({ ...nextProps });
+    this.setState({
+      ...nextProps,
+      close: nextProps.klines[0].close
+    });
+
+    this.chart.legend({
+      custom: true,
+      itemWidth: null,
+      items: [{
+        name: 'BTC/USDT',
+        marker: '',
+        fill: '#999'
+      }, {
+        name: '火币网近半小时报价',
+        marker: '',
+        fill: '#999'
+      }, {
+        name: nextProps.klines[0].close,
+        marker: '',
+        fill: '#40a9ff'
+      }]
+    });
     let data = this.dataSourceFilter(nextProps.klines);
     this.chart.changeData(data);
   }
@@ -77,6 +97,10 @@ class Kline extends Component {
         name: '火币网近半小时报价',
         marker: '',
         fill: '#999'
+      }, {
+        name: this.state.close,
+        marker: '',
+        fill: '#40a9ff'
       }]
     });
     this.chart.tooltip(false);
