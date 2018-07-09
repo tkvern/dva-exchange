@@ -71,6 +71,18 @@ class UserPanel extends Component {
           <Item
             thumb={
               <i className="iconfont" style={{
+                color: '#7cc055'
+              }}>&#xe620;</i>
+            }
+            arrow="horizontal"
+            onClick={() => {
+              // Toast.info("正在施工！", 1)
+              this.props.dispatch(routerRedux.push('/app/order_record'))
+            }}
+          >委托</Item>
+          <Item
+            thumb={
+              <i className="iconfont" style={{
                 color: '#3fc295'
               }}>&#xe60e;</i>
             }

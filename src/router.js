@@ -9,6 +9,8 @@ import ExchangeIndexRecord from './routes/Exchange/IndexRecord';
 import BalanceIndex from './routes/Balance/Index';
 import BalanceShow from './routes/Balance/Show';
 
+import OrderIndex from './routes/Order/Index';
+
 import MessageSubscriptionIndex from './routes/MessageSubscription/Index';
 import MessageSubscriptionCreate from './routes/MessageSubscription/Create';
 import MessageSubscriptionEdit from './routes/MessageSubscription/Edit';
@@ -36,6 +38,8 @@ function RouterConfig({ history }) {
         <Route path="/app/message_subscription" exact component={MessageSubscriptionIndex} />
         <Route path="/app/message_subscription/create" exact component={MessageSubscriptionCreate} />
         <Route path="/app/message_subscription/:id/edit" exact component={MessageSubscriptionEdit} />
+
+        <Route path="/app/order_record" exact component={OrderIndex} />
 
         <Route path="/app/kline" exact component={Kline} />
         <Route path="/app/leaderboard" exact component={LeaderBoard} />

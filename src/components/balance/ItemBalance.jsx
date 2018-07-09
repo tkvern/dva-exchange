@@ -109,11 +109,6 @@ class ItemBalance extends Component {
           height: this.state.height,
           overflow: 'auto',
         }}
-        renderHeader={() => (
-          <div style={{ textAlign: 'center' }}>
-            <span>已显示最新数据</span>
-          </div>
-        )}
         pageSize={15}
         onScroll={() => { }}
         scrollRenderAheadDistance={500}

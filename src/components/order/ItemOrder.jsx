@@ -1,14 +1,15 @@
 import React, { Component } from 'react';
 import { connect } from 'dva';
-// import ReactDOM from 'react-dom';
-import { ListView, WingBlank, WhiteSpace } from 'antd-mobile';
-import ItemOrder from './ItemOrder';
+// import { routerRedux } from 'dva/router';
+import { ListView, Badge } from 'antd-mobile';
 import qs from 'qs';
 import request from '../../utils/request';
+import moment from 'moment';
+// import { getRecordType } from '../../utils/helper';
 import config from '../../config';
-// import style from './ItemOrder.less';
+import style from './ItemOrder.less';
 
-class ItemRecord extends Component {
+class ItemOrder extends Component {
   constructor(props) {
     super(props);
     const dataSource = new ListView.DataSource({
@@ -73,30 +74,38 @@ class ItemRecord extends Component {
     });
   };
 
-  // onRefresh = () => {
-  //   this.setState({ refreshing: true, isLoading: true });
-  //   // simulate initial Ajax
-  //   setTimeout(() => {
-  //     this.rData = genData();
-  //     this.setState({
-  //       dataSource: this.state.dataSource.cloneWithRows(this.rData),
-  //       refreshing: false,
-  //       isLoading: false,
-  //     });
-  //   }, 1000);
-  // };
-
   async genData(params) {
-    const { data } = await request(`${config.host}/api/bets?${qs.stringify(params)}`);
+    const { data } = await request(`${config.host}/api/bet_orders?${qs.stringify(params)}`);
     return data;
   }
   render() {
     const rows = (row) => {
+      let typeCell = <span></span>;
+      let profitCell = <span></span>;
+      if (row.type === 0) {
+        typeCell = <Badge text="买涨" style={{ marginTop: -2, padding: '0 3px', backgroundColor: '#3fc295', borderRadius: 2 }} />
+      } else if (row.type === 1) {
+        typeCell = <Badge text="买跌" style={{ marginTop: -2, padding: '0 3px', backgroundColor: '#e14d4e', borderRadius: 2 }} />
+      }
+
+      if (parseInt(row.profit, 10) > 0) {
+        profitCell = <span className="green">{row.profit}</span>
+      } else if (parseInt(row.profit, 10) < 0) {
+        profitCell = <span className="red">{row.profit}</span>
+      } else if (parseInt(row.profit, 10) === 0) {
+        profitCell = <span className="gray">{row.profit}</span>
+      }
       return (
-        <WingBlank>
-          <WhiteSpace size="md" />
-          <ItemOrder key={row.id} data={row} />
-        </WingBlank>
+        <div className={style.CusTable}>
+          <div className={style.CusCell} style={{ textAlign: 'center' }}>
+            {typeCell}
+          </div>
+          <div className={style.CusCell} style={{ textAlign: 'center' }}>{moment(row.created_at).format('MM-DD HH:mm:ss')}</div>
+          <div className={style.CusCell} style={{ textAlign: 'right' }}>{row.amount}</div>
+          <div className={style.CusCell} style={{ textAlign: 'right' }}>
+            {profitCell}
+          </div>
+        </div>
       );
     }
     return (
@@ -111,7 +120,7 @@ class ItemRecord extends Component {
           height: this.state.height,
           overflow: 'auto',
         }}
-        pageSize={10}
+        pageSize={15}
         onScroll={() => { }}
         scrollRenderAheadDistance={500}
         onEndReached={this.onEndReached}
@@ -121,4 +130,4 @@ class ItemRecord extends Component {
   }
 }
 
-export default connect()(ItemRecord);
+export default connect()(ItemOrder);

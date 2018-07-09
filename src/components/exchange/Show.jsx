@@ -70,10 +70,12 @@ class Show extends Component {
       dataIndex: 'profit',
       align: 'right',
       render: (text) => {
-        if (text > 0) {
+        if (parseInt(text, 10) > 0) {
           return <span className="green">{text}</span>
-        } else {
+        } else if (parseInt(text, 10) < 0) {
           return <span className="red">{text}</span>
+        } else if (parseInt(text, 10) === 0) {
+          return <span className="gray">{text}</span>
         }
       }
     }];
