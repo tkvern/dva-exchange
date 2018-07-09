@@ -9,33 +9,64 @@ class Kline extends Component {
     super(props);
     this.state = {
       klines: this.props.klines,
-      close: '0000.00'
+      close: '0000.00',
+      datetime: this.props.datetime,
+      total: 45,
     }
-    // console.log(this.props.data);
+  }
+  componentWillMount() {
+    this.props.dispatch({
+      type: 'exchange/klines',
+      payload: {
+        per_page: 45,
+        name: 'btc'
+      }
+    });
   }
   componentWillReceiveProps = (nextProps) => {
+    let total = this.state.total;
     this.setState({
       ...nextProps,
-      close: nextProps.klines[0].close
     });
-
-    this.chart.legend({
-      custom: true,
-      itemWidth: null,
-      items: [{
-        name: 'BTC/USDT',
-        marker: '',
-        fill: '#999'
-      }, {
-        name: '火币网近半小时报价',
-        marker: '',
-        fill: '#999'
-      }, {
-        name: nextProps.klines[0].close,
-        marker: '',
-        fill: '#40a9ff'
-      }]
-    });
+    if (total > 0) {
+      this.setState({
+        total: total - 1
+      });
+    } else {
+      this.props.dispatch({
+        type: 'exchange/klines',
+        payload: {
+          per_page: 45,
+          name: 'btc'
+        }
+      });
+      this.setState({
+        total: 45
+      });
+    }
+    if (nextProps.klines.length > 0) {
+      this.setState({
+        close:
+          nextProps.klines[0].close,
+      });
+      this.chart.legend({
+        custom: true,
+        itemWidth: null,
+        items: [{
+          name: 'BTC/USDT',
+          marker: '',
+          fill: '#999'
+        }, {
+          name: '火币网近半小时报价',
+          marker: '',
+          fill: '#999'
+        }, {
+          name: nextProps.klines[0].close,
+          marker: '',
+          fill: '#40a9ff'
+        }]
+      });
+    }
     let data = this.dataSourceFilter(nextProps.klines);
     this.chart.changeData(data);
   }

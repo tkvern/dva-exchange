@@ -11,26 +11,42 @@ class ListPlate extends Component {
     this.state = {
       canbetList: this.props.canbetList,
       user: this.props.user,
-      datetime: 0
+      datetime: this.props.datetime
     }
   }
   componentWillMount() {
-    this.autoTime();
+    // this.autoTime();
   }
   componentWillReceiveProps = (nextProps) => {
     this.setState({ ...nextProps });
+    if (nextProps.canbetList.length > 0) {
+      const total = moment(nextProps.canbetList[0].bet_stop_time).diff(this.state.datetime, 'seconds');
+      if (total <= 0) {
+        this.timer = setTimeout(() => {
+          this.props.dispatch({
+            type: 'exchange/query',
+            payload: {
+              per_page: 10,
+              datetime: 'now',
+              state: 0,
+              order_mode: 'asc'
+            }
+          }, 5000);
+        });
+      }
+    }
   }
   componentWillUnmount() {
     this.timer && clearTimeout(this.timer);
   }
-  autoTime() {
-    this.timer = setTimeout(() => {
-      this.setState({
-        datetime: moment()
-      });
-      this.autoTime();
-    }, 1000);
-  }
+  // autoTime() {
+  // this.timer = setTimeout(() => {
+  //   this.setState({
+  //     datetime: moment()
+  //   });
+  //   this.autoTime();
+  // }, 1000);
+  // }
   render() {
     const ListData = this.state.canbetList;
     const ListItem = [];

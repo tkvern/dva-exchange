@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react';
 import { connect } from 'dva';
 import { WhiteSpace, Toast } from 'antd-mobile';
 import { Button } from 'antd';
+import moment from 'moment';
 import ListPlate from './ListPlate';
 import ListOrder from './ListOrder';
 // import TickerPanel from './TickerPanel';
@@ -25,6 +26,7 @@ class Index extends PureComponent {
       settledList: this.props.settledList,
       klines: this.props.klines,
       loading: false,
+      datetime: 0
     }
   }
   componentWillMount = () => {
@@ -45,23 +47,31 @@ class Index extends PureComponent {
         is_participate: 1
       }
     });
-    this.props.dispatch({
-      type: 'exchange/klines',
-      payload: {
-        per_page: 45,
-        name: 'btc'
-      }
-    });
+    this.autoTime();
   }
   componentWillReceiveProps = (nextProps) => {
     this.setState({ ...nextProps });
   }
+
+  componentWillUnmount() {
+    this.timer && clearTimeout(this.timer);
+  }
+  autoTime() {
+    this.timer = setTimeout(() => {
+      this.setState({
+        datetime: moment()
+      });
+      this.autoTime();
+    }, 1000);
+  }
+
   componentDidMount() {
   }
   render() {
     const listPlateProps = {
       user: this.state.user,
       canbetList: this.state.canbetList,
+      datetime: this.state.datetime
     }
     const listOrderProps = {
       participateList: this.state.participateList,
@@ -69,7 +79,8 @@ class Index extends PureComponent {
       settledList: this.state.settledList,
     }
     const klineProps = {
-      klines: this.state.klines
+      klines: this.state.klines,
+      datetime: this.state.datetime
     }
     return (
       <div>
@@ -119,13 +130,13 @@ class Index extends PureComponent {
                   is_participate: 1
                 }
               });
-              this.props.dispatch({
-                type: 'exchange/klines',
-                payload: {
-                  per_page: 45,
-                  name: 'btc'
-                }
-              });
+              // this.props.dispatch({
+              //   type: 'exchange/klines',
+              //   payload: {
+              //     per_page: 45,
+              //     name: 'btc'
+              //   }
+              // });
               Toast.loading('数据更新中...', 1, () => {
                 this.setState({
                   loading: false

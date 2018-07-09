@@ -4,7 +4,6 @@ import { WingBlank, WhiteSpace, Badge, Tabs } from 'antd-mobile';
 import style from './ListOrder.less';
 import ItemOrder from './ItemOrder';
 import { routerRedux } from 'dva/router';
-import ItemRecord from './ItemRecord';
 
 class ListOrder extends Component {
   constructor(props) {
