@@ -21,19 +21,19 @@ class IndexRecord extends Component {
     const participateProps = {
       params: {
         is_participate: 1,
-        per_page: 10
+        per_page: 10,
       }
     }
     const processingProps = {
       params: {
         state: 1,
-        per_page: 10
+        per_page: 10,
       }
     }
     const settledProps = {
       params: {
         state: 2,
-        per_page: 10
+        per_page: 10,
       }
     }
     return (

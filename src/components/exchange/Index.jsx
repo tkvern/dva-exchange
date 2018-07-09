@@ -34,6 +34,7 @@ class Index extends PureComponent {
         per_page: 10,
         datetime: 'now',
         state: 0,
+        order_mode: 'asc'
       }
     });
     this.props.dispatch({
@@ -99,6 +100,7 @@ class Index extends PureComponent {
                   per_page: 10,
                   datetime: 'now',
                   state: 0,
+                  order_mode: 'asc'
                 }
               });
               this.props.dispatch({

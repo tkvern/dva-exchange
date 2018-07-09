@@ -77,7 +77,8 @@ export default {
           payload: {
             per_page: 10,
             datetime: 'now',
-            state: 0
+            state: 0,
+            order_mode: 'asc'
           }
         });
 
