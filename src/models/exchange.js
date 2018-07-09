@@ -49,22 +49,10 @@ export default {
             moment(item.bet_time).diff(moment(), 'seconds') < 0 &&
             item.state === 0;
         });
-        const participateList = data.list.filter((item) => {
-          return item.bet_orders.length > 0;
-        });
-        const processingList = data.list.filter((item) => {
-          return item.state === 1;
-        });
-        const settledList = data.list.filter((item) => {
-          return item.state === 2;
-        });
         yield put({
           type: 'querySuccess',
           payload: {
             canbetList: canbetList,
-            participateList: participateList,
-            processingList: processingList,
-            settledList: settledList,
           },
         });
       }
@@ -87,8 +75,9 @@ export default {
         yield put({
           type: 'query',
           payload: {
-            per_page: 900,
-            datetime: 'today',
+            per_page: 10,
+            datetime: 'now',
+            state: 0
           }
         });
 

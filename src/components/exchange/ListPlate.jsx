@@ -35,15 +35,16 @@ class ListPlate extends Component {
     const ListData = this.state.canbetList;
     const ListItem = [];
     ListData.forEach((item, index) => {
+      ListItem.push(<WhiteSpace key={-index} size="md" />);
       ListItem.push(
         <ItemPlate
           key={item.id}
           data={item}
           user={this.state.user}
           datatime={this.state.datetime} />);
-      ListItem.push(<WhiteSpace key={-index} size="md" />);
     });
     if (ListItem.length <= 0) {
+      ListItem.push(<WhiteSpace key="0" size="md" />);
       ListItem.push(
         <div key="1" className={style.white}>
           <WhiteSpace size="xl" />

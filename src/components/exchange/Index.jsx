@@ -11,7 +11,7 @@ class Index extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      ticker_price: this.props.ticker_price,
+      ticker_price: this.props.ticker_price ,
       ticker_percent: this.props.ticker_percent,
       ticker_change: this.props.ticker_change,
       ticker_direction: this.props.ticker_direction,
@@ -31,8 +31,9 @@ class Index extends PureComponent {
     this.props.dispatch({
       type: 'exchange/query',
       payload: {
-        per_page: 900,
-        datetime: 'today',
+        per_page: 10,
+        datetime: 'now',
+        state: 0,
       }
     });
     this.props.dispatch({
@@ -95,8 +96,9 @@ class Index extends PureComponent {
               this.props.dispatch({
                 type: 'exchange/query',
                 payload: {
-                  per_page: 900,
-                  datetime: 'today',
+                  per_page: 10,
+                  datetime: 'now',
+                  state: 0,
                 }
               });
               this.props.dispatch({
@@ -114,7 +116,6 @@ class Index extends PureComponent {
             }} />
         </div>
         <Kline  {...klineProps} />
-        <WhiteSpace size="md" />
         {/*<iframe
           src="/tradingView.html"
           frameBorder="0"
@@ -122,6 +123,7 @@ class Index extends PureComponent {
           style={{ width: '100%', height: 253, overflow: 'hidden' }}
         />*/}
         <ListPlate {...listPlateProps} />
+        <WhiteSpace size="md" />
         <ListOrder {...listOrderProps} />
       </div>
     );

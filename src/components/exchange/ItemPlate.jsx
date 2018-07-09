@@ -13,7 +13,8 @@ class ItemPlate extends Component {
     this.state = {
       data: this.props.data,
       user: this.props.user,
-      datetime: this.props.datetime
+      datetime: this.props.datetime,
+      disabled: false,
     }
   }
 
@@ -26,7 +27,14 @@ class ItemPlate extends Component {
     // this.timer && clearTimeout(this.timer);
   }
   componentWillReceiveProps = (nextProps) => {
-    this.setState({ ...nextProps });
+    const total = moment(this.state.data.bet_stop_time).diff(this.state.datetime, 'seconds');
+    if (total > 0) {
+      this.setState({ ...nextProps });
+    } else {
+      this.setState({
+        disabled: true
+      });
+    }
   }
   // autoTime = (time) => {
   //   let mtime = moment(time).diff(moment(), 'seconds');
@@ -119,8 +127,8 @@ class ItemPlate extends Component {
                 <div className={style.itemLabel}>
                   <label title="交易所下单" style={{ color: '#888' }}>交易所下单: </label>
                   <label>
-                  {this.state.data.exchange_bet_time ?
-                    moment(this.state.data.exchange_bet_time.exp).format('MM-DD HH:mm') : ''}</label>
+                    {this.state.data.exchange_bet_time ?
+                      moment(this.state.data.exchange_bet_time.exp).format('MM-DD HH:mm') : ''}</label>
                 </div>
                 <div className={style.itemLabel}>
                   <label title="开始下注" style={{ color: '#888' }}>开始下注: </label>
