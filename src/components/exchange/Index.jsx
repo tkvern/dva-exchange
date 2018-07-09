@@ -11,7 +11,7 @@ class Index extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      ticker_price: this.props.ticker_price ,
+      ticker_price: this.props.ticker_price,
       ticker_percent: this.props.ticker_percent,
       ticker_change: this.props.ticker_change,
       ticker_direction: this.props.ticker_direction,
@@ -35,6 +35,14 @@ class Index extends PureComponent {
         datetime: 'now',
         state: 0,
         order_mode: 'asc'
+      }
+    });
+    this.props.dispatch({
+      type: 'exchange/participate',
+      payload: {
+        per_page: 100,
+        datetime: 'today',
+        is_participate: 1
       }
     });
     this.props.dispatch({
@@ -101,6 +109,14 @@ class Index extends PureComponent {
                   datetime: 'now',
                   state: 0,
                   order_mode: 'asc'
+                }
+              });
+              this.props.dispatch({
+                type: 'exchange/participate',
+                payload: {
+                  per_page: 100,
+                  datetime: 'today',
+                  is_participate: 1
                 }
               });
               this.props.dispatch({

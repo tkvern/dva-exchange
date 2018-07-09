@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'dva';
-// import { routerRedux } from 'dva/router';
+import { routerRedux } from 'dva/router';
 import { ListView, Badge } from 'antd-mobile';
 import qs from 'qs';
 import request from '../../utils/request';
@@ -96,7 +96,9 @@ class ItemOrder extends Component {
         profitCell = <span className="gray">{row.profit}</span>
       }
       return (
-        <div className={style.CusTable}>
+        <div className={style.CusTable} onClick={() => {
+          this.props.dispatch(routerRedux.push(`/app/exchange/${row.bet_id}`));
+        }}>
           <div className={style.CusCell} style={{ textAlign: 'center' }}>
             {typeCell}
           </div>
@@ -120,7 +122,7 @@ class ItemOrder extends Component {
           height: this.state.height,
           overflow: 'auto',
         }}
-        pageSize={15}
+        pageSize={20}
         onScroll={() => { }}
         scrollRenderAheadDistance={500}
         onEndReached={this.onEndReached}

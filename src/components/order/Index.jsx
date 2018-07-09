@@ -25,7 +25,7 @@ class OrderPanel extends Component {
   render() {
     const itemAllProps = {
       params: {
-        per_page: 15
+        per_page: 20
       }
     }
     return (

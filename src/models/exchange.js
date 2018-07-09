@@ -57,8 +57,22 @@ export default {
         });
       }
     },
-    * klines({payload}, {call, put}) {
-      const {data} = yield call(klines, parse(payload));
+    * participate({ payload }, { call, put }) {
+      const { data } = yield call(query, parse(payload));
+      if (data && data.err_code === 0) {
+        const participateList = data.list.filter((item) => {
+          return item.bet_orders.length > 0;
+        });
+        yield put({
+          type: 'querySuccess',
+          payload: {
+            participateList: participateList,
+          },
+        });
+      }
+    },
+    * klines({ payload }, { call, put }) {
+      const { data } = yield call(klines, parse(payload));
       if (data && data.err_code === 0) {
         yield put({
           type: 'querySuccess',
@@ -72,16 +86,23 @@ export default {
       const { data } = yield call(create, parse(payload));
       if (data && data.err_code === 0) {
         Toast.success("下注成功", 1.5);
+        // yield put({
+        //   type: 'query',
+        //   payload: {
+        //     per_page: 10,
+        //     datetime: 'now',
+        //     state: 0,
+        //     order_mode: 'asc'
+        //   }
+        // });
         yield put({
-          type: 'query',
+          type: 'participate',
           payload: {
-            per_page: 10,
-            datetime: 'now',
-            state: 0,
-            order_mode: 'asc'
+            per_page: 100,
+            datetime: 'today',
+            is_participate: 1
           }
         });
-
         const user = getLocalStorage('user');
         user.balance = user.balance - payload.amount;
         setLocalStorage('user', user);
