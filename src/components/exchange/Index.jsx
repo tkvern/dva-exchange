@@ -130,13 +130,13 @@ class Index extends PureComponent {
                   is_participate: 1
                 }
               });
-              // this.props.dispatch({
-              //   type: 'exchange/klines',
-              //   payload: {
-              //     per_page: 45,
-              //     name: 'btc'
-              //   }
-              // });
+              this.props.dispatch({
+                type: 'exchange/klines',
+                payload: {
+                  per_page: 45,
+                  name: 'btc'
+                }
+              });
               Toast.loading('数据更新中...', 1, () => {
                 this.setState({
                   loading: false

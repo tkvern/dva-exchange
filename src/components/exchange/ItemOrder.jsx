@@ -42,10 +42,10 @@ class ItemOrder extends Component {
     const ordersDate = this.state.data.bet_orders || [];
     ordersDate.forEach((item, index) => {
       if (item.type === 0) {
-        ordersList.push(<Badge key={index} text={`${item.profit >= 0 ? item.profit > 0 ? '√' : '' : '✕'} ${item.amount} CNY`}
+        ordersList.push(<Badge key={index} text={`${item.profit >= 0 ? item.profit > 0 ? '√' : '' : '✕'} ${item.amount} USDT`}
           style={{ marginTop: 5, marginRight: 5, padding: '0 3px', backgroundColor: '#3fc295', borderRadius: 2 }} />)
       } else if (item.type === 1) {
-        ordersList.push(<Badge key={index} text={`${item.profit >= 0 ? item.profit > 0 ? '√' : '' : '✕'} ${item.amount} CNY`}
+        ordersList.push(<Badge key={index} text={`${item.profit >= 0 ? item.profit > 0 ? '√' : '' : '✕'} ${item.amount} USDT`}
           style={{ marginTop: 5, marginRight: 5, padding: '0 3px', backgroundColor: '#e14d4e', borderRadius: 2 }} />)
       }
     });

@@ -73,7 +73,7 @@ class TickerPanel extends Component {
       this.setState({
         disabled: false,
       });
-      return Toast.fail((<span>请输入正确的金额<br />最低100 CNY</span>), 1);
+      return Toast.fail((<span>请输入正确的金额<br />最低100 USDT</span>), 1);
     }
     this.props.dispatch({
       type: 'exchange/create',

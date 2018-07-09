@@ -153,7 +153,7 @@ class ItemPlate extends Component {
               <form>
                 <div className={`${style.formItem} ${style.antRow}`}>
                   <div className={style.itemLabel}>
-                    <label title="账户余额">账户余额: {Numeral(this.state.user.balance).format('0,0.00')} CNY</label>
+                    <label title="账户余额">账户余额: {Numeral(this.state.user.balance).format('0,0.00')} USDT</label>
                   </div>
                   <WhiteSpace size="xs" />
                   <InputItem
@@ -173,7 +173,7 @@ class ItemPlate extends Component {
                     onErrorClick={() => {
                       Toast.info('请输入正确的金额!');
                     }}
-                    extra="CNY"
+                    extra="USDT"
                   />
                 </div>
                 <WhiteSpace size="lg" />

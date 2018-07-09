@@ -149,7 +149,7 @@ class ExchangeOrder extends Component {
                   </Flex.Item>
                   <Flex.Item className={`${styleo.flexItem} ${styleo.flexSecend}`}>
                     <div className={styleo.itemTitle}>
-                      <span className={styleo.title}>金额(CNY)</span>
+                      <span className={styleo.title}>金额(USDT)</span>
                     </div>
                     <div className={styleo.itemValue}>
                       <span className={styleo.value}>{Numeral(order.price).format('0,0.00')}</span>
@@ -157,7 +157,7 @@ class ExchangeOrder extends Component {
                   </Flex.Item>
                   <Flex.Item className={`${styleo.flexItem} ${styleo.flexLast}`}>
                     <div className={styleo.itemTitle}>
-                      <span className={styleo.title}>结果(CNY)</span>
+                      <span className={styleo.title}>结果(USDT)</span>
                     </div>
                     <div className={styleo.itemValue}>
                       <ExchangeResult result={

@@ -23,6 +23,7 @@ class ListPlate extends Component {
       const total = moment(nextProps.canbetList[0].bet_stop_time).diff(this.state.datetime, 'seconds');
       if (total <= 0) {
         this.timer = setTimeout(() => {
+          console.log('刷新');
           this.props.dispatch({
             type: 'exchange/query',
             payload: {
@@ -31,8 +32,8 @@ class ListPlate extends Component {
               state: 0,
               order_mode: 'asc'
             }
-          }, 5000);
-        });
+          });
+        }, 5000);
       }
     }
   }

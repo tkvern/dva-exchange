@@ -45,7 +45,7 @@ class UserPanel extends Component {
         <List>
           <Item
             className={style.balance}
-            extra={this.state.user.balance + " CNY"}
+            extra={this.state.user.balance + " USDT"}
             thumb={
               <i className="iconfont" style={{
                 color: 'rgb(51, 163, 244)'

@@ -11,8 +11,9 @@ class Kline extends Component {
       klines: this.props.klines,
       close: '0000.00',
       datetime: this.props.datetime,
-      total: 45,
+      total: 0,
     }
+    console.log(props);
   }
   componentWillMount() {
     this.props.dispatch({
@@ -41,34 +42,33 @@ class Kline extends Component {
         }
       });
       this.setState({
-        total: 45
+        total: 20
       });
+      if (nextProps.klines.length > 0) {
+        this.setState({
+          close: nextProps.klines[0].close,
+        });
+        this.chart.legend({
+          custom: true,
+          itemWidth: null,
+          items: [{
+            name: 'BTC/USDT',
+            marker: '',
+            fill: '#999'
+          }, {
+            name: '火币网近半小时报价',
+            marker: '',
+            fill: '#999'
+          }, {
+            name: nextProps.klines[0].close,
+            marker: '',
+            fill: '#40a9ff'
+          }]
+        });
+        let data = this.dataSourceFilter(nextProps.klines);
+        this.chart.changeData(data);
+      }
     }
-    if (nextProps.klines.length > 0) {
-      this.setState({
-        close:
-          nextProps.klines[0].close,
-      });
-      this.chart.legend({
-        custom: true,
-        itemWidth: null,
-        items: [{
-          name: 'BTC/USDT',
-          marker: '',
-          fill: '#999'
-        }, {
-          name: '火币网近半小时报价',
-          marker: '',
-          fill: '#999'
-        }, {
-          name: nextProps.klines[0].close,
-          marker: '',
-          fill: '#40a9ff'
-        }]
-      });
-    }
-    let data = this.dataSourceFilter(nextProps.klines);
-    this.chart.changeData(data);
   }
   componentDidMount() {
     this.chart = new F2.Chart({
