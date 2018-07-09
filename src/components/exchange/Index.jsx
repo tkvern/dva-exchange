@@ -31,7 +31,7 @@ class Index extends PureComponent {
     this.props.dispatch({
       type: 'exchange/query',
       payload: {
-        per_page: 300,
+        per_page: 900,
         datetime: 'today',
       }
     });
@@ -63,6 +63,16 @@ class Index extends PureComponent {
     }
     return (
       <div>
+        <div style={{
+          backgroundColor: '#fff',
+          height: 56,
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center'
+        }}>
+          <h1 className="section-title" style={{ margin: '0px' }}><span role="img" aria-label="fire">🔥</span>BTC高倍杠杆代投盘<span role="img" aria-label="fire">🔥</span></h1>
+        </div>
+        <WhiteSpace size="md" />
         {/*<TickerPanel {...this.state} />*/}
         <div style={{
           width: '34px',
@@ -85,7 +95,7 @@ class Index extends PureComponent {
               this.props.dispatch({
                 type: 'exchange/query',
                 payload: {
-                  per_page: 300,
+                  per_page: 900,
                   datetime: 'today',
                 }
               });

@@ -87,7 +87,7 @@ export default {
         yield put({
           type: 'query',
           payload: {
-            per_page: 300,
+            per_page: 900,
             datetime: 'today',
           }
         });
